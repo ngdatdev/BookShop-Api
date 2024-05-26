@@ -11,13 +11,14 @@ namespace BookShop.DataAccess.Entities;
 /// </summary>
 public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyRemovedEntity
 {
-    // Primary keys.
+    // Primary key.
+    // Foreign key.
     public Guid UserId { get; set; }
 
-    // Normal columns.
-    public string LastName { get; set; }
-
+    // Normal properties.
     public string FirstName { get; set; }
+
+    public string LastName { get; set; }
 
     public string AvatarUrl { get; set; }
 
@@ -33,11 +34,22 @@ public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporar
 
     public Guid RemovedBy { get; set; }
 
+    // Foreign key.
+    public Guid AddressId { get; set; }
+
     // Navigation properties.
     public User User { get; set; }
 
+    public Address Address { get; set; }
+
     // Navigation collections.
     public IEnumerable<RefreshToken> RefreshTokens { get; set; }
+
+    public IEnumerable<Review> Reviews { get; set; }
+
+    public IEnumerable<Cart> Carts { get; set; }
+
+    public IEnumerable<Order> Orders { get; set; }
 
     public static class MetaData
     {
