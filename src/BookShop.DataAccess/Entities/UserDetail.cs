@@ -70,6 +70,8 @@ public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporar
         public static class AvatarUrl
         {
             public const int MinLength = 2;
+
+            public const int MaxLength = 100;
         }
 
         public static class BackgroundUrl

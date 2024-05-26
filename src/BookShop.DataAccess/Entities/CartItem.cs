@@ -37,4 +37,17 @@ public class CartItem : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporaril
     public Cart Cart { get; set; }
 
     public Product Product { get; set; }
+
+    public static class MetaData
+    {
+        public static class Quantity
+        {
+            public const int MinValue = 0;
+        }
+
+        public static class TotalCost
+        {
+            public const decimal MinValue = 0;
+        }
+    }
 }

@@ -37,4 +37,18 @@ public class OrderDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempora
     public Order Order { get; set; }
 
     public Product Product { get; set; }
+
+    public static class MetaData
+    {
+        public static class Quantity
+        {
+            public const int MinValue = 0;
+            public const int MaxLength = 0;
+        }
+
+        public static class Cost
+        {
+            public const decimal MinValue = 0;
+        }
+    }
 }

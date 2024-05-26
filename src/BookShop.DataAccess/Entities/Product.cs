@@ -47,4 +47,33 @@ public class Product : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
     public IEnumerable<OrderDetail> OrderDetails { get; set; }
 
     public IEnumerable<CartItem> CartItems { get; set; }
+
+    public static class MetaData
+    {
+        public static class FullName
+        {
+            public const int MinLength = 2;
+            public const int MaxLength = 100;
+        }
+
+        public static class Description
+        {
+            public const int MinLength = 2;
+        }
+
+        public static class QuantityCurrent
+        {
+            public const int MinValue = 0;
+        }
+
+        public static class QuantitySold
+        {
+            public const int MinValue = 0;
+        }
+
+        public static class ImageUrl
+        {
+            public const int MinLength = 2;
+        }
+    }
 }

@@ -47,6 +47,16 @@ internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<U
             )
             .IsRequired();
 
+        // AvatarUrl property configuration.
+        builder
+            .Property(propertyExpression: userDetail => userDetail.AvatarUrl)
+            .HasColumnType(
+                typeName: CommonConstant.SqlDatabase.DataType.NvarcharGenerator.Get(
+                    length: UserDetail.MetaData.AvatarUrl.MaxLength
+                )
+            )
+            .IsRequired();
+
         // CreatedAt property configuration.
         builder
             .Property(propertyExpression: userDetail => userDetail.CreatedAt)
@@ -80,5 +90,23 @@ internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<U
             .WithOne(navigationExpression: refreshToken => refreshToken.UserDetail)
             .HasForeignKey(foreignKeyExpression: refreshToken => refreshToken.UserId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(navigationExpression: userDetail => userDetail.Reviews)
+            .WithOne(navigationExpression: review => review.UserDetail)
+            .HasForeignKey(foreignKeyExpression: review => review.UserId)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(navigationExpression: userDetail => userDetail.Carts)
+            .WithOne(navigationExpression: cart => cart.UserDetail)
+            .HasForeignKey(foreignKeyExpression: cart => cart.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(navigationExpression: userDetail => userDetail.Orders)
+            .WithOne(navigationExpression: orders => orders.UserDetail)
+            .HasForeignKey(foreignKeyExpression: orders => orders.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

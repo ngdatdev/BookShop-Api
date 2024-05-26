@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BookShop.DataAccess.Entities.Base;
 
 namespace BookShop.DataAccess.Entities;
@@ -49,4 +47,12 @@ public class Order : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyRe
 
     // Navigation collections.
     public IEnumerable<OrderDetail> OrderDetails { get; set; }
+
+    public static class MetaData
+    {
+        public static class TotalCost
+        {
+            public const decimal MinValue = 0;
+        }
+    }
 }

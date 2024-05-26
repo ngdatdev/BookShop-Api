@@ -13,4 +13,13 @@ public class OrderStatus : IBaseEntity
 
     // Normal properties.
     public string FullName { get; set; }
+
+    public static class MetaData
+    {
+        public static class FullName
+        {
+            public const int MinLength = 2;
+            public const int MaxLength = 100;
+        }
+    }
 }

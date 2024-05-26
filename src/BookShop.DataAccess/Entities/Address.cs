@@ -37,4 +37,28 @@ public class Address : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
     public IEnumerable<UserDetail> UserDetails { get; set; }
 
     public IEnumerable<Order> Orders { get; set; }
+
+    public static class MetaData
+    {
+        public static class Ward
+        {
+            public const int MinLength = 10;
+
+            public const int MaxLength = 50;
+        }
+
+        public static class District
+        {
+            public const int MinLength = 10;
+
+            public const int MaxLength = 50;
+        }
+
+        public static class Province
+        {
+            public const int MinLength = 10;
+
+            public const int MaxLength = 50;
+        }
+    }
 }

@@ -4,7 +4,7 @@ using BookShop.DataAccess.Entities.Base;
 namespace BookShop.DataAccess.Entities;
 
 /// <summary>
-///     Represent the "Products" table.
+///     Represent the "ProductCategory" table.
 /// </summary>
 public class ProductCategory : IBaseEntity
 {

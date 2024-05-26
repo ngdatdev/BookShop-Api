@@ -18,4 +18,18 @@ public class Category : IBaseEntity
 
     // Navigation collections.
     public IEnumerable<Product> Products { get; set; }
+
+    public static class MetaData
+    {
+        public static class FullName
+        {
+            public const int MinLength = 2;
+            public const int MaxLength = 100;
+        }
+
+        public static class Description
+        {
+            public const int MinLength = 2;
+        }
+    }
 }

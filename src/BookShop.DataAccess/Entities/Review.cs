@@ -7,7 +7,7 @@ using BookShop.DataAccess.Entities.Base;
 namespace BookShop.DataAccess.Entities;
 
 /// <summary>
-///     Represent the "Category" table.
+///     Represent the "Reviews" table.
 /// </summary>
 public class Review : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyRemovedEntity
 {

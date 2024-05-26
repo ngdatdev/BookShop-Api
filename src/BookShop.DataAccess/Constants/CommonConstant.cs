@@ -18,6 +18,8 @@ internal static class CommonConstant
 
             internal const string NVARCHAR_MAX = "NVARCHAR(MAX)";
 
+            internal const string MONEY = "MONEY";
+
             /// <summary>
             ///     Nvarchar datatype resolver.
             /// </summary>
@@ -55,6 +57,14 @@ internal static class CommonConstant
             }
         }
 
-        public static class Collation { }
+        internal static class DbDefaultValue
+        {
+            internal static readonly DateTime MIN_DATE_TIME = DateTime.MinValue.ToUniversalTime();
+        }
+
+        internal static class DbCollation
+        {
+            internal const string SQL_LATIN1_GENERAL_CP1_CS_AS = "SQL_Latin1_General_CP1_CS_AS";
+        }
     }
 }
