@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BookShop.DataAccess.Constants;
 using BookShop.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BookShop.DataAccess.Data.EntityConfigurations;
 
 /// <summary>
-///     Represent "Users Detail" table configuration.
+///     Represent "UsersDetail" table configuration.
 /// </summary>
 internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<UserDetail>
 {

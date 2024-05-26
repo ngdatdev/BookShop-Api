@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Reflection;
+using BookShop.DataAccess.Data;
+using BookShop.Shared.Configuration.Database;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.DataAccess;
@@ -40,7 +44,34 @@ public static class DependencyInjection
     private static void ConfigureSqlServerDbContextPool(
         this IServiceCollection services,
         IConfigurationManager configuration
-    ) { }
+    )
+    {
+        services.AddDbContext<BookShopContext>(
+            optionsAction: (provider, config) =>
+            {
+                var baseDatabaseOption = configuration
+                    .GetRequiredSection("Database")
+                    .GetRequiredSection("Base")
+                    .Get<DatabaseOption>();
+
+                config.UseSqlServer(
+                    connectionString: baseDatabaseOption.ConnectionString,
+                    sqlServerOptionsAction: databaseOptionsAction =>
+                    {
+                        databaseOptionsAction
+                            .CommandTimeout(commandTimeout: baseDatabaseOption.CommandTimeOut)
+                            .EnableRetryOnFailure(
+                                maxRetryCount: baseDatabaseOption.EnableRetryOnFailure
+                            )
+                            .MigrationsAssembly(
+                                assemblyName: Assembly.GetExecutingAssembly().GetName().Name
+                            );
+                    }
+                )
+                ...
+            }
+        );
+    }
 
     /// <summary>
     ///     Configure core services.

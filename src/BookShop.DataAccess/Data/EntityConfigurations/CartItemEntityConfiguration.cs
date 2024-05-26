@@ -1,4 +1,3 @@
-using System;
 using BookShop.DataAccess.Constants;
 using BookShop.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,7 @@ namespace BookShop.DataAccess.Data.EntityConfigurations;
 /// <summary>
 ///     Represents configuration of "CartItems" table.
 /// </summary>
-public class CartItemEntityConfiguration : IEntityTypeConfiguration<CartItem>
+internal sealed class CartItemEntityConfiguration : IEntityTypeConfiguration<CartItem>
 {
     public void Configure(EntityTypeBuilder<CartItem> builder)
     {

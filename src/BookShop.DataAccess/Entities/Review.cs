@@ -38,4 +38,11 @@ public class Review : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyR
     public UserDetail UserDetail { get; set; }
 
     public Product Product { get; set; }
+
+    public static class MetaData {
+        public static class Comment {
+            public const int MinLength = 2;
+            public const int MaxLength = 200;
+        }
+    }
 }

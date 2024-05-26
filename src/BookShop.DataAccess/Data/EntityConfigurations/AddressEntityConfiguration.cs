@@ -13,7 +13,7 @@ internal sealed class AddressEntityConfiguration : IEntityTypeConfiguration<Addr
     public void Configure(EntityTypeBuilder<Address> builder)
     {
         builder.ToTable(
-            name: $"{nameof(Address)}s",
+            name: $"{nameof(Address)}es",
             buildAction: table => table.HasComment(comment: "Contain address records.")
         );
 
