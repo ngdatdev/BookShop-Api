@@ -1,6 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using BookShop.DataAccess.Data;
+using BookShop.DataAccess.Entities;
+using BookShop.DataAccess.UnitOfWork;
+using BookShop.Shared.Configuration.AspnetCoreIdentityOption;
 using BookShop.Shared.Configuration.Database;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -92,7 +97,10 @@ public static class DependencyInjection
     /// <param name="services">
     ///     Service container.
     /// </param>
-    private static void ConfigureCore(this IServiceCollection services) { }
+    private static void ConfigureCore(this IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, SqlUnitOfWork>();
+    }
 
     /// <summary>
     ///     Configure asp net core identity service.
@@ -107,5 +115,36 @@ public static class DependencyInjection
     private static void ConfigureAspNetCoreIdentity(
         this IServiceCollection services,
         IConfigurationManager configuration
-    ) { }
+    ) {
+         services
+            .AddIdentity<User, Role>(setupAction: config =>
+            {
+                var option = configuration
+                    .GetRequiredSection(key: "AspNetCoreIdentity")
+                    .Get<AspNetCoreIdentityOption>();
+
+                config.Password.RequireDigit = option.Password.RequireDigit;
+                config.Password.RequireLowercase = option.Password.RequireLowercase;
+                config.Password.RequireNonAlphanumeric = option.Password.RequireNonAlphanumeric;
+                config.Password.RequireUppercase = option.Password.RequireUppercase;
+                config.Password.RequiredLength = option.Password.RequiredLength;
+                config.Password.RequiredUniqueChars = option.Password.RequiredUniqueChars;
+
+                config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(
+                    value: option.Lockout.DefaultLockoutTimeSpanInSecond
+                );
+                config.Lockout.MaxFailedAccessAttempts = option.Lockout.MaxFailedAccessAttempts;
+                config.Lockout.AllowedForNewUsers = option.Lockout.AllowedForNewUsers;
+
+                config.User.AllowedUserNameCharacters = option.User.AllowedUserNameCharacters;
+                config.User.RequireUniqueEmail = option.User.RequireUniqueEmail;
+
+                config.SignIn.RequireConfirmedEmail = option.SignIn.RequireConfirmedEmail;
+                config.SignIn.RequireConfirmedPhoneNumber = option
+                    .SignIn
+                    .RequireConfirmedPhoneNumber;
+            })
+            .AddEntityFrameworkStores<BookShopContext>()
+            .AddDefaultTokenProviders();
+     }
 }
