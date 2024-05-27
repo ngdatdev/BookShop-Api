@@ -10,6 +10,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.DataAccess.Repositories.Concrete.Base;
 
+/// <summary>
+///     Implementation of base repository.
+/// </summary>
+/// <typeparam name="TEntity">
+///     Represent the table of the database or
+///     in the simple term, entity of the system.
+/// </typeparam>
+/// <remarks>
+///     All repository classes must inherit from this
+///     base class.
+/// </remarks>
 internal abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
     where TEntity : class, IBaseEntity
 {
@@ -27,7 +38,13 @@ internal abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     public async Task AddAsync(TEntity newEntity, CancellationToken cancellationToken)
     {
-        await _dbSet.AddAsync(newEntity, cancellationToken: cancellationToken);
+        // Validate new entity.
+        if (Equals(objA: newEntity, objB: default))
+        {
+            throw new InvalidOperationException();
+        }
+
+        await _dbSet.AddAsync(entity: newEntity, cancellationToken: cancellationToken);
     }
 
     public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)

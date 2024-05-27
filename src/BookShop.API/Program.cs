@@ -1,11 +1,18 @@
+using System.Text;
+using BookShop.DataAccess;
+using Microsoft.IdentityModel.JsonWebTokens;
+
+Console.OutputEncoding = Encoding.UTF8;
+JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var services = builder.Services;
+var configuration = builder.Configuration;
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+services.ConfigureSqlRelationalDatabase(configuration: configuration);
 
 var app = builder.Build();
 

@@ -8,8 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace BookShop.DataAccess;
 
 /// <summary>
-///     Entry to configuring multiple services
-///     of sql relational database.
+///     Configure services for data access layer.
 /// </summary>
 public static class DependencyInjection
 {
@@ -23,12 +22,14 @@ public static class DependencyInjection
     ///     Load configuration for configuration
     ///     file (appsetting).
     /// </param>
-    public static void AddRelationalDatabase(
+    public static void ConfigureSqlRelationalDatabase(
         this IServiceCollection services,
         IConfigurationManager configuration
     )
     {
         services.ConfigureSqlServerDbContextPool(configuration: configuration);
+        services.ConfigureCore();
+        services.ConfigureAspNetCoreIdentity(configuration: configuration);
     }
 
     /// <summary>
@@ -51,24 +52,36 @@ public static class DependencyInjection
             {
                 var baseDatabaseOption = configuration
                     .GetRequiredSection("Database")
-                    .GetRequiredSection("Base")
+                    .GetRequiredSection("BookShop")
                     .Get<DatabaseOption>();
 
-                config.UseSqlServer(
-                    connectionString: baseDatabaseOption.ConnectionString,
-                    sqlServerOptionsAction: databaseOptionsAction =>
-                    {
-                        databaseOptionsAction
-                            .CommandTimeout(commandTimeout: baseDatabaseOption.CommandTimeOut)
-                            .EnableRetryOnFailure(
-                                maxRetryCount: baseDatabaseOption.EnableRetryOnFailure
-                            )
-                            .MigrationsAssembly(
-                                assemblyName: Assembly.GetExecutingAssembly().GetName().Name
-                            );
-                    }
-                )
-                ...
+                config
+                    .UseSqlServer(
+                        connectionString: baseDatabaseOption.ConnectionString,
+                        sqlServerOptionsAction: databaseOptionsAction =>
+                        {
+                            databaseOptionsAction
+                                .CommandTimeout(commandTimeout: baseDatabaseOption.CommandTimeOut)
+                                .EnableRetryOnFailure(
+                                    maxRetryCount: baseDatabaseOption.EnableRetryOnFailure
+                                )
+                                .MigrationsAssembly(
+                                    assemblyName: Assembly.GetExecutingAssembly().GetName().Name
+                                );
+                        }
+                    )
+                    .EnableSensitiveDataLogging(
+                        sensitiveDataLoggingEnabled: baseDatabaseOption.EnableSensitiveDataLogging
+                    )
+                    .EnableDetailedErrors(
+                        detailedErrorsEnabled: baseDatabaseOption.EnableDetailedErrors
+                    )
+                    .EnableThreadSafetyChecks(
+                        enableChecks: baseDatabaseOption.EnableThreadSafetyChecks
+                    )
+                    .EnableServiceProviderCaching(
+                        cacheServiceProvider: baseDatabaseOption.EnableServiceProviderCaching
+                    );
             }
         );
     }
