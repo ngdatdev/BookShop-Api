@@ -1,4 +1,4 @@
-using BookShop.API.HttpResponseMapper.ErrrorApiResponse;
+using BookShop.API.HttpResponseMapper.ErrorApiResponse;
 using BookShop.API.HttpResponseMapper.SuccessApiResponse;
 using BookShop.Application.ResponseEntity;
 using Microsoft.AspNetCore.Mvc;

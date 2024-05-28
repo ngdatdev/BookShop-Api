@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace BookShop.Application.IdentityService;

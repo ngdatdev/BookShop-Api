@@ -1,6 +1,6 @@
 using BookShop.Application.ResponseEntity;
 
-namespace BookShop.API.HttpResponseMapper.ErrrorApiResponse;
+namespace BookShop.API.HttpResponseMapper.ErrorApiResponse;
 
 /// <summary>
 ///     Manages the mapping between app

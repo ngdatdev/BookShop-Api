@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace BookShop.API.HttpResponseMapper.ErrrorApiResponse;
+namespace BookShop.API.HttpResponseMapper.ErrorApiResponse;
 
 /// <summary>
 ///     Represents a error HTTP response with a status code, error messages.

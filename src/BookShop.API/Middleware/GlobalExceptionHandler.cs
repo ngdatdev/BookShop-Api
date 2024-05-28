@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookShop.API.HttpResponseMapper.ErrrorApiResponse;
+using BookShop.API.HttpResponseMapper.ErrorApiResponse;
 
 namespace BookShop.API.Middleware;
 
