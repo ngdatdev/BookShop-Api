@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace BookShop.Shared.Configuration.Authentication;
 
+// The JwtAuthenticationOption class is used to hold various jwt authentication configuration settings.
 public class JwtAuthenticationOption
 {
     public TypeOption Jwt { get; set; } = new();
