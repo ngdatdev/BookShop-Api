@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.DataAccess.Entities;
+using BookShop.Shared.Constant;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,6 +65,9 @@ public static class EntityDataSeeding
             return true;
         }
 
+        // Init list of address.
+        var newAddresses = InitAddresses();
+
         // Init list of role.
         var newRoles = InitNewRoles();
 
@@ -83,12 +87,17 @@ public static class EntityDataSeeding
 
                 try
                 {
+                    await addresses.AddRangeAsync(
+                        entities: newAddresses,
+                        cancellationToken: cancellationToken
+                    );
+
                     foreach (var newRole in newRoles)
                     {
                         await roleManager.CreateAsync(role: newRole);
                     }
 
-                    await userManager.CreateAsync(user: admin, password: "password");
+                    await userManager.CreateAsync(user: admin, password: "Zxcl123123@");
 
                     await userManager.AddToRoleAsync(user: admin, role: "admin");
 
@@ -187,7 +196,7 @@ public static class EntityDataSeeding
                         UpdatedAt = DateTime.MinValue,
                         UpdatedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c"),
                         RemovedAt = DateTime.MinValue,
-                        RemovedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c")
+                        RemovedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c"),
                     }
                 };
 
@@ -195,6 +204,35 @@ public static class EntityDataSeeding
         }
 
         return newRoles;
+    }
+
+    private static List<Address> InitAddresses()
+    {
+        List<string> newAddresses = ["Thanh Thủy, Lệ Thủy, Quảng Bình",];
+
+        List<Address> addresses = [];
+
+        foreach (var address in newAddresses)
+        {
+            string[] addressParts = address.Split(", ");
+
+            addresses.Add(
+                new()
+                {
+                    Id = Guid.Parse(input: "37777b21-e6d1-4e54-9067-407b7bd65774"),
+                    Ward = addressParts[0],
+                    District = addressParts[1],
+                    Province = addressParts[2],
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = AdminId,
+                    RemovedAt = DateTime.MinValue,
+                    RemovedBy = DefaultGuid.DEFAULT_ENTITY_ID_AS_GUID,
+                    UpdatedAt = DateTime.MinValue,
+                    UpdatedBy = DefaultGuid.DEFAULT_ENTITY_ID_AS_GUID,
+                }
+            );
+        }
+        return addresses;
     }
 
     private static User InitAdmin()
@@ -217,19 +255,7 @@ public static class EntityDataSeeding
                     FirstName = "Nguyen",
                     LastName = "Dat",
                     AvatarUrl = "url.com/img",
-                    Address = new()
-                    {
-                        Id = Guid.Parse(input: "37777b21-e6d1-4e54-9067-407b7bd65774"),
-                        Ward = "Thanh Thủy",
-                        District = "Lệ Thủy",
-                        Province = "Quảng Bình",
-                        CreatedAt = DateTime.UtcNow,
-                        CreatedBy = AdminId,
-                        RemovedAt = DateTime.MinValue,
-                        RemovedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c"),
-                        UpdatedAt = DateTime.MinValue,
-                        UpdatedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c"),
-                    }
+                    AddressId = Guid.Parse(input: "37777b21-e6d1-4e54-9067-407b7bd65774"),
                 }
             };
 

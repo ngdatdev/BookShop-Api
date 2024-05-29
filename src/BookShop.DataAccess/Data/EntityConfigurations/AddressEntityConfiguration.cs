@@ -81,7 +81,7 @@ internal sealed class AddressEntityConfiguration : IEntityTypeConfiguration<Addr
         builder
             .HasMany(navigationExpression: address => address.UserDetails)
             .WithOne(navigationExpression: userDetail => userDetail.Address)
-            .HasForeignKey(foreignKeyExpression: userDetail => userDetail.UserId)
+            .HasForeignKey(foreignKeyExpression: userDetail => userDetail.AddressId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
         builder

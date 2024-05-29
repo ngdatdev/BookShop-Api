@@ -24,7 +24,6 @@ services.ConfigureSqlRelationalDatabase(configuration: configuration);
 var app = builder.Build();
 
 // Data Seeding
-// Data seeding.
 await using (var scope = app.Services.CreateAsyncScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<BookShopContext>();
@@ -63,7 +62,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseExceptionHandler();
 app.UseMiddleware<GlobalExceptionHandler>();
 
 app.MapControllers();
