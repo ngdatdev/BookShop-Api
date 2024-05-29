@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using BookShop.Application.ResponseEntity;
+using Microsoft.AspNetCore.Http;
 
 namespace BookShop.API.HttpResponseMapper.ErrorApiResponse;
 
