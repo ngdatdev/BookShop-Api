@@ -7,6 +7,7 @@ using BookShop.DataAccess.Data;
 using BookShop.DataAccess.Entities;
 using BookShop.DataAccess.Repositories.Concrete.Base;
 using BookShop.DataAccess.Repositories.Interface;
+using BookShop.Shared.Constant;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.DataAccess.Repositories.Concrete;
@@ -43,14 +44,14 @@ internal sealed class UserDetailRepository : BaseRepository<UserDetail>, IUserDe
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
-    // public Task<bool> IsUserTemporarilyRemovedAsync(Guid id, CancellationToken cancellationToken)
-    // {
-    //     return _userDetails.AnyAsync(
-    //         predicate: userDetail =>
-    //             userDetail.UserId == id
-    //             && userDetail.RemovedBy != CommonConstant.App.DEFAULT_ENTITY_ID_AS_GUID
-    //             && userDetail.RemovedAt != DateTime.MinValue,
-    //         cancellationToken: cancellationToken
-    //     );
-    // }
+    public Task<bool> IsUserTemporarilyRemovedAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return _userDetails.AnyAsync(
+            predicate: userDetail =>
+                userDetail.UserId == id
+                && userDetail.RemovedBy != DefaultGuid.DEFAULT_ENTITY_ID_AS_GUID
+                && userDetail.RemovedAt != DateTime.MinValue,
+            cancellationToken: cancellationToken
+        );
+    }
 }

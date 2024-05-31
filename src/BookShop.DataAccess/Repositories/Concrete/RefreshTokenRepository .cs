@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.DataAccess.Data;
@@ -26,7 +24,7 @@ internal sealed class RefreshTokenRepository : BaseRepository<RefreshToken>, IRe
         _refreshTokens = _context.Set<RefreshToken>();
     }
 
-    public async Task<bool> IsRefreshTokenFoundByAccessTokenIdQueryAsync(
+    public async Task<bool> IsRefreshTokenFoundByAccessTokenIdAsync(
         Guid accessTokenId,
         CancellationToken cancellationToken
     )

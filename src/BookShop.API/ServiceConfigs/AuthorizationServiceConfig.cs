@@ -1,3 +1,5 @@
+using BookShop.API.Policy.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.ServiceConfigs;
@@ -15,6 +17,13 @@ public static class AuthorizationServiceConfig
     /// </param>
     internal static void ConfigAuthorization(this IServiceCollection services)
     {
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(
+                name: "VerifyUser",
+                policy => policy.Requirements.Add(new ValidationUserRequirement())
+            );
+        });
+        services.AddSingleton<IAuthorizationHandler, ValidationUserHandler>();
     }
 }

@@ -1,4 +1,8 @@
+using BookShop.Application.IdentityService;
+using BookShop.Application.IdentityService.Jwt;
+using BookShop.Application.IdentityService.JwtHandler;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.ServiceConfigs;
 
@@ -13,5 +17,12 @@ public static class JwtIdentityServiceConfig
     /// <param name="services">
     ///     Service container.
     /// </param>
-    internal static void ConfigJwtIdentity(this IServiceCollection services) { }
+    internal static void ConfigJwtIdentity(this IServiceCollection services)
+    {
+        services.AddSingleton<JsonWebTokenHandler>();
+
+        services
+            .AddSingleton<IAccessTokenHandler, AccessTokenHandler>()
+            .AddSingleton<IRefreshTokenHandler, RefreshTokenHandler>();
+    }
 }

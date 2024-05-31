@@ -36,6 +36,15 @@ internal sealed class ErrorHttpResponseManager
                     ErrorMessages = ["Username is not found"]
                 }
         );
+        _dictionary.Add(
+            key: ResponseAppCode.PASSWORD_IS_NOT_CORRECT,
+            value: () =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    ErrorMessages = ["Password is not correct"]
+                }
+        );
     }
 
     internal Func<ErrorHttpResponse> Resolve(ResponseAppCode statusCode)

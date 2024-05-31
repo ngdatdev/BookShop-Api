@@ -1,9 +1,16 @@
+using System;
 using System.Text;
+using System.Threading;
+using BookShop.API;
 using BookShop.API.Middleware;
+using BookShop.Application;
 using BookShop.DataAccess;
 using BookShop.DataAccess.Data;
 using BookShop.DataAccess.Entities;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 // Default setting.
@@ -20,6 +27,8 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.ConfigureSqlRelationalDatabase(configuration: configuration);
+services.ConfigApplication(configuration: configuration);
+services.ConfigWebAPI(configuration: configuration);
 
 var app = builder.Build();
 

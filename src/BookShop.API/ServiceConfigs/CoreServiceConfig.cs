@@ -18,7 +18,7 @@ internal static class CoreServiceConfig
     ///     Load configuration for configuration
     ///     file (appsetting).
     /// </param>
-    internal static void ConfigureWebAPI(
+    internal static void ConfigureCore(
         this IServiceCollection services,
         IConfigurationManager configuration
     ) { }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,45 +19,43 @@ namespace BookShop.API.Policy.Authorization;
 /// </summary>
 public class ValidationUserHandler : AuthorizationHandler<ValidationUserRequirement>
 {
-    private readonly TokenValidationParameters _tokenValidationParameters;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public ValidationUserHandler(
-        TokenValidationParameters tokenValidationParameters,
-        IServiceScopeFactory serviceScopeFactory
-    )
+    public ValidationUserHandler(IServiceScopeFactory serviceScopeFactory)
     {
-        _tokenValidationParameters = tokenValidationParameters;
         _serviceScopeFactory = serviceScopeFactory;
     }
 
     protected override async Task HandleRequirementAsync(
-        AuthorizationHandlerContext handlerContext,
+        AuthorizationHandlerContext context,
         ValidationUserRequirement requirement
     )
     {
-        JsonWebTokenHandler jsonWebTokenHandler = new();
-        var context = handlerContext.Resource as HttpContext;
+        var httpContext = context.Resource as HttpContext;
         var ct = CancellationToken.None;
 
-        var jtiClaim = context.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Jti);
+        var jtiClaim = httpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Jti);
         await using var scope = _serviceScopeFactory.CreateAsyncScope();
         var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
         var isRefreshTokenFound =
-            await unitOfWork.RefreshTokenRepository.IsRefreshTokenFoundByAccessTokenIdQueryAsync(
-                accessTokenId: Guid.Parse(input: jtiClaim)
+            await unitOfWork.RefreshTokenRepository.IsRefreshTokenFoundByAccessTokenIdAsync(
+                accessTokenId: Guid.Parse(input: jtiClaim),
+                ct
             );
 
         // Refresh token is not found by access token id.
         if (!isRefreshTokenFound)
         {
-            await SendResponseAsync(statusCode: StatusCodes.Status403Forbidden, context: context);
+            await SendResponseAsync(
+                statusCode: StatusCodes.Status403Forbidden,
+                context: httpContext
+            );
         }
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
         // Get the sub claim from the access token.
-        var subClaim = context.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub);
+        var subClaim = httpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub);
 
         // Find user by user id.
         var foundUser = await userManager.FindByIdAsync(
@@ -69,28 +65,38 @@ public class ValidationUserHandler : AuthorizationHandler<ValidationUserRequirem
         // User is not found
         if (Equals(objA: foundUser, objB: default))
         {
-            await SendResponseAsync(statusCode: StatusCodes.Status403Forbidden, context: context);
+            await SendResponseAsync(
+                statusCode: StatusCodes.Status403Forbidden,
+                context: httpContext
+            );
         }
 
         // Is user temporarily removed.
         var isUserTemporarilyRemoved =
-            await unitOfWork.UserDetailRepository.IsUserTemporarilyRemovedAsync(id: foundUser.Id, cancellationToken: ct);
+            await unitOfWork.UserDetailRepository.IsUserTemporarilyRemovedAsync(
+                id: foundUser.Id,
+                cancellationToken: ct
+            );
 
         // User is temporarily removed.
         if (isUserTemporarilyRemoved)
         {
-            await SendResponseAsync(statusCode: StatusCodes.Status403Forbidden, context: context);
+            await SendResponseAsync(
+                statusCode: StatusCodes.Status403Forbidden,
+                context: httpContext
+            );
         }
 
         // Get the role claim from the access token.
-        var roleClaim = context.User.FindFirstValue(claimType: "role");
+        // var roleClaim = httpContext.User.FindFirstValue(claimType: "role");
 
-        // Is user in role.
-        var isUserInRole = await userManager.IsInRoleAsync(user: foundUser, role: roleClaim);
-        if (!isUserInRole)
-        {
-            await SendResponseAsync(statusCode: StatusCodes.Status403Forbidden, context: context);
-        }
+        // var isUserInRole = await userManager.IsInRoleAsync(user: foundUser, role: roleClaim);
+        // if (!isUserInRole)
+        // {
+        //     await SendResponseAsync(statusCode: StatusCodes.Status403Forbidden, context: context);
+        // }
+
+        context.Succeed(requirement);
     }
 
     private static async Task SendResponseAsync(HttpContext context, int statusCode)

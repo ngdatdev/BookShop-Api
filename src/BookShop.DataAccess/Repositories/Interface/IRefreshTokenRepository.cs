@@ -18,7 +18,7 @@ namespace BookShop.DataAccess.Repositories.Interface;
 /// </remarks>
 public interface IRefreshTokenRepository : IBaseRepository<RefreshToken>
 {
-    Task<bool> IsRefreshTokenFoundByAccessTokenIdQueryAsync(
+    Task<bool> IsRefreshTokenFoundByAccessTokenIdAsync(
         Guid accessTokenId,
         CancellationToken cancellationToken
     );

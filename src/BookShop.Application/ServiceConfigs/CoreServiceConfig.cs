@@ -1,3 +1,5 @@
+using BookShop.Application.Services.Concrete;
+using BookShop.Application.Services.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.Application.ServiceConfigs;
@@ -13,5 +15,9 @@ internal static class CoreServiceConfig
     /// <param name="services">
     ///     Service container.
     /// </param>
-    internal static void ConfigCore(this IServiceCollection services) { }
+    internal static void ConfigCore(this IServiceCollection services)
+    {
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserDetailService, UserDetailService>();
+    }
 }

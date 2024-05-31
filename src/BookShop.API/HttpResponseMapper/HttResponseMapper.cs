@@ -34,6 +34,7 @@ internal static class HttResponseMapper
 
     private static IActionResult ErrorResponse(ResponseAppCode appCode)
     {
+        _errorHttpResponseManager ??= new();
         var errorResponseFunc = _errorHttpResponseManager.Resolve(appCode);
         var errorResponse = errorResponseFunc();
         return new ObjectResult(errorResponse) { StatusCode = errorResponse.HttpCode };

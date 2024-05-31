@@ -18,6 +18,6 @@ namespace BookShop.DataAccess.Repositories.Interface;
 /// </remarks>
 public interface IUserDetailRepository : IBaseRepository<UserDetail>
 {
-    // Task<bool> IsUserTemporarilyRemovedAsync(Guid id, CancellationToken cancellationToken);
+    Task<bool> IsUserTemporarilyRemovedAsync(Guid id, CancellationToken cancellationToken);
     Task<UserDetail> GetUserDetailByUserIdAsync(Guid userId, CancellationToken cancellationToken);
 }
