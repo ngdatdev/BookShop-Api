@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
 
 namespace BookShop.API.Policy.Authorization;
 
@@ -34,7 +33,20 @@ public class ValidationUserHandler : AuthorizationHandler<ValidationUserRequirem
         var httpContext = context.Resource as HttpContext;
         var ct = CancellationToken.None;
 
-        var jtiClaim = httpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Jti);
+        if (httpContext == null || !httpContext.User.Identity.IsAuthenticated)
+        {
+            await SendResponseAsync(httpContext, StatusCodes.Status401Unauthorized);
+            return;
+        }
+
+        var jtiClaim = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Jti);
+
+        if (jtiClaim == null)
+        {
+            await SendResponseAsync(httpContext, StatusCodes.Status401Unauthorized);
+            return;
+        }
+
         await using var scope = _serviceScopeFactory.CreateAsyncScope();
         var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 

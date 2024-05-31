@@ -31,23 +31,5 @@ public class UserDetailController : ControllerBase
             cancellationToken: cancellationToken
         );
         return Ok(userDetail);
-        
     }
-
-    // [Authorize(AuthenticationSchemes = "Bearer")]
-    // [RequireJwt]
-    // [HttpGet("hehe")]
-    // public async Task<ActionResult<UserDetailResponse>> GetA(CancellationToken cancellationToken)
-    // {
-    //     var userDetail = await _userDetailService.GetAllUserDetails(
-    //         cancellationToken: cancellationToken
-    //     );
-    //     return Ok(userDetail);
-    // }
-
-    // [HttpGet("/kaka")]
-    // public ActionResult<List<string>> GetB()
-    // {
-    //     throw new Exception("hehe");
-    // }
 }
