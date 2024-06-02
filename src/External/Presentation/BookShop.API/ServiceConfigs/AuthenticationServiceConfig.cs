@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using BookShop.Shared.Configuration.Authentication;
+using BookShop.Configuration.Presentation.WebApi.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

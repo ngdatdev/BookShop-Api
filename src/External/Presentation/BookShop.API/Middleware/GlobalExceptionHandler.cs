@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using BookShop.API.HttpResponseMapper.ErrorApiResponse;
+using BookShop.API.CommonResponse;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,9 +32,9 @@ internal sealed class GlobalExceptionHandler
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
             await httpContext.Response.WriteAsJsonAsync(
-                value: new ErrorHttpResponse
+                value: new ApiResponse
                 {
-                    HttpCode = StatusCodes.Status500InternalServerError,
+                    AppCode = StatusCodes.Status500InternalServerError,
                     ErrorMessages = ["Server has encountered an error !", exception.Message]
                 }
             );

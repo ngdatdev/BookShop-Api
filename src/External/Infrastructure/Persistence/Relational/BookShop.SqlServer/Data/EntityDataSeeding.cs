@@ -164,15 +164,12 @@ public static class EntityDataSeeding
     {
         Dictionary<Guid, string> newRoleNames = [];
 
-        newRoleNames.Add(
-            key: Guid.Parse(input: "c39aa1ac-8ded-46be-870c-115b200b09fc"),
-            value: "user"
-        );
+        Guid userRole = Guid.Parse(input: "c39aa1ac-8ded-46be-870c-115b200b09fc");
+        Guid adminRole = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e0c");
 
-        newRoleNames.Add(
-            key: Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e0c"),
-            value: "admin"
-        );
+        newRoleNames.Add(key: userRole, value: "user");
+
+        newRoleNames.Add(key: adminRole, value: "admin");
 
         List<Role> newRoles = [];
 
@@ -189,9 +186,9 @@ public static class EntityDataSeeding
                         CreatedAt = DateTime.UtcNow,
                         CreatedBy = AdminId,
                         UpdatedAt = DateTime.MinValue,
-                        UpdatedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c"),
+                        UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                         RemovedAt = DateTime.MinValue,
-                        RemovedBy = Guid.Parse(input: "c8500b46-b134-4b60-85b7-8e6af1187e1c"),
+                        RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                     }
                 };
 
