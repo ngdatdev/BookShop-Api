@@ -5,7 +5,7 @@ using BookShop.API;
 using BookShop.API.Middleware;
 using BookShop.Application;
 using BookShop.DataAccess;
-using BookShop.Data.Data;
+using BookShop.DataAccess.Data;
 using BookShop.DataAccess.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
