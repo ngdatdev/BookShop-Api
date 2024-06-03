@@ -1,7 +1,7 @@
-using BookShop.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using BookShop.SqlServer.Constants;
+using BookShop.Data.Shared.Entities;
 
 namespace BookShop.SqlServer.Data.EntityConfigurations;
 

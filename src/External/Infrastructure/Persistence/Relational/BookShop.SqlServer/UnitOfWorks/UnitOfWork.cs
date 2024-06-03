@@ -1,5 +1,5 @@
-using BookShop.Data.Entities;
-using BookShop.Data.UnitOfWork;
+using BookShop.Data.Features.UnitOfWork;
+using BookShop.Data.Shared.Entities;
 using BookShop.SqlServer.Data;
 using Microsoft.AspNetCore.Identity;
 

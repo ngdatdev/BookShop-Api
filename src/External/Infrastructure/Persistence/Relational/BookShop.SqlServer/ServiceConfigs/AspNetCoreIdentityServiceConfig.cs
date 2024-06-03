@@ -1,5 +1,5 @@
 using BookShop.Configuration.Infrastructure.AspnetCoreIdentityOption;
-using BookShop.Data.Entities;
+using BookShop.Data.Shared.Entities;
 using BookShop.SqlServer.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

@@ -1,12 +1,12 @@
-﻿using BookShop.Application.Shared.ServiceConfigs;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookShop.Application;
+namespace BookShop.API.Shared.ServiceConfigs;
 
 /// <summary>
-///     Configure services for application/business layer.
+///     Configure services for web api layer.
 /// </summary>
-public static class DependencyInjection
+internal static class CoreServiceConfig
 {
     /// <summary>
     ///     Entry to configuring multiple services.
@@ -17,8 +17,9 @@ public static class DependencyInjection
     /// <param name="configuration">
     ///     Load configuration for configuration
     ///     file (appsetting).
-    public static void ConfigApplication(this IServiceCollection services)
-    {
-        services.ConfigCore();
-    }
+    /// </param>
+    internal static void ConfigureCore(
+        this IServiceCollection services,
+        IConfigurationManager configuration
+    ) { }
 }

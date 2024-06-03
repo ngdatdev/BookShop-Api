@@ -37,11 +37,11 @@ internal static class SqlServerDbContextPoolServiceConfig
 
                 config
                     .UseSqlServer(
-                        connectionString: baseDatabaseOption.ConnectionString,
+                        connectionString: baseDatabaseOption?.ConnectionString,
                         sqlServerOptionsAction: databaseOptionsAction =>
                         {
                             databaseOptionsAction
-                                .CommandTimeout(commandTimeout: baseDatabaseOption.CommandTimeOut)
+                                .CommandTimeout(commandTimeout: baseDatabaseOption?.CommandTimeOut)
                                 .EnableRetryOnFailure(
                                     maxRetryCount: baseDatabaseOption.EnableRetryOnFailure
                                 )

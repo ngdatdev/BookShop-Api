@@ -1,4 +1,4 @@
-using BookShop.Data.UnitOfWork;
+using BookShop.Data.Features.UnitOfWork;
 using BookShop.SqlServer.UnitOfWorks;
 using Microsoft.Extensions.DependencyInjection;
 

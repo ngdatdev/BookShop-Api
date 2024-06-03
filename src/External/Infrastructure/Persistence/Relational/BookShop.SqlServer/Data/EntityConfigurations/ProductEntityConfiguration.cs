@@ -1,4 +1,4 @@
-using BookShop.Data.Entities;
+using BookShop.Data.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using BookShop.SqlServer.Constants;
