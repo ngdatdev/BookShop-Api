@@ -20,5 +20,6 @@ public static class DependencyInjection
     public static void ConfigApplication(this IServiceCollection services)
     {
         services.ConfigCore();
+        services.ConfigMediatorHandlers();
     }
 }

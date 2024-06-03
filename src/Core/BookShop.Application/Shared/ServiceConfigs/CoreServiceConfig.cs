@@ -13,5 +13,8 @@ internal static class CoreServiceConfig
     /// <param name="services">
     ///     Service container.
     /// </param>
-    internal static void ConfigCore(this IServiceCollection services) { }
+    internal static void ConfigCore(this IServiceCollection services)
+    {
+        // Method intentionally left empty.
+    }
 }
