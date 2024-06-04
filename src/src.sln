@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8813B3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F7D674AC-2650-40BD-9035-AE50D6B31B0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Configuration", "External\Common\BookShop.Shared\BookShop.Configuration.csproj", "{04171184-2016-4F6E-B163-134D22D65B03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Configuration", "External\Common\BookShop.Configuration\BookShop.Configuration.csproj", "{04171184-2016-4F6E-B163-134D22D65B03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.API", "External\Presentation\BookShop.API\BookShop.API.csproj", "{052B1260-110D-4C9B-85A9-964D502EB244}"
 EndProject
@@ -33,7 +33,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Redis", "External\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{802DF262-4541-47C4-9EB2-63F0B188F32C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.JsonWebToken", "External\Infrastructure\IdentityService\BookShop.JsonWebToken\BookShop.JsonWebToken.csproj", "{115B9304-3C11-4DC3-822A-DE3EE17FF2E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.JsonWebToken", "External\Infrastructure\IdentityService\BookShop.JsonWebToken\BookShop.JsonWebToken.csproj", "{115B9304-3C11-4DC3-822A-DE3EE17FF2E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mediator", "Mediator", "{ED39E90F-A33F-4F8C-955A-B1A0696B92FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileObjectStorages", "FileObjectStorages", "{32D03A14-D46C-430E-802F-DD12FDFCEDA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.ImageCloudinary", "External\Infrastructure\FileObjectStorages\BookShop.ImageCloudinary\BookShop.ImageCloudinary.csproj", "{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.MediatrCustom", "External\Infrastructure\Mediator\BookShop.MediatrCustom\BookShop.MediatrCustom.csproj", "{F4B323FE-1015-4465-9737-4E229EFD1C4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +77,14 @@ Global
 		{115B9304-3C11-4DC3-822A-DE3EE17FF2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{115B9304-3C11-4DC3-822A-DE3EE17FF2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{115B9304-3C11-4DC3-822A-DE3EE17FF2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,8 +102,12 @@ Global
 		{BA49A7E8-7A05-4D76-801F-7E273F231623} = {A4253242-4B2A-4398-A546-F5A3E538D4EF}
 		{EE505DA8-568E-481A-981A-D8E57D17ABA9} = {52B8DFA5-A670-42FB-B5FA-AEF800EDE5B5}
 		{AA2E93AC-4DCD-4E89-8CA7-015C9C9CAF69} = {BA49A7E8-7A05-4D76-801F-7E273F231623}
-		{802DF262-4541-47C4-9EB2-63F0B188F32C} = {A4253242-4B2A-4398-A546-F5A3E538D4EF}
+		{802DF262-4541-47C4-9EB2-63F0B188F32C} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
 		{115B9304-3C11-4DC3-822A-DE3EE17FF2E1} = {802DF262-4541-47C4-9EB2-63F0B188F32C}
+		{ED39E90F-A33F-4F8C-955A-B1A0696B92FF} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
+		{32D03A14-D46C-430E-802F-DD12FDFCEDA5} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
+		{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6} = {32D03A14-D46C-430E-802F-DD12FDFCEDA5}
+		{F4B323FE-1015-4465-9737-4E229EFD1C4F} = {ED39E90F-A33F-4F8C-955A-B1A0696B92FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FCDC697-FDFC-4E46-A678-6A4864A42050}

@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Persistence\Caching\BookShop.Redis\BookShop.Redis.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\BookShop.SqlServer\BookShop.SqlServer.csproj" />
-    <ProjectReference Include="..\BookShop.Shared\BookShop.Shared.csproj" />
   </ItemGroup>
 
 </Project>

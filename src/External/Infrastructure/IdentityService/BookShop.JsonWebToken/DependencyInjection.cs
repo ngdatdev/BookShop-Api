@@ -15,7 +15,7 @@ public static class DependencyInjection
     /// <param name="services">
     ///     Service container.
     /// </param>
-    public static void AddAppJwtIdentityService(this IServiceCollection services)
+    public static void ConfigureJwtIdentityService(this IServiceCollection services)
     {
         services
             .AddSingleton<IAccessTokenHandler, AccessTokenHandler>()

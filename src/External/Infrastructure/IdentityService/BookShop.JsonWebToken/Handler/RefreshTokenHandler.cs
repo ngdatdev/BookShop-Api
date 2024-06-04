@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using BookShop.Application.Shared.Authentication.Jwt;
-using BookShop.Data.Entities;
+using BookShop.Data.Shared.Entities;
 
 namespace BookShop.JsonWebToken.Handler;
 

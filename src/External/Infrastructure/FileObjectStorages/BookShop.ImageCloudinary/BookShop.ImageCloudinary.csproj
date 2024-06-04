@@ -7,12 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Handler\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\BookShop.Application\BookShop.Application.csproj" />
-    <ProjectReference Include="..\..\..\Common\BookShop.Configuration\BookShop.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
