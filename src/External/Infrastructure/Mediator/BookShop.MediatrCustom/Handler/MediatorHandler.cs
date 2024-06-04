@@ -15,12 +15,11 @@ public class MediatorHandler : IMediator
         _logger = logger;
     }
 
-    public async Task<TResponse> SendAsync<TRequest, TResponse>(
-        TRequest request,
+    public async Task<TResponse> SendAsync<TResponse>(
+        IFeatureRequest<TResponse> request,
         CancellationToken cancellationToken = default
     )
-        where TRequest : class, IRequest<TResponse>
-        where TResponse : class, IResponse
+        where TResponse : class, IFeatureResponse
     {
         if (request == null)
             throw new ArgumentNullException(nameof(request));
@@ -29,10 +28,10 @@ public class MediatorHandler : IMediator
 
         try
         {
-            var handler = _serviceProvider.GetService<IFeatureHandler<TRequest, TResponse>>();
+            var handler = _serviceProvider.GetService<IFeatureHandler<IFeatureRequest<TResponse>, TResponse>>();
             if (handler == null)
                 throw new InvalidOperationException(
-                    $"Handler for '{typeof(TRequest).Name}' not registered."
+                    $"Handler for '{typeof(IFeatureRequest<TResponse>).Name}' not registered."
                 );
 
             _logger.LogDebug("Found handler of type {HandlerType}", handler.GetType());
@@ -41,7 +40,7 @@ public class MediatorHandler : IMediator
 
             if (response == null)
                 throw new InvalidOperationException(
-                    $"Handler for '{typeof(TRequest).Name}' returned null response."
+                    $"Handler for '{typeof(IFeatureRequest<TResponse>).Name}' returned null response."
                 );
 
             _logger.LogInformation(

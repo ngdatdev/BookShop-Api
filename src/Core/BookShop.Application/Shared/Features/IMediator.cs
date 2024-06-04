@@ -22,10 +22,9 @@ public interface IMediator
     /// <returns>
     ///     A task with a response of type <typeparamref name="TResponse"/>.
     /// </returns>
-    Task<TResponse> SendAsync<TRequest, TResponse>(
-        TRequest request,
+    Task<TResponse> SendAsync<TResponse>(
+        IFeatureRequest<TResponse> request,
         CancellationToken cancellationToken = default
     )
-        where TResponse : class, IResponse
-        where TRequest : class, IRequest<TResponse>;
+        where TResponse : class, IFeatureResponse;
 }

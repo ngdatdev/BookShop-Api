@@ -6,9 +6,9 @@ namespace BookShop.Application.Shared.Features;
 /// <summary>
 ///     Interface for handling feature requests.
 /// </summary>
-public interface IFeatureHandler<TRequest, TResponse>
-    where TRequest : class, IRequest<TResponse>
-    where TResponse : class, IResponse
+public interface IFeatureHandler<in TRequest, TResponse>
+    where TRequest : class, IFeatureRequest<TResponse>
+    where TResponse : class, IFeatureResponse
 {
     /// <summary>
     ///     Handles the specified request and returns the response.

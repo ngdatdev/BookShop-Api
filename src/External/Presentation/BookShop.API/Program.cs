@@ -5,6 +5,7 @@ using BookShop.API;
 using BookShop.API.Shared.Middlewares;
 using BookShop.Application;
 using BookShop.Data.Shared.Entities;
+using BookShop.MediatrCustom;
 using BookShop.SqlServer;
 using BookShop.SqlServer.Data;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,7 @@ services.AddSwaggerGen();
 services.ConfigureSqlRelationalDatabase(configuration: configuration);
 services.ConfigApplication();
 services.ConfigWebAPI(configuration: configuration);
+services.ConfigMediatorHandlerService();
 
 var app = builder.Build();
 

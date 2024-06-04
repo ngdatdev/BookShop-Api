@@ -1,3 +1,4 @@
+using BookShop.Application.Features.HelloWorld;
 using BookShop.Application.Shared.Features;
 using BookShop.MediatrCustom.Handler;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +16,13 @@ public static class DependencyInjection
     /// <param name="services">
     ///     Service container.
     /// </param>
-    public static void ConfigureMediatorHandlerService(this IServiceCollection services) { 
+    public static void ConfigMediatorHandlerService(this IServiceCollection services)
+    {
         services.AddScoped<IMediator, MediatorHandler>();
         services.AddLogging();
+        services.AddTransient<
+            IFeatureHandler<HelloWorldRequest, HelloWorldResponse>,
+            HelloWorldHandler
+        >();
     }
 }
