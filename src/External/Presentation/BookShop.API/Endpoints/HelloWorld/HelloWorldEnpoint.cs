@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Endpoints.HelloWorld
 {
     [ApiController]
+    [Route("/a")]
     public class HelloWorldEndpoint : ControllerBase
     {
         private readonly IMediator _mediator;

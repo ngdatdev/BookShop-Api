@@ -9,5 +9,4 @@ public interface IUnitOfWork
     /// <summary>
     ///     UserDetail comment repository.
     /// </summary>
-    // IUserDetailRepository UserDetailRepository { get; }
 }

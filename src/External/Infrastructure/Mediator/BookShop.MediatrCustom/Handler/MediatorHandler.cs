@@ -28,15 +28,25 @@ public class MediatorHandler : IMediator
 
         try
         {
-            var handler = _serviceProvider.GetService<IFeatureHandler<IFeatureRequest<TResponse>, TResponse>>();
-            if (handler == null)
-                throw new InvalidOperationException(
-                    $"Handler for '{typeof(IFeatureRequest<TResponse>).Name}' not registered."
-                );
+            var handlerType = typeof(IFeatureHandler<,>).MakeGenericType(
+                request.GetType(),
+                typeof(TResponse)
+            );
+            var handler = _serviceProvider.GetService(handlerType);
 
             _logger.LogDebug("Found handler of type {HandlerType}", handler.GetType());
 
-            var response = await handler.HandlerAsync(request, cancellationToken);
+            var handlerMethod = handlerType.GetMethod(
+                nameof(IFeatureHandler<IFeatureRequest<TResponse>, TResponse>.HandlerAsync)
+            );
+
+            if (handlerMethod == null)
+                throw new InvalidOperationException(
+                    $"Handler for '{handlerType.Name}' does not implement the 'HandlerAsync' method."
+                );
+
+            var response = await (Task<TResponse>)
+                handlerMethod.Invoke(handler, [request, cancellationToken]);
 
             if (response == null)
                 throw new InvalidOperationException(
