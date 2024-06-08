@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using BookShop.API.Endpoints.HelloWorld.HttpResponseMapper;
 using BookShop.Application.Features.HelloWorld;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;

@@ -7,6 +7,6 @@ public enum CommonAppCode
 {
     SUCCESS,
     SERVER_ERROR,
-    INVALID_INPUTS,
+    INPUT_VALIDATION_FAIL,
     UN_AUTHORIZED
 }

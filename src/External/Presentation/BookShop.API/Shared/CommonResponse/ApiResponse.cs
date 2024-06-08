@@ -18,7 +18,7 @@ internal sealed class ApiResponse
             destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(id: "SE Asia Standard Time")
         );
 
-    public int AppCode { get; init; } = (int)CommonAppCode.SUCCESS;
+    public string AppCode { get; init; } = CommonAppCode.SUCCESS.ToString();
     public object Body { get; init; } = new();
 
     public IEnumerable<string> ErrorMessages { get; init; } = [];

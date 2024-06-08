@@ -28,18 +28,21 @@ internal sealed class GlobalExceptionHandler
         }
         catch (Exception exception)
         {
-            httpContext.Response.Clear(); // give a delete try
-            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            if (!httpContext.Response.HasStarted)
+            {
+                httpContext.Response.Clear();
+                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-            await httpContext.Response.WriteAsJsonAsync(
-                value: new ApiResponse
-                {
-                    AppCode = StatusCodes.Status500InternalServerError,
-                    ErrorMessages = ["Server has encountered an error !", exception.Message]
-                }
-            );
+                await httpContext.Response.WriteAsJsonAsync(
+                    value: new ApiResponse
+                    {
+                        AppCode = StatusCodes.Status500InternalServerError.ToString(),
+                        ErrorMessages = ["Server has encountered an error !", exception.Message]
+                    }
+                );
 
-            await httpContext.Response.CompleteAsync();
+                await httpContext.Response.CompleteAsync();
+            }
         }
     }
 }

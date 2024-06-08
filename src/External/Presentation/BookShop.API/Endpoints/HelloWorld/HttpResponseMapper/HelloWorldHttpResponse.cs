@@ -12,7 +12,7 @@ namespace BookShop.API.Endpoints.HelloWorld.HttpResponseMapper;
 /// </summary>
 internal sealed class HelloWorldHttpResponse
 {
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [JsonIgnore]
     public int HttpCode { get; set; }
 
     public string AppCode { get; init; } =

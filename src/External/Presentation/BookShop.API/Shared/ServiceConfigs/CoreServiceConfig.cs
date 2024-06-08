@@ -1,5 +1,3 @@
-using BookShop.API.Endpoints.HelloWorld.Middleware.Validation;
-using BookShop.API.Shared.Filter.MinimalsApi.ValidationFilter;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,8 +21,5 @@ internal static class CoreServiceConfig
     internal static void ConfigureCore(
         this IServiceCollection services,
         IConfigurationManager configuration
-    ) { 
-        services.AddScoped(typeof(ValidationFilter<>));
-        services.AddScoped<HelloWorldValidationFilter>();
-    }
+    ) { }
 }

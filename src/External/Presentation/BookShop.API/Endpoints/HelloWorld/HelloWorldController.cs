@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Endpoints.HelloWorld.Middleware.Validation;
+using BookShop.API.Shared.Filter.ControllerBase.ValidationFilter;
 using BookShop.Application.Features.HelloWorld;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +19,7 @@ namespace BookShop.API.Endpoints.HelloWorld
         }
 
         [HttpPost("/hello")]
-        [ServiceFilter(typeof(HelloWorldValidationFilter))]
+        [ServiceFilter(typeof(ValidationFilter<HelloWorldRequest>))]
         public async Task<IActionResult> HellWorld(
             [FromBody] HelloWorldRequest helloWorldRequest,
             CancellationToken cancellationToken
