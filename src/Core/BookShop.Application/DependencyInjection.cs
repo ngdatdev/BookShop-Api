@@ -21,5 +21,6 @@ public static class DependencyInjection
     {
         services.ConfigCore();
         services.ConfigMediatorHandlers();
+        services.ConfigFluentValidation();
     }
 }

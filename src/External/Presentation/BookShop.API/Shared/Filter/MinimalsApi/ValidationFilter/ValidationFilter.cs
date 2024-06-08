@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Shared.Filter.ValidationFilter;
+namespace BookShop.API.Shared.Filter.MinimalsApi.ValidationFilter;
 
 public class ValidationFilter<TRequest> : IEndpointFilter
     where TRequest : class

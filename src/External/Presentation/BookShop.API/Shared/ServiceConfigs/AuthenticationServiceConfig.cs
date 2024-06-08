@@ -55,7 +55,7 @@ internal static class AuthenticationServiceConfig
             .AddSingleton(implementationInstance: tokenValidationParameters)
             .AddAuthentication(configureOptions: config =>
             {
-                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // give a try
+                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
