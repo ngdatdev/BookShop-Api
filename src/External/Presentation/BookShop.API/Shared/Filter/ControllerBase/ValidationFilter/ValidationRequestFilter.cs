@@ -13,11 +13,11 @@ namespace BookShop.API.Shared.Filter.ControllerBase.ValidationFilter;
 /// <summary>
 //      ValidationFilter is responsible for validating incoming requests.
 /// </summary>
-public class ValidationFilter<TRequest> : IAsyncActionFilter
+public class ValidationRequestFilter<TRequest> : IAsyncActionFilter
 {
     private readonly IValidator<TRequest> _validator;
 
-    public ValidationFilter(IValidator<TRequest> validator)
+    public ValidationRequestFilter(IValidator<TRequest> validator)
     {
         _validator = validator;
     }

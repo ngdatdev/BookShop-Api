@@ -15,7 +15,7 @@ internal static class FilterServiceConfig
     /// </param>
     internal static void ConfigFilter(this IServiceCollection services)
     {
-        services.AddScoped(typeof(Filter.ControllerBase.ValidationFilter.ValidationFilter<>));
-        services.AddScoped(typeof(Filter.MinimalsApi.ValidationFilter.ValidationFilter<>));
+        services.AddScoped(typeof(Filter.ControllerBase.ValidationFilter.ValidationRequestFilter<>));
+        // services.AddScoped(typeof(Filter.MinimalsApi.ValidationFilter.ValidationFilter<>));
     }
 }

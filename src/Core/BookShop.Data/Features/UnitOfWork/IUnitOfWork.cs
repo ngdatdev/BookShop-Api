@@ -1,4 +1,6 @@
 
+using BookShop.Data.Shared.Repositories.VerifyAccessToken;
+
 namespace BookShop.Data.Features.UnitOfWork;
 
 /// <summary>
@@ -7,6 +9,7 @@ namespace BookShop.Data.Features.UnitOfWork;
 public interface IUnitOfWork
 {
     /// <summary>
-    ///     UserDetail comment repository.
+    ///     Verify access token repository.
     /// </summary>
+    public IVerifyAccessTokenRepository VerifyAccessTokenRepository {get; }
 }

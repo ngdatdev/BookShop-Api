@@ -1,6 +1,8 @@
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
+using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.SqlServer.Data;
+using BookShop.SqlServer.Repositories.VerifyDataAccess;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.SqlServer.UnitOfWorks;
@@ -14,6 +16,8 @@ public class UnitOfWork : IUnitOfWork
     private readonly RoleManager<Role> _roleManager;
     private readonly UserManager<User> _userManager;
 
+    private IVerifyAccessTokenRepository _verifyAccessTokenRepository;
+
     public UnitOfWork(
         BookShopContext context,
         RoleManager<Role> roleManager,
@@ -23,5 +27,15 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
         _roleManager = roleManager;
         _userManager = userManager;
+    }
+
+    public IVerifyAccessTokenRepository VerifyAccessTokenRepository
+    {
+        get
+        {
+            return _verifyAccessTokenRepository ??= new VerifyDataAccessRepository(
+                context: _context
+            );
+        }
     }
 }
