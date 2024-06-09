@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using BookShop.Application.Features.HelloWorld;
+using BookShop.Application.Features.Auth.Login;
 
-namespace BookShop.API.Endpoints.HelloWorld.HttpResponseMapper;
+namespace BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
 
 /// <summary>
-///     Hello world http response
+///     Login http response
 /// </summary>
-internal sealed class HelloWorldHttpResponse
+internal sealed class LoginHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
     public string AppCode { get; init; } =
-        HelloWorldResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+        LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(

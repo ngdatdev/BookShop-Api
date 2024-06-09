@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BookShop.Application.Features.HelloWorld;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Endpoints.HelloWorld.HttpResponseMapper;
+namespace BookShop.API.Controllers.HelloWorld.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for hello world feature

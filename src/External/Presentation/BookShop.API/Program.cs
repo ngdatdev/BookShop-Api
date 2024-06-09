@@ -5,6 +5,7 @@ using BookShop.API;
 using BookShop.API.Shared.Middlewares;
 using BookShop.Application;
 using BookShop.Data.Shared.Entities;
+using BookShop.JsonWebToken;
 using BookShop.MediatrCustom;
 using BookShop.SqlServer;
 using BookShop.SqlServer.Data;
@@ -31,6 +32,7 @@ services.ConfigureSqlRelationalDatabase(configuration: configuration);
 services.ConfigApplication();
 services.ConfigWebAPI(configuration: configuration);
 services.ConfigMediatorHandlerService();
+services.ConfigureJwtIdentityService();
 
 var app = builder.Build();
 

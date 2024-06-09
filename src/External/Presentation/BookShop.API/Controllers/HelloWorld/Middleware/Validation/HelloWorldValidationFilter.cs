@@ -5,7 +5,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BookShop.API.Endpoints.HelloWorld.Middleware.Validation
+namespace BookShop.API.Controllers.HelloWorld.Middleware.Validation
 {
     public class HelloWorldValidationFilter : IAsyncActionFilter
     {

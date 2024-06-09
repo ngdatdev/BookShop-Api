@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\Infrastructure\Persistence\Caching\BookShop.Redis\BookShop.Redis.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\BookShop.SqlServer\BookShop.SqlServer.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Mediator\BookShop.MediatrCustom\BookShop.MediatrCustom.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\IdentityService\BookShop.JsonWebToken\BookShop.JsonWebToken.csproj" />
   </ItemGroup>
 
 </Project>

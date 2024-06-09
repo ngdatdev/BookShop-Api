@@ -1,6 +1,7 @@
 ﻿using BookShop.Application.Shared.Authentication.Jwt;
 using BookShop.JsonWebToken.Handler;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.JsonWebToken;
 
@@ -17,6 +18,8 @@ public static class DependencyInjection
     /// </param>
     public static void ConfigureJwtIdentityService(this IServiceCollection services)
     {
+        services.AddSingleton<JsonWebTokenHandler>();
+
         services
             .AddSingleton<IAccessTokenHandler, AccessTokenHandler>()
             .AddSingleton<IRefreshTokenHandler, RefreshTokenHandler>();

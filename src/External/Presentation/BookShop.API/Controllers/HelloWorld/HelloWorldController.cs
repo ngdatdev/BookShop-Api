@@ -6,11 +6,11 @@ using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Endpoints.HelloWorld
-{
+namespace BookShop.API.Controllers.HelloWorld;
+
     [ApiController]
-    [Route("/a")]
-    public class HelloWorldController : ControllerBase
+    [Route("/api/[controller]")]
+    public sealed class HelloWorldController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -19,6 +19,27 @@ namespace BookShop.API.Endpoints.HelloWorld
             _mediator = mediator;
         }
 
+        /// <summary>
+        ///     Endpoint for user login.
+        /// </summary>
+        /// <param name="dto">
+        ///     Class contains user credentials.
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     Automatic initialized token for aborting current operation.
+        /// </param>
+        ///     App code and some login information.
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST api/Auth/sign-in
+        ///     {
+        ///         "email": "string",
+        ///         "password": "string",
+        ///         "rememberMe": true
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost("/hello")]
         [Authorize(policy: "VerifyAccessToken")]
         [ServiceFilter(typeof(ValidationRequestFilter<HelloWorldRequest>))]
@@ -35,4 +56,4 @@ namespace BookShop.API.Endpoints.HelloWorld
             return Ok(response);
         }
     }
-}
+

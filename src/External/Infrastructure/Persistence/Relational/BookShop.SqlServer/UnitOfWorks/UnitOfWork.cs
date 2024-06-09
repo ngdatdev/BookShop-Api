@@ -1,7 +1,9 @@
+using BookShop.Data.Features.Repositories.Login;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.SqlServer.Data;
+using BookShop.SqlServer.Repositories.Login;
 using BookShop.SqlServer.Repositories.VerifyDataAccess;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,6 +19,7 @@ public class UnitOfWork : IUnitOfWork
     private readonly UserManager<User> _userManager;
 
     private IVerifyAccessTokenRepository _verifyAccessTokenRepository;
+    private ILoginRepository _loginRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -37,5 +40,10 @@ public class UnitOfWork : IUnitOfWork
                 context: _context
             );
         }
+    }
+
+    public ILoginRepository LoginRepository
+    {
+        get { return _loginRepository ??= new LoginRepository(context: _context); }
     }
 }
