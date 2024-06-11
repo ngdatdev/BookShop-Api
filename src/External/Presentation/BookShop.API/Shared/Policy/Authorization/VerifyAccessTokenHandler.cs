@@ -20,10 +20,15 @@ namespace BookShop.API.Shared.Policy.Authorization;
 public class VerifyAccessTokenHandler : AuthorizationHandler<VerifyAccessTokenRequirement>
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public VerifyAccessTokenHandler(IServiceScopeFactory serviceScopeFactory)
+    public VerifyAccessTokenHandler(
+        IServiceScopeFactory serviceScopeFactory,
+        IHttpContextAccessor httpContextAccessor
+    )
     {
         _serviceScopeFactory = serviceScopeFactory;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     protected override async Task HandleRequirementAsync(
@@ -31,7 +36,11 @@ public class VerifyAccessTokenHandler : AuthorizationHandler<VerifyAccessTokenRe
         VerifyAccessTokenRequirement requirement
     )
     {
-        var httpContext = context.Resource as HttpContext;
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext.Response.HasStarted)
+        { 
+            return;
+        }
         var ct = CancellationToken.None;
 
         if (httpContext == null || !httpContext.User.Identity.IsAuthenticated)

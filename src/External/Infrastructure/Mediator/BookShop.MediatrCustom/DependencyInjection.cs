@@ -20,9 +20,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IMediator, MediatorHandler>();
         services.AddLogging();
-        services.AddTransient<
-            IFeatureHandler<HelloWorldRequest, HelloWorldResponse>,
-            HelloWorldHandler
-        >();
+
     }
 }

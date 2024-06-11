@@ -21,8 +21,7 @@ public class MediatorHandler : IMediator
     )
         where TResponse : class, IFeatureResponse
     {
-        if (request == null)
-            throw new ArgumentNullException(nameof(request));
+        ArgumentNullException.ThrowIfNull(request);
 
         _logger.LogInformation("Handling request of type {RequestType}", request.GetType());
 
@@ -38,21 +37,13 @@ public class MediatorHandler : IMediator
 
             var handlerMethod = handlerType.GetMethod(
                 nameof(IFeatureHandler<IFeatureRequest<TResponse>, TResponse>.HandlerAsync)
-            );
-
-            if (handlerMethod == null)
-                throw new InvalidOperationException(
+            ) ?? throw new InvalidOperationException(
                     $"Handler for '{handlerType.Name}' does not implement the 'HandlerAsync' method."
                 );
-
             var response = await (Task<TResponse>)
-                handlerMethod.Invoke(handler, [request, cancellationToken]);
-
-            if (response == null)
-                throw new InvalidOperationException(
+                handlerMethod.Invoke(handler, [request, cancellationToken]) ?? throw new InvalidOperationException(
                     $"Handler for '{typeof(IFeatureRequest<TResponse>).Name}' returned null response."
                 );
-
             _logger.LogInformation(
                 "Request handled successfully with response of type {ResponseType}",
                 response.GetType()

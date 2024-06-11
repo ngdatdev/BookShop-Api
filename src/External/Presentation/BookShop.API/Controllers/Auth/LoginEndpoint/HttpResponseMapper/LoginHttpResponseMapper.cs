@@ -5,9 +5,6 @@ namespace BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
 /// </summary>
 internal static class LoginHttpResponseMapper
 {
-    /// <summary>
-    ///     Login http response manager
-    /// </summary>
     private static LoginHttpResponseManager _LoginHttpResponseManager;
 
     internal static LoginHttpResponseManager Get()

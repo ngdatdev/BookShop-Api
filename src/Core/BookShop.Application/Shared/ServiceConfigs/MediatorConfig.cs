@@ -7,7 +7,7 @@ namespace BookShop.Application.Shared.ServiceConfigs
 {
     public static class MediatorConfig
     {
-        public static IServiceCollection ConfigMediatorHandlers(this IServiceCollection services)
+        public static void ConfigMediatorHandlers(this IServiceCollection services)
         {
             Assembly assembly = typeof(DependencyInjection).Assembly;
             var handlerTypes = assembly
@@ -35,8 +35,6 @@ namespace BookShop.Application.Shared.ServiceConfigs
                     services.AddTransient(handlerInterface, handlerType);
                 }
             }
-
-            return services;
         }
     }
 }
