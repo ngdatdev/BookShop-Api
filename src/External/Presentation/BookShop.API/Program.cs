@@ -7,6 +7,7 @@ using BookShop.Application;
 using BookShop.Data.Shared.Entities;
 using BookShop.JsonWebToken;
 using BookShop.MediatrCustom;
+using BookShop.Redis;
 using BookShop.SqlServer;
 using BookShop.SqlServer.Data;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,7 @@ services.ConfigApplication();
 services.ConfigWebAPI(configuration: configuration);
 services.ConfigMediatorHandlerService();
 services.ConfigureJwtIdentityService();
+services.AddRedisCachingDatabase(configuration: configuration);
 
 var app = builder.Build();
 

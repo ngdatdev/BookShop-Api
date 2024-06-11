@@ -12,5 +12,5 @@ internal sealed class LoginStateBag
 {
     internal static string CacheKey { get; set; }
 
-    internal int CacheDurationInSeconds { get; } = 60;
+    internal static int CacheDurationInSeconds { get; } = 60;
 }

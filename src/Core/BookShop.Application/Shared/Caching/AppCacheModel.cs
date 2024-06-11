@@ -16,7 +16,7 @@ public sealed class AppCacheModel<TSource>
     /// <summary>
     ///     Value as TSource type.
     /// </summary>
-    internal TSource Value { get; private set; }
+    public TSource Value { get; private set; }
 
     /// <summary>
     ///     Represent the state cannot found

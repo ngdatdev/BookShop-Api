@@ -1,3 +1,4 @@
+using BookShop.API.Controllers.Auth.LoginEndpoint.Middleware.Caching;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Shared.ServiceConfigs;
@@ -15,7 +16,10 @@ internal static class FilterServiceConfig
     /// </param>
     internal static void ConfigFilter(this IServiceCollection services)
     {
-        services.AddScoped(typeof(Filter.ControllerBase.ValidationFilter.ValidationRequestFilter<>));
+        services.AddScoped(
+            typeof(Filter.ControllerBase.ValidationFilter.ValidationRequestFilter<>)
+        );
+        services.AddScoped<LoginCachingFilter>();
         services.AddScoped(typeof(Filter.MinimalsApi.ValidationFilter.ValidationFilter<>));
     }
 }

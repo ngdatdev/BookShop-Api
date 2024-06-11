@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.Auth.LoginEndpoint.Middleware.Caching;
 using BookShop.Application.Features.Auth.Login;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +13,11 @@ namespace BookShop.API.Controllers.Auth.LoginEndpoint;
 [Route(template: "api/auth/[controller]")]
 public class LoginController : ControllerBase
 {
-    private IHttpContextAccessor _httpContextAccessor;
     private readonly IMediator _mediator;
 
-    public LoginController(IMediator mediator, IHttpContextAccessor httpContextAccessor) 
+    public LoginController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
         _mediator = mediator;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -43,12 +42,12 @@ public class LoginController : ControllerBase
     ///
     /// </remarks>
     [HttpPost]
+    [ServiceFilter(typeof(LoginCachingFilter))]
     public async Task<IActionResult> LoginAsync(
         [FromBody] LoginRequest loginRequest,
         CancellationToken cancellationToken
     )
     {
-        var a = _httpContextAccessor.HttpContext;
         var featureResponse = await _mediator.SendAsync(
             request: loginRequest,
             cancellationToken: cancellationToken
