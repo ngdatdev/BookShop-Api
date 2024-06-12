@@ -30,5 +30,6 @@ internal static class DependencyInjection
         services.ConfigureCore(configuration: configuration);
         services.ConfigCors();
         services.ConfigFilter();
+        services.ConfigureSwagger(configuration: configuration);
     }
 }

@@ -1,6 +1,8 @@
 namespace BookShop.Configuration.Infrastructure.Database;
 
-// The DatabaseOption class is used to hold various database configuration settings.
+/// summary
+///     The DatabaseOption class is used to hold various database configuration settings.
+/// summary
 public class DatabaseOption
 {
     public string ConnectionString { get; set; }

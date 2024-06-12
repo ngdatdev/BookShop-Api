@@ -1,4 +1,4 @@
-namespace BookShop.API.AppCodes;
+namespace BookShop.API.Shared.AppCodes;
 
 /// <summary>
 ///     App code serve for common purposes.

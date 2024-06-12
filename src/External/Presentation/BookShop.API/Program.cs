@@ -32,7 +32,7 @@ services.AddSwaggerGen();
 services.ConfigureSqlRelationalDatabase(configuration: configuration);
 services.ConfigApplication();
 services.ConfigWebAPI(configuration: configuration);
-services.ConfigMediatorHandlerService();
+services.ConfigMediatorService();
 services.ConfigureJwtIdentityService();
 services.AddRedisCachingDatabase(configuration: configuration);
 
@@ -71,7 +71,12 @@ await using (var scope = app.Services.CreateAsyncScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(setupAction: options =>
+    {
+        options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "v1");
+        options.RoutePrefix = string.Empty;
+        options.DefaultModelsExpandDepth(depth: -1);
+    });
 }
 
 app.UseHttpsRedirection();

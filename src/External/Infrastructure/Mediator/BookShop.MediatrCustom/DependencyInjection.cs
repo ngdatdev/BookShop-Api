@@ -16,7 +16,7 @@ public static class DependencyInjection
     /// <param name="services">
     ///     Service container.
     /// </param>
-    public static void ConfigMediatorHandlerService(this IServiceCollection services)
+    public static void ConfigMediatorService(this IServiceCollection services)
     {
         services.AddScoped<IMediator, MediatorHandler>();
         services.AddLogging();
