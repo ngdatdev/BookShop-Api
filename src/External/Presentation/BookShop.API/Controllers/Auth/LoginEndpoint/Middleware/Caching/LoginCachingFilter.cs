@@ -29,7 +29,6 @@ public class LoginCachingFilter : IAsyncActionFilter
         ActionExecutionDelegate next
     )
     {
-        var httpContext = context.HttpContext;
         if (!context.HttpContext.Response.HasStarted)
         {
             LoginStateBag.CacheKey = $"{nameof(LoginHttpResponse)}";
@@ -49,15 +48,9 @@ public class LoginCachingFilter : IAsyncActionFilter
 
             if (executedContext.Result is ObjectResult result)
             {
-                var response = new LoginHttpResponse
-                {
-                    Body = result.Value,
-                    HttpCode = httpContext.Response.StatusCode
-                };
-
                 await _cacheHandler.SetAsync(
                     key: LoginStateBag.CacheKey,
-                    value: response,
+                    value: result,
                     distributedCacheEntryOptions: new()
                     {
                         AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(

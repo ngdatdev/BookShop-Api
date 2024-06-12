@@ -1,4 +1,8 @@
-using BookShop.API.Controllers.Auth.LoginEndpoint.Middleware.Caching;
+using System.Linq;
+using System.Reflection;
+using BookShop.API.Shared.Filter.AuthorizationFilter;
+using BookShop.API.Shared.Filter.ValidationRequestFilter;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Shared.ServiceConfigs;
@@ -16,10 +20,19 @@ internal static class FilterServiceConfig
     /// </param>
     internal static void ConfigFilter(this IServiceCollection services)
     {
-        services.AddScoped(
-            typeof(Filter.ControllerBase.ValidationFilter.ValidationRequestFilter<>)
-        );
-        services.AddScoped<LoginCachingFilter>();
-        services.AddScoped(typeof(Filter.MinimalsApi.ValidationFilter.ValidationFilter<>));
+        Assembly assembly = typeof(DependencyInjection).Assembly;
+
+        var filterTypes = assembly
+            .GetTypes()
+            .Where(t => typeof(IAsyncActionFilter).IsAssignableFrom(t) && !t.IsAbstract);
+
+        foreach (var filterType in filterTypes)
+        {
+            services.AddScoped(filterType);
+        }
+
+        services.AddScoped(typeof(ValidationRequestFilter<>));
+
+        services.AddScoped(typeof(AuthorizationFilter));
     }
 }

@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Shared.Filter.ControllerBase.ValidationFilter;
+using BookShop.API.Shared.Filter.AuthorizationFilter;
+using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.HelloWorld;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Authorization;
@@ -41,7 +42,7 @@ namespace BookShop.API.Controllers.HelloWorld;
         ///
         /// </remarks>
         [HttpPost("/hello")]
-        [Authorize(policy: "VerifyAccessToken")]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [ServiceFilter(typeof(ValidationRequestFilter<HelloWorldRequest>))]
         public async Task<IActionResult> HellWorld(
             [FromBody] HelloWorldRequest helloWorldRequest,

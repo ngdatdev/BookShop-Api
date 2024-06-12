@@ -7,7 +7,6 @@ public static class ExtensionMethod
 {
     public static string ToAppCode(this LoginResponseStatusCode statusCode)
     {
-        var messageStatusCode = statusCode.ToString().Replace("_", " ");
-        return $"{nameof(Login)}Feature: {messageStatusCode}";
+        return $"{nameof(Login)}Feature: {statusCode}";
     }
 }
