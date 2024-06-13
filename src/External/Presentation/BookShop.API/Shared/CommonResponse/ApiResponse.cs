@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BookShop.API.AppCodes;
+using BookShop.API.Shared.AppCodes;
 
 namespace BookShop.API.CommonResponse;
 

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Auth.LoginEndpoint.Common;
@@ -8,7 +6,6 @@ using BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Controllers.Auth.LoginEndpoint.Middleware.Caching;
 
