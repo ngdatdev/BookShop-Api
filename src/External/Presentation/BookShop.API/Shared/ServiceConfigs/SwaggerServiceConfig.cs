@@ -60,7 +60,7 @@ internal static class SwaggerServiceConfig
                 securityScheme: new()
                 {
                     Description = option.Security.Definition.SecurityScheme.Description,
-                    Name = option.Security.Definition.Name,
+                    Name = option.Security.Definition.SecurityScheme.Name,
                     In = (ParameterLocation)
                         Enum.ToObject(
                             enumType: typeof(ParameterLocation),
@@ -107,6 +107,7 @@ internal static class SwaggerServiceConfig
                     }
                 }
             );
+
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 
             var xmlFilePath = Path.Combine(path1: AppContext.BaseDirectory, path2: xmlFilename);

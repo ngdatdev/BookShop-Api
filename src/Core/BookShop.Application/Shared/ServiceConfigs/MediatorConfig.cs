@@ -3,37 +3,44 @@ using System.Reflection;
 using BookShop.Application.Shared.Features;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookShop.Application.Shared.ServiceConfigs
-{
-    public static class MediatorConfig
-    {
-        public static void ConfigMediatorHandlers(this IServiceCollection services)
-        {
-            Assembly assembly = typeof(DependencyInjection).Assembly;
-            var handlerTypes = assembly
-                .GetTypes()
-                .Where(t =>
-                    !t.IsAbstract
-                    && t.GetInterfaces()
-                        .Any(i =>
-                            i.IsGenericType
-                            && i.GetGenericTypeDefinition() == typeof(IFeatureHandler<,>)
-                        )
-                );
+namespace BookShop.Application.Shared.ServiceConfigs;
 
-            foreach (var handlerType in handlerTypes)
-            {
-                var handlerInterfaces = handlerType
-                    .GetInterfaces()
-                    .Where(i =>
+/// <summary>
+///     Mediator service config.
+/// </summary>
+public static class MediatorConfig
+{
+    /// <summary>
+    ///     Config to mediator services.
+    /// </summary>
+    /// <param name="services">
+    ///     Service container.
+    /// </param>
+    public static void ConfigMediatorHandlers(this IServiceCollection services)
+    {
+        Assembly assembly = typeof(DependencyInjection).Assembly;
+        var handlerTypes = assembly
+            .GetTypes()
+            .Where(t =>
+                !t.IsAbstract
+                && t.GetInterfaces()
+                    .Any(i =>
                         i.IsGenericType
                         && i.GetGenericTypeDefinition() == typeof(IFeatureHandler<,>)
-                    );
+                    )
+            );
 
-                foreach (var handlerInterface in handlerInterfaces)
-                {
-                    services.AddTransient(handlerInterface, handlerType);
-                }
+        foreach (var handlerType in handlerTypes)
+        {
+            var handlerInterfaces = handlerType
+                .GetInterfaces()
+                .Where(i =>
+                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IFeatureHandler<,>)
+                );
+
+            foreach (var handlerInterface in handlerInterfaces)
+            {
+                services.AddTransient(handlerInterface, handlerType);
             }
         }
     }
