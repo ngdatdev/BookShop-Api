@@ -1,4 +1,4 @@
-namespace BookShop.Configuration.Infrastructure.AspnetCoreIdentityOption;
+namespace BookShop.Configuration.Infrastructure.AspnetCoreIdentity;
 
 // The AspNetCoreIdentityOption class is used to hold various database configuration settings.
 public sealed class AspNetCoreIdentityOption
