@@ -32,7 +32,7 @@ services.AddSwaggerGen();
 services.ConfigureSqlRelationalDatabase(configuration: configuration);
 services.ConfigApplication();
 services.ConfigWebAPI(configuration: configuration);
-services.ConfigMediatorService();
+services.ConfigMediatorHandlerService();
 services.ConfigureJwtIdentityService();
 services.AddRedisCachingDatabase(configuration: configuration);
 
