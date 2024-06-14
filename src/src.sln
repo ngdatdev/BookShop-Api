@@ -39,9 +39,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mediator", "Mediator", "{ED
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileObjectStorages", "FileObjectStorages", "{32D03A14-D46C-430E-802F-DD12FDFCEDA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.ImageCloudinary", "External\Infrastructure\FileObjectStorages\BookShop.ImageCloudinary\BookShop.ImageCloudinary.csproj", "{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.ImageCloudinary", "External\Infrastructure\FileObjectStorages\BookShop.ImageCloudinary\BookShop.ImageCloudinary.csproj", "{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.MediatrCustom", "External\Infrastructure\Mediator\BookShop.MediatrCustom\BookShop.MediatrCustom.csproj", "{F4B323FE-1015-4465-9737-4E229EFD1C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.MediatrCustom", "External\Infrastructure\Mediator\BookShop.MediatrCustom\BookShop.MediatrCustom.csproj", "{F4B323FE-1015-4465-9737-4E229EFD1C4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{D0EBA509-7834-4CBA-9C88-BB6493E8AF55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{904CBE12-F255-4596-B44C-028C34DED020}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.Smtp", "External\Infrastructure\Notification\Mail\BookShop.Smtp\BookShop.Smtp.csproj", "{522BBD9A-03DB-4593-9BFA-6E25121D777A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +91,10 @@ Global
 		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4B323FE-1015-4465-9737-4E229EFD1C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{522BBD9A-03DB-4593-9BFA-6E25121D777A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{522BBD9A-03DB-4593-9BFA-6E25121D777A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{522BBD9A-03DB-4593-9BFA-6E25121D777A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{522BBD9A-03DB-4593-9BFA-6E25121D777A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +118,9 @@ Global
 		{32D03A14-D46C-430E-802F-DD12FDFCEDA5} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
 		{7E3F3353-BCEB-41ED-9E29-B19CF8BCC5B6} = {32D03A14-D46C-430E-802F-DD12FDFCEDA5}
 		{F4B323FE-1015-4465-9737-4E229EFD1C4F} = {ED39E90F-A33F-4F8C-955A-B1A0696B92FF}
+		{D0EBA509-7834-4CBA-9C88-BB6493E8AF55} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
+		{904CBE12-F255-4596-B44C-028C34DED020} = {D0EBA509-7834-4CBA-9C88-BB6493E8AF55}
+		{522BBD9A-03DB-4593-9BFA-6E25121D777A} = {904CBE12-F255-4596-B44C-028C34DED020}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FCDC697-FDFC-4E46-A678-6A4864A42050}

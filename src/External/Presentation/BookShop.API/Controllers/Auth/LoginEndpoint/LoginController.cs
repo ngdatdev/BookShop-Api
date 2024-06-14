@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Auth.LoginEndpoint;
 
 [ApiController]
-[Route(template: "api/auth/[controller]")]
+[Route(template: "api/auth/login")]
 public class LoginController : ControllerBase
 {
     private readonly IMediator _mediator;

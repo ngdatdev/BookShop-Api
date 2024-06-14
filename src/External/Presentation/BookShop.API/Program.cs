@@ -8,6 +8,7 @@ using BookShop.Data.Shared.Entities;
 using BookShop.JsonWebToken;
 using BookShop.MediatrCustom;
 using BookShop.Redis;
+using BookShop.Smtp;
 using BookShop.SqlServer;
 using BookShop.SqlServer.Data;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +36,7 @@ services.ConfigWebAPI(configuration: configuration);
 services.ConfigMediatorService();
 services.ConfigureJwtIdentityService();
 services.AddRedisCachingDatabase(configuration: configuration);
-
+services.ConfigGoogleSmtpMailNotification(configuration: configuration);
 var app = builder.Build();
 
 // Data Seeding
