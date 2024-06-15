@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Features;
 using BookShop.Application.Shared.Mail;
@@ -31,8 +31,16 @@ public class HelloWorldHandler : IFeatureHandler<HelloWorldRequest, HelloWorldRe
             Body = "Hihi"
         };
 
+        var mailContent = await _sendingMailHandler.GetUserAccountConfirmationMailContentAsync(
+            "datnvde180922@fpt.edu.vn",
+            "Chào đạt lỏ",
+            "kakakaka",
+            "hohohoho",
+            cancellationToken
+        );
+
         var result = await _sendingMailHandler.SendAsync(
-            mailContent: message,
+            mailContent: mailContent,
             cancellationToken: cancellationToken
         );
 

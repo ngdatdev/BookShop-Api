@@ -7,10 +7,10 @@ using BookShop.Application;
 using BookShop.Data.Shared.Entities;
 using BookShop.JsonWebToken;
 using BookShop.MediatrCustom;
+using BookShop.PostgresSql;
+using BookShop.PostgresSql.Data;
 using BookShop.Redis;
 using BookShop.Smtp;
-using BookShop.SqlServer;
-using BookShop.SqlServer.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 // Default setting.
+AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 Console.OutputEncoding = Encoding.UTF8;
 JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -30,7 +31,7 @@ var configuration = builder.Configuration;
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
-services.ConfigureSqlRelationalDatabase(configuration: configuration);
+services.ConfigurePostgreSqlDatabase(configuration: configuration);
 services.ConfigApplication();
 services.ConfigWebAPI(configuration: configuration);
 services.ConfigMediatorService();

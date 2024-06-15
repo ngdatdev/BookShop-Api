@@ -48,7 +48,7 @@ internal sealed class GoogleSendingMailHandler : ISendingMailHandler
 
         var mailTemplatePath = Path.Combine(
             path1: "CreateUserAccount",
-            path2: "ConfirmUserAccountByEmail.html"
+            path2: "AskUserToConfirmedAccountMailTemplate.html"
         );
 
         var htmlTemplate = await ReadTemplateAsync(
