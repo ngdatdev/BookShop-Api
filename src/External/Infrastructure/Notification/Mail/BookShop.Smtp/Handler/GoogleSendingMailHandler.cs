@@ -99,7 +99,7 @@ internal sealed class GoogleSendingMailHandler : ISendingMailHandler
 
         var mailTemplatePath = Path.Combine(
             path1: "CreateUserAccount",
-            path2: "AskUserToConfirmedAccountMailTemplate"
+            path2: "UserResetPasswordHtmlTemplate.html"
         );
 
         var htmlTemplate = await ReadTemplateAsync(

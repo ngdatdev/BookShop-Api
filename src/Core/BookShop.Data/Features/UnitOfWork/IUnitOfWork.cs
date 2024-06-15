@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.ForgotPassword;
 using BookShop.Data.Features.Repositories.Login;
 using BookShop.Data.Features.Repositories.Logout;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
@@ -23,4 +24,9 @@ public interface IUnitOfWork
     ///    Logout repository.
     /// </summary>
     public ILogoutRepository LogoutRepository { get; }
+
+    /// <summary>
+    ///    Forgot password repository.
+    /// </summary>
+    public IForgotPasswordRepository ForgotPasswordRepository { get; }
 }

@@ -22,6 +22,13 @@ public class User : IdentityUser<Guid>, IBaseEntity
     // Additional information of this table.
     public static class MetaData
     {
+        public static class Email
+        {
+            public const int MaxLength = 256;
+
+            public const int MinLength = 2;
+        }
+
         public static class UserName
         {
             public const int MaxLength = 256;

@@ -32,7 +32,7 @@ public class LogoutController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/Auth/sign-out
+    ///     DELETE api/auth/logout
     ///
     /// </remarks>
     [HttpDelete]
