@@ -1,3 +1,6 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using BookShop.Application.Shared.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +31,7 @@ internal partial class VerifyDataAccessRepository
             predicate: userDetail =>
                 userDetail.UserId == userId
                 && userDetail.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-                && userDetail.RemovedAt != DateTime.MinValue,
+                && userDetail.RemovedAt != CommonConstant.MIN_DATE_TIME,
             cancellationToken: cancellationToken
         );
     }

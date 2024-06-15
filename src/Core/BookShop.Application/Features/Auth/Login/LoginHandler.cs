@@ -91,15 +91,15 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
             return new() { StatusCode = LoginResponseStatusCode.USER_PASSWORD_IS_NOT_CORRECT, };
         }
 
-        // Is user temporarily removed.
-        var isUserTemporarilyRemoved =
+        // Is user not temporarily removed.
+        var isUserNotTemporarilyRemoved =
             await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
                 cancellationToken: cancellationToken
             );
 
         // Responds if current user is temporarily removed.
-        if (!isUserTemporarilyRemoved)
+        if (!isUserNotTemporarilyRemoved)
         {
             return new() { StatusCode = LoginResponseStatusCode.USER_IS_TEMPORARILY_REMOVED };
         }

@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.ChangingPassword;
 using BookShop.Data.Features.Repositories.ForgotPassword;
 using BookShop.Data.Features.Repositories.Login;
 using BookShop.Data.Features.Repositories.Logout;
@@ -29,4 +30,9 @@ public interface IUnitOfWork
     ///    Forgot password repository.
     /// </summary>
     public IForgotPasswordRepository ForgotPasswordRepository { get; }
+
+    /// <summary>
+    ///    Changing password repository.
+    /// </summary>
+    public IChangingPasswordRepository ChangingPasswordRepository { get; }
 }

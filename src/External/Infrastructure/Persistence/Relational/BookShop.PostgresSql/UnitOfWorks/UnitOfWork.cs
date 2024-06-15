@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.ChangingPassword;
 using BookShop.Data.Features.Repositories.ForgotPassword;
 using BookShop.Data.Features.Repositories.Login;
 using BookShop.Data.Features.Repositories.Logout;
@@ -5,6 +6,7 @@ using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.PostgresSql.Data;
+using BookShop.PostgresSql.Repositories.ChangingPassword;
 using BookShop.PostgresSql.Repositories.ForgotPassword;
 using BookShop.PostgresSql.Repositories.Login;
 using BookShop.PostgresSql.Repositories.Logout;
@@ -26,6 +28,7 @@ public class UnitOfWork : IUnitOfWork
     private ILoginRepository _loginRepository;
     private ILogoutRepository _logoutRepository;
     private IForgotPasswordRepository _forgotPasswordRepository;
+    private IChangingPasswordRepository _changingPasswordRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -63,6 +66,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _forgotPasswordRepository ??= new ForgotPasswordRepository(context: _context);
+        }
+    }
+
+    public IChangingPasswordRepository ChangingPasswordRepository
+    {
+        get
+        {
+            return _changingPasswordRepository ??= new ChangingPasswordRepository(
+                context: _context
+            );
         }
     }
 }
