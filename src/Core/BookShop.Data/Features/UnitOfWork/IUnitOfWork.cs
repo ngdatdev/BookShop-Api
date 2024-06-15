@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.Login;
+using BookShop.Data.Features.Repositories.Logout;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 
 namespace BookShop.Data.Features.UnitOfWork;
@@ -17,4 +18,9 @@ public interface IUnitOfWork
     ///    Login repository.
     /// </summary>
     public ILoginRepository LoginRepository { get; }
+
+    /// <summary>
+    ///    Logout repository.
+    /// </summary>
+    public ILogoutRepository LogoutRepository { get; }
 }

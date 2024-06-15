@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using BookShop.Application.Features.Auth.Login;
+using BookShop.Application.Features.Auth.Logout;
 
-namespace BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Auth.LogoutEndpoint.HttpResponseMapper;
 
 /// <summary>
-///     Login http response
+///     Logout http response
 /// </summary>
-internal sealed class LoginHttpResponse
+internal sealed class LogoutHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
-    public string AppCode { get; init; } = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+    public string AppCode { get; init; } = LogoutResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(

@@ -12,7 +12,7 @@ namespace BookShop.SqlServer.UnitOfWorks;
 /// <summary>
 ///     Implementation of unit of work interface.
 /// </summary>
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork
 {
     private readonly BookShopContext _context;
     private readonly RoleManager<Role> _roleManager;

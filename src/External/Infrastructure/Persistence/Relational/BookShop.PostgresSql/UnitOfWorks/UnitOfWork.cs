@@ -1,9 +1,11 @@
 using BookShop.Data.Features.Repositories.Login;
+using BookShop.Data.Features.Repositories.Logout;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Login;
+using BookShop.PostgresSql.Repositories.Logout;
 using BookShop.PostgresSql.Repositories.VerifyDataAccess;
 using Microsoft.AspNetCore.Identity;
 
@@ -20,6 +22,7 @@ public class UnitOfWork : IUnitOfWork
 
     private IVerifyAccessTokenRepository _verifyAccessTokenRepository;
     private ILoginRepository _loginRepository;
+    private ILogoutRepository _logoutRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -45,5 +48,10 @@ public class UnitOfWork : IUnitOfWork
     public ILoginRepository LoginRepository
     {
         get { return _loginRepository ??= new LoginRepository(context: _context); }
+    }
+
+    public ILogoutRepository LogoutRepository
+    {
+        get { return _logoutRepository ??= new LogoutRepository(context: _context); }
     }
 }

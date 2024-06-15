@@ -17,6 +17,6 @@ internal static class CoreServiceConfig
     /// </param>
     internal static void ConfigureCore(this IServiceCollection services)
     {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        //services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

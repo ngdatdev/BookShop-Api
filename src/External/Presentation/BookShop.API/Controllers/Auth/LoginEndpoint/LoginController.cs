@@ -12,6 +12,7 @@ namespace BookShop.API.Controllers.Auth.LoginEndpoint;
 
 [ApiController]
 [Route(template: "api/auth/login")]
+[Tags(tags: "Auth")]
 public class LoginController : ControllerBase
 {
     private readonly IMediator _mediator;
