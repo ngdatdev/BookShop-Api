@@ -7,6 +7,7 @@ using BookShop.API.CommonResponse;
 using BookShop.API.Shared.AppCodes;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
+using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -56,10 +57,11 @@ public class AuthorizationFilter : IAsyncAuthorizationFilter
 
         await using var scope = _serviceScopeFactory.CreateAsyncScope();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-        var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+        var verifyAccessTokenRepository =
+            scope.ServiceProvider.GetRequiredService<IVerifyAccessTokenRepository>();
 
         var isRefreshTokenFound =
-            await unitOfWork.VerifyAccessTokenRepository.IsRefreshTokenFoundByAccessTokenIdQueryAsync(
+            await verifyAccessTokenRepository.IsRefreshTokenFoundByAccessTokenIdQueryAsync(
                 accessTokenId: Guid.Parse(jtiClaim),
                 ct
             );
@@ -82,7 +84,7 @@ public class AuthorizationFilter : IAsyncAuthorizationFilter
         }
 
         var isUserTemporarilyRemoved =
-            await unitOfWork.VerifyAccessTokenRepository.IsUserTemporarilyRemovedQueryAsync(
+            await verifyAccessTokenRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
                 cancellationToken: ct
             );

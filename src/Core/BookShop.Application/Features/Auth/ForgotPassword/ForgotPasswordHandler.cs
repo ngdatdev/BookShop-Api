@@ -67,7 +67,7 @@ public class ForgotPasswordHandler : IFeatureHandler<ForgotPasswordRequest, Forg
 
         // Is user not temporarily removed.
         var isUserNotTemporarilyRemoved =
-            await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
+            await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
                 cancellationToken: cancellationToken
             );
@@ -87,7 +87,7 @@ public class ForgotPasswordHandler : IFeatureHandler<ForgotPasswordRequest, Forg
         );
 
         // Add password reset token to database.
-        var dbResult = await _unitOfWork.ForgotPasswordRepository.AddResetPasswordTokenCommandAsync(
+        var dbResult = await _unitOfWork.AuthFeature.ForgotPasswordRepository.AddResetPasswordTokenCommandAsync(
             newResetPasswordToken: InitNewResetPasswordToken(
                 userId: foundUser.Id,
                 passwordResetToken: passwordResetToken

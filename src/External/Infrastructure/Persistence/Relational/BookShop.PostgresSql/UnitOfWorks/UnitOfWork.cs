@@ -1,16 +1,11 @@
-using BookShop.Data.Features.Repositories.ChangingPassword;
-using BookShop.Data.Features.Repositories.ForgotPassword;
-using BookShop.Data.Features.Repositories.Login;
-using BookShop.Data.Features.Repositories.Logout;
+using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.PostgresSql.Data;
-using BookShop.PostgresSql.Repositories.ChangingPassword;
-using BookShop.PostgresSql.Repositories.ForgotPassword;
-using BookShop.PostgresSql.Repositories.Login;
-using BookShop.PostgresSql.Repositories.Logout;
-using BookShop.PostgresSql.Repositories.VerifyDataAccess;
+using BookShop.PostgresSql.Repositories.Auth;
+using BookShop.PostgresSql.Repositories.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.PostgresSql.UnitOfWorks;
@@ -25,10 +20,8 @@ public class UnitOfWork : IUnitOfWork
     private readonly UserManager<User> _userManager;
 
     private IVerifyAccessTokenRepository _verifyAccessTokenRepository;
-    private ILoginRepository _loginRepository;
-    private ILogoutRepository _logoutRepository;
-    private IForgotPasswordRepository _forgotPasswordRepository;
-    private IChangingPasswordRepository _changingPasswordRepository;
+    private IAuthFeatureRepository _authFeatureRepository;
+    private IUserFeatureRepository _userFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -41,40 +34,18 @@ public class UnitOfWork : IUnitOfWork
         _userManager = userManager;
     }
 
-    public IVerifyAccessTokenRepository VerifyAccessTokenRepository
+    public IAuthFeatureRepository AuthFeature
+    {
+        get { return _authFeatureRepository ??= new AuthFeatureRepository(context: _context); }
+    }
+
+    public IUserFeatureRepository UserFeature
     {
         get
         {
-            return _verifyAccessTokenRepository ??= new VerifyDataAccessRepository(
-                context: _context
-            );
-        }
-    }
-
-    public ILoginRepository LoginRepository
-    {
-        get { return _loginRepository ??= new LoginRepository(context: _context); }
-    }
-
-    public ILogoutRepository LogoutRepository
-    {
-        get { return _logoutRepository ??= new LogoutRepository(context: _context); }
-    }
-
-    public IForgotPasswordRepository ForgotPasswordRepository
-    {
-        get
-        {
-            return _forgotPasswordRepository ??= new ForgotPasswordRepository(context: _context);
-        }
-    }
-
-    public IChangingPasswordRepository ChangingPasswordRepository
-    {
-        get
-        {
-            return _changingPasswordRepository ??= new ChangingPasswordRepository(
-                context: _context
+            return _userFeatureRepository ??= new UserFeatureRepository(
+                context: _context,
+                userManager: _userManager
             );
         }
     }

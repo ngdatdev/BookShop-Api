@@ -1,7 +1,5 @@
-using BookShop.Data.Features.Repositories.ChangingPassword;
-using BookShop.Data.Features.Repositories.ForgotPassword;
-using BookShop.Data.Features.Repositories.Login;
-using BookShop.Data.Features.Repositories.Logout;
+using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 
 namespace BookShop.Data.Features.UnitOfWork;
@@ -12,27 +10,12 @@ namespace BookShop.Data.Features.UnitOfWork;
 public interface IUnitOfWork
 {
     /// <summary>
-    ///     Verify access token repository.
+    ///    Auth repository manager.
     /// </summary>
-    public IVerifyAccessTokenRepository VerifyAccessTokenRepository { get; }
+    public IAuthFeatureRepository AuthFeature { get; }
 
     /// <summary>
-    ///    Login repository.
+    ///    User repository manager.
     /// </summary>
-    public ILoginRepository LoginRepository { get; }
-
-    /// <summary>
-    ///    Logout repository.
-    /// </summary>
-    public ILogoutRepository LogoutRepository { get; }
-
-    /// <summary>
-    ///    Forgot password repository.
-    /// </summary>
-    public IForgotPasswordRepository ForgotPasswordRepository { get; }
-
-    /// <summary>
-    ///    Changing password repository.
-    /// </summary>
-    public IChangingPasswordRepository ChangingPasswordRepository { get; }
+    public IUserFeatureRepository UserFeature { get; }
 }

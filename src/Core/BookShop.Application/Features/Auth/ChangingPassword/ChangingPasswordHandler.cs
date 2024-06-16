@@ -50,7 +50,7 @@ public class ChangingPasswordHandler
     {
         // Is reset password token found by its value.
         var isResetPasswordTokenFound =
-            await _unitOfWork.ChangingPasswordRepository.IsResetPasswordTokenFoundByItsValueQueryAsync(
+            await _unitOfWork.AuthFeature.ChangingPasswordRepository.IsResetPasswordTokenFoundByItsValueQueryAsync(
                 passwordResetToken: request.ResetPasswordToken,
                 cancellationToken: cancellationToken
             );
@@ -66,7 +66,7 @@ public class ChangingPasswordHandler
 
         // Get the user token by reset password token.
         var foundUserToken =
-            await _unitOfWork.ChangingPasswordRepository.FindUserTokenByResetPasswordTokenQueryAsync(
+            await _unitOfWork.AuthFeature.ChangingPasswordRepository.FindUserTokenByResetPasswordTokenQueryAsync(
                 passwordResetToken: request.ResetPasswordToken,
                 cancellationToken: cancellationToken
             );
@@ -76,7 +76,7 @@ public class ChangingPasswordHandler
 
         // Is user not temporarily removed.
         var isUserNotTemporarilyRemoved =
-            await _unitOfWork.ChangingPasswordRepository.IsUserNotTemporarilyRemovedQueryAsync(
+            await _unitOfWork.AuthFeature.ChangingPasswordRepository.IsUserNotTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
                 cancellationToken: cancellationToken
             );
@@ -123,7 +123,7 @@ public class ChangingPasswordHandler
 
         // Remove the rset password token.
         var dbResult =
-            await _unitOfWork.ChangingPasswordRepository.RemoveUserResetPasswordTokenCommandAsync(
+            await _unitOfWork.AuthFeature.ChangingPasswordRepository.RemoveUserResetPasswordTokenCommandAsync(
                 resetPasswordToken: request.ResetPasswordToken,
                 cancellationToken: cancellationToken
             );

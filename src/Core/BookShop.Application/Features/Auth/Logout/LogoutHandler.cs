@@ -49,7 +49,7 @@ public class LogoutHandler : IFeatureHandler<LogoutRequest, LogoutResponse>
         );
 
         // Remove refresh token by access token id.
-        var dbResult = await _unitOfWork.LogoutRepository.RemoveRefreshTokenCommandAsync(
+        var dbResult = await _unitOfWork.AuthFeature.LogoutRepository.RemoveRefreshTokenCommandAsync(
             accessTokenId: accessTokenId,
             cancellationToken: cancellationToken
         );

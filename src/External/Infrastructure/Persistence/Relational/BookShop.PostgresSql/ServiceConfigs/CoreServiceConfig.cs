@@ -1,4 +1,6 @@
 using BookShop.Data.Features.UnitOfWork;
+using BookShop.Data.Shared.Repositories.VerifyAccessToken;
+using BookShop.PostgresSql.Repositories.wwwOther.VerifyDataAccess;
 using BookShop.PostgresSql.UnitOfWorks;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,5 +20,8 @@ internal static class CoreServiceConfig
     internal static void ConfigureCore(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        // shared service for auth middleware.
+        services.AddScoped<IVerifyAccessTokenRepository, VerifyAccessTokenRepository>();
     }
 }

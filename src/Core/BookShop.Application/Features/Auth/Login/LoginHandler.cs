@@ -93,7 +93,7 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
 
         // Is user not temporarily removed.
         var isUserNotTemporarilyRemoved =
-            await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
+            await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
                 cancellationToken: cancellationToken
             );
@@ -133,7 +133,7 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
             };
 
         // Add new refresh token to database.
-        var dbResult = await _unitOfWork.LoginRepository.CreateRefreshTokenCommandAsync(
+        var dbResult = await _unitOfWork.AuthFeature.LoginRepository.CreateRefreshTokenCommandAsync(
             refreshToken: newRefreshToken,
             cancellationToken: cancellationToken
         );
@@ -147,7 +147,7 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
         // Generate new access token.
         var newAccessToken = _accessTokenHandler.GenerateSigningToken(claims: userClaims);
 
-        var userDetail = await _unitOfWork.LoginRepository.GetUserDetailByUserIdQueryAsync(
+        var userDetail = await _unitOfWork.AuthFeature.LoginRepository.GetUserDetailByUserIdQueryAsync(
             userId: foundUser.Id,
             cancellationToken: cancellationToken
         );
