@@ -1,3 +1,5 @@
+using BookShop.Application.Features.Users.GetProfileUser;
+
 namespace BookShop.API.Controllers.User.GetProfileUserEndpoint.Common;
 
 /// <summary>

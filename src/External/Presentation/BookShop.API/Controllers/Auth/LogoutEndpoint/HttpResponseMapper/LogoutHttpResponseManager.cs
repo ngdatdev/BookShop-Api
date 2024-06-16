@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 namespace BookShop.API.Controllers.Auth.LogoutEndpoint.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for hello world feature
+///     Mapper for Logout feature
 /// </summary>
 public class LogoutHttpResponseManager
 {

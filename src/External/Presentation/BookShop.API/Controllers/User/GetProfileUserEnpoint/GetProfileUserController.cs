@@ -41,11 +41,10 @@ public class GetProfileUserController : ControllerBase
     /// </remarks>
     [HttpGet]
     [ServiceFilter(typeof(GetProfileUserCachingFilter), Order = 2)]
-    public async Task<IActionResult> GetProfileUserAsync(
-        [FromBody] GetProfileUserRequest getProfileUserRequest,
-        CancellationToken cancellationToken
-    )
+    public async Task<IActionResult> GetProfileUserAsync(CancellationToken cancellationToken)
     {
+        var getProfileUserRequest = new GetProfileUserRequest();
+
         var featureResponse = await _mediator.SendAsync(
             request: getProfileUserRequest,
             cancellationToken: cancellationToken

@@ -36,6 +36,7 @@ public class ValidationRequestFilter<TRequest> : IAsyncActionFilter
         }
 
         var validationResult = await _validator.ValidateAsync(model);
+
         if (!validationResult.IsValid)
         {
             var errors = validationResult.Errors.Select(error => error.ErrorMessage).ToArray();
