@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\..\..\Common\BookShop.Configuration\BookShop.Configuration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\Address\GetAllAddresses\" />
+  </ItemGroup>
+
 </Project>
