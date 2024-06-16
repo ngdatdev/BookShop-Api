@@ -20,6 +20,10 @@ public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporar
 
     public string AvatarUrl { get; set; }
 
+    public string Gender { get; set; }
+
+    public DateTime DateOfBirth { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 
     public Guid UpdatedBy { get; set; }
@@ -75,6 +79,13 @@ public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporar
         public static class BackgroundUrl
         {
             public const int MinLength = 2;
+        }
+
+        public static class Gender
+        {
+            public const int MinLength = 2;
+
+            public const int MaxLength = 10;
         }
     }
 }

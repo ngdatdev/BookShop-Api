@@ -26,6 +26,20 @@ internal partial class GetProfileUserRepository
                 FirstName = userDetail.FirstName,
                 LastName = userDetail.LastName,
                 AvatarUrl = userDetail.AvatarUrl,
+                Gender = userDetail.Gender,
+                DateOfBirth = userDetail.DateOfBirth,
+                User = new()
+                {
+                    UserName = userDetail.User.UserName,
+                    Email = userDetail.User.Email,
+                    PhoneNumber = userDetail.User.PhoneNumber
+                },
+                Address = new()
+                {
+                    Ward = userDetail.Address.Ward,
+                    District = userDetail.Address.District,
+                    Province = userDetail.Address.Province,
+                }
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }

@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Application.Shared.Authentication.Jwt;
+using BookShop.Application.Features.Auth.Login;
 using BookShop.Application.Shared.Features;
 using BookShop.Data.Features.UnitOfWork;
-using BookShop.Data.Shared.Entities;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.Features.Users.GetProfileUser;
@@ -19,24 +16,12 @@ namespace BookShop.Application.Features.Users.GetProfileUser;
 public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetProfileUserResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
-    private readonly IRefreshTokenHandler _refreshTokenHandler;
-    private readonly IAccessTokenHandler _accessTokenHandler;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public GetProfileUserHandler(
-        IUnitOfWork unitOfWork,
-        UserManager<User> userManager,
-        SignInManager<User> signInManager,
-        IRefreshTokenHandler refreshTokenHandler,
-        IAccessTokenHandler accessTokenHandler
-    )
+    public GetProfileUserHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
     {
         _unitOfWork = unitOfWork;
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _refreshTokenHandler = refreshTokenHandler;
-        _accessTokenHandler = accessTokenHandler;
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -57,10 +42,66 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         CancellationToken cancellationToken
     )
     {
+        // Get userId from sub type jwt
+        var userId = Guid.Parse(
+            _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
+        );
+
+        // Found user by userId
+        var foundUser =
+            await _unitOfWork.UserFeature.GetProfileUserRepository.GetUserDetailByUserIdQueryAsync(
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
+
+        // Responds if userId is not found
+        if (Equals(objA: foundUser, objB: default))
+        {
+            return new GetProfileUserResponse()
+            {
+                StatusCode = GetProfileUserResponseStatusCode.USER_IS_NOT_FOUND
+            };
+        }
+
+        // Is user not temporarily removed.
+        var isUserNotTemporarilyRemoved =
+            await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
+
+        // Responds if current user is temporarily removed.
+        if (!isUserNotTemporarilyRemoved)
+        {
+            return new()
+            {
+                StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+            };
+        }
+
         // Response successfully.
         return new GetProfileUserResponse()
         {
             StatusCode = GetProfileUserResponseStatusCode.OPERATION_SUCCESS,
+            ResponseBody = new()
+            {
+                User = new()
+                {
+                    Email = foundUser.User.Email,
+                    Username = foundUser.User.UserName,
+                    NumberPhone = foundUser.User.PhoneNumber,
+                    AvatarUrl = foundUser.AvatarUrl,
+                    FirstName = foundUser.FirstName,
+                    LastName = foundUser.LastName,
+                    Gender = foundUser.Gender,
+                    Address = new()
+                    {
+                        Ward = foundUser.Address.Ward,
+                        District = foundUser.Address.District,
+                        Province = foundUser.Address.Province,
+                    }
+                }
+            }
         };
     }
 }

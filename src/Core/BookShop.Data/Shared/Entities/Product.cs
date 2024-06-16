@@ -23,6 +23,10 @@ public class Product : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
 
     public string ImageUrl { get; set; }
 
+    public string Author { get; set; }
+
+    public string Publisher { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 
     public Guid UpdatedBy { get; set; }

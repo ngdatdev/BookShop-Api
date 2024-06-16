@@ -53,6 +53,22 @@ internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<U
             )
             .IsRequired();
 
+        // Gender property configuration.
+        builder
+            .Property(propertyExpression: userDetail => userDetail.Gender)
+            .HasColumnType(
+                typeName: CommonConstant.DataType.VarcharGenerator.Get(
+                    length: UserDetail.MetaData.Gender.MaxLength
+                )
+            )
+            .IsRequired();
+
+        // DateOfBirth property configuration.
+        builder
+            .Property(propertyExpression: userDetail => userDetail.DateOfBirth)
+            .HasColumnType(typeName: CommonConstant.DataType.TIMESTAMPTZ)
+            .IsRequired();
+
         // CreatedAt property configuration.
         builder
             .Property(propertyExpression: userDetail => userDetail.CreatedAt)
