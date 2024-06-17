@@ -1,10 +1,12 @@
 using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Auth;
+using BookShop.PostgresSql.Repositories.Product;
 using BookShop.PostgresSql.Repositories.User;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,6 +24,7 @@ public class UnitOfWork : IUnitOfWork
     private IVerifyAccessTokenRepository _verifyAccessTokenRepository;
     private IAuthFeatureRepository _authFeatureRepository;
     private IUserFeatureRepository _userFeatureRepository;
+    private IProductFeatureRepository _productFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -47,6 +50,14 @@ public class UnitOfWork : IUnitOfWork
                 context: _context,
                 userManager: _userManager
             );
+        }
+    }
+
+    public IProductFeatureRepository ProductFeature
+    {
+        get
+        {
+            return _productFeatureRepository ??= new ProductFeatureRepository(context: _context);
         }
     }
 }

@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 
@@ -18,4 +19,9 @@ public interface IUnitOfWork
     ///    User repository manager.
     /// </summary>
     public IUserFeatureRepository UserFeature { get; }
+
+    /// <summary>
+    ///    Product repository manager.
+    /// </summary>
+    public IProductFeatureRepository ProductFeature { get; }
 }
