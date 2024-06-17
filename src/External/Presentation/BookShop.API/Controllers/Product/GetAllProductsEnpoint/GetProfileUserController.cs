@@ -41,10 +41,11 @@ public class GetAllProductsController : ControllerBase
     /// </remarks>
     [HttpGet]
     [ServiceFilter(typeof(GetAllProductsCachingFilter))]
-    public async Task<IActionResult> GetAllProductsAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllProductsAsync(
+        [FromQuery] GetAllProductsRequest getAllProductsRequest,
+        CancellationToken cancellationToken
+    )
     {
-        var getAllProductsRequest = new GetAllProductsRequest();
-
         var featureResponse = await _mediator.SendAsync(
             request: getAllProductsRequest,
             cancellationToken: cancellationToken

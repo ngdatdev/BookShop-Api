@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using BookShop.Application.Shared.Features;
+using BookShop.Application.Shared.Pagination;
 
 namespace BookShop.Application.Features.Product.GetAllProducts;
 
@@ -15,7 +14,7 @@ public class GetAllProductsResponse : IFeatureResponse
 
     public sealed class Body
     {
-        public IEnumerable<Product> Products { get; init; }
+        public PaginationResponse<Product> Products { get; init; }
 
         public sealed class Product
         {

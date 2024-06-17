@@ -12,6 +12,8 @@ namespace BookShop.Data.Features.Repositories.Product.GetAllProducts;
 public partial interface IGetAllProductsRepository
 {
     Task<IEnumerable<Shared.Entities.Product>> GetAllProductsQueryAsync(
+        int pageIndex,
+        int PageSize,
         CancellationToken cancellationToken
     );
 }

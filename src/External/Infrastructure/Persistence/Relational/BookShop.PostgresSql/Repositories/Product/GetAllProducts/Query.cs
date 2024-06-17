@@ -16,6 +16,8 @@ namespace BookShop.PostgresSql.Repositories.Product.GetAllProducts;
 internal partial class GetAllProductsRepository
 {
     public async Task<IEnumerable<BookShop.Data.Shared.Entities.Product>> GetAllProductsQueryAsync(
+        int pageIndex,
+        int pageSize,
         CancellationToken cancellationToken
     )
     {
@@ -25,6 +27,9 @@ internal partial class GetAllProductsRepository
                 product.RemovedAt == CommonConstant.MIN_DATE_TIME
                 && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             )
+            .OrderBy(keySelector: product => product.CreatedAt)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
             .Select(selector: product => new BookShop.Data.Shared.Entities.Product()
             {
                 FullName = product.FullName,

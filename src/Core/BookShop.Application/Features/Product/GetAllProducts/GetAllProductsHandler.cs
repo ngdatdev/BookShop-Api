@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Authentication.Jwt;
 using BookShop.Application.Shared.Features;
+using BookShop.Application.Shared.Pagination;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,8 @@ public class GetAllProductsHandler : IFeatureHandler<GetAllProductsRequest, GetA
         // Find products is not removed temporaliry.
         var products =
             await _unitOfWork.ProductFeature.GetAllProductsRepository.GetAllProductsQueryAsync(
+                pageIndex: request.PageIndex,
+                PageSize: request.PageSize,
                 cancellationToken: cancellationToken
             );
 
@@ -56,15 +59,18 @@ public class GetAllProductsHandler : IFeatureHandler<GetAllProductsRequest, GetA
             StatusCode = GetAllProductsResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-                Products = products.Select(product => new GetAllProductsResponse.Body.Product()
+                Products = new PaginationResponse<GetAllProductsResponse.Body.Product>()
                 {
-                    FullName = product.FullName,
-                    Description = product.Description,
-                    Author = product.Author,
-                    ImageUrl = product.ImageUrl,
-                    Publisher = product.Publisher,
-                    QuantitySold = product.QuantitySold
-                })
+                    Contents = products.Select(product => new GetAllProductsResponse.Body.Product()
+                    {
+                        FullName = product.FullName,
+                        Description = product.Description,
+                        Author = product.Author,
+                        ImageUrl = product.ImageUrl,
+                        Publisher = product.Publisher,
+                        QuantitySold = product.QuantitySold
+                    })
+                }
             }
         };
     }
