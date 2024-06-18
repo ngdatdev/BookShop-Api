@@ -36,6 +36,54 @@ internal sealed class ProductEntityConfiguration : IEntityTypeConfiguration<Prod
             .HasColumnType(typeName: CommonConstant.DataType.TEXT)
             .IsRequired();
 
+        // Price property configuration
+        builder
+            .Property(propertyExpression: product => product.Price)
+            .HasColumnType(typeName: CommonConstant.DataType.MONEY)
+            .IsRequired();
+
+        // Discount property configuration
+        builder
+            .Property(propertyExpression: product => product.Discount)
+            .HasDefaultValue(value: default)
+            .IsRequired();
+
+        // Size property configuration
+        builder.Property(propertyExpression: product => product.Size).IsRequired();
+
+        // NumberOfPage property configuration
+        builder.Property(propertyExpression: product => product.NumberOfPage).IsRequired();
+
+        // Author property configuration
+        builder
+            .Property(propertyExpression: product => product.Author)
+            .HasColumnType(
+                typeName: CommonConstant.DataType.VarcharGenerator.Get(
+                    length: Product.MetaData.Author.MaxLength
+                )
+            )
+            .IsRequired();
+
+        // Author property configuration
+        builder
+            .Property(propertyExpression: product => product.Languages)
+            .HasColumnType(
+                typeName: CommonConstant.DataType.VarcharGenerator.Get(
+                    length: Product.MetaData.Languages.MaxLength
+                )
+            )
+            .IsRequired();
+
+        // Publisher property configuration
+        builder
+            .Property(propertyExpression: product => product.Publisher)
+            .HasColumnType(
+                typeName: CommonConstant.DataType.VarcharGenerator.Get(
+                    length: Product.MetaData.Publisher.MaxLength
+                )
+            )
+            .IsRequired();
+
         // QuantityCurrent property configuration
         builder.Property(propertyExpression: product => product.QuantityCurrent).IsRequired();
 
@@ -76,22 +124,39 @@ internal sealed class ProductEntityConfiguration : IEntityTypeConfiguration<Prod
         builder.Property(propertyExpression: product => product.RemovedBy).IsRequired();
 
         // Relationship configurations.
+        // [Product] - [Reviews] (1 - N).
         builder
             .HasMany(product => product.Reviews)
             .WithOne(review => review.Product)
             .HasForeignKey(review => review.ProductId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        // [Product] - [OrderDetails] (1 - N).
         builder
             .HasMany(product => product.OrderDetails)
             .WithOne(orderDetail => orderDetail.Product)
             .HasForeignKey(orderDetail => orderDetail.ProductId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        // [Product] - [CartItems] (1 - N).
         builder
             .HasMany(product => product.CartItems)
             .WithOne(cartItem => cartItem.Product)
             .HasForeignKey(cartItem => cartItem.ProductId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // [Product] - [ProductCategory] (1 - N).
+        builder
+            .HasMany(product => product.ProductCategories)
+            .WithOne(productCategory => productCategory.Product)
+            .HasForeignKey(productCategory => productCategory.ProductId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // [Product] - [Assets] (1 - N).
+        builder
+            .HasMany(product => product.Assets)
+            .WithOne(asset => asset.Product)
+            .HasForeignKey(asset => asset.ProductId)
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Auth.LogoutEndpoint.HttpResponseMapper;
+using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Auth.Logout;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,7 @@ public class LogoutController : ControllerBase
     ///
     /// </remarks>
     [HttpDelete]
+    [ServiceFilter(typeof(AuthorizationFilter))]
     public async Task<IActionResult> LogoutAsync(CancellationToken cancellationToken)
     {
         LogoutRequest logoutRequest = new() { };

@@ -36,10 +36,6 @@ internal sealed class CategoryEntityConfiguration : IEntityTypeConfiguration<Cat
             )
             .IsRequired();
 
-        // Relationship configurations.
-        builder
-            .HasMany(category => category.Products)
-            .WithOne(product => product.Category)
-            .HasForeignKey(product => product.CategoryId);
+        
     }
 }

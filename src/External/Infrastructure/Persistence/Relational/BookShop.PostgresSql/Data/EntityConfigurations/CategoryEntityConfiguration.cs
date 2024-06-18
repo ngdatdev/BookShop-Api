@@ -36,10 +36,30 @@ internal sealed class CategoryEntityConfiguration : IEntityTypeConfiguration<Cat
             )
             .IsRequired();
 
-        // Relationship configurations.
+        // ImageUrl property configuration
         builder
-            .HasMany(category => category.Products)
-            .WithOne(product => product.Category)
-            .HasForeignKey(product => product.CategoryId);
+            .Property(propertyExpression: category => category.ImageUrl)
+            .HasColumnType(
+                typeName: CommonConstant.DataType.VarcharGenerator.Get(
+                    length: Category.MetaData.ImageUrl.MaxLength
+                )
+            )
+            .IsRequired();
+
+        // Relationship configurations.
+
+        // [Category] - [ProductCategory] (1 - N).
+        builder
+            .HasMany(category => category.ProductCategories)
+            .WithOne(productCategory => productCategory.Category)
+            .HasForeignKey(productCategory => productCategory.CategoryId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // [Category] - [Category] (1 - N).
+        builder
+            .HasMany(category => category.SubCategories)
+            .WithOne(subCategory => subCategory.ParentCategory)
+            .HasForeignKey(productCategory => productCategory.ParentCategoryId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

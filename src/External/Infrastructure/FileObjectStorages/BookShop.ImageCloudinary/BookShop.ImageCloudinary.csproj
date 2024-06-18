@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\BookShop.Application\BookShop.Application.csproj" />
+    <ProjectReference Include="..\..\..\Common\BookShop.Configuration\BookShop.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

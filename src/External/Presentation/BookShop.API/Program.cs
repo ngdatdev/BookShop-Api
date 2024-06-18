@@ -5,6 +5,7 @@ using BookShop.API;
 using BookShop.API.Shared.Middlewares;
 using BookShop.Application;
 using BookShop.Data.Shared.Entities;
+using BookShop.ImageCloudinary;
 using BookShop.JsonWebToken;
 using BookShop.MediatrCustom;
 using BookShop.PostgresSql;
@@ -38,6 +39,7 @@ services.ConfigMediatorService();
 services.ConfigureJwtIdentityService();
 services.AddRedisCachingDatabase(configuration: configuration);
 services.ConfigGoogleSmtpMailNotification(configuration: configuration);
+services.ConfigCloudinaryImageStorage(configuration: configuration);
 var app = builder.Build();
 
 // Data Seeding
