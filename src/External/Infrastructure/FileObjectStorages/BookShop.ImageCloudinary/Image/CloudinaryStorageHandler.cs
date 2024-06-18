@@ -17,7 +17,7 @@ public sealed class CloudinaryStorageHandler : ICloudinaryStorageHandler
         _cloudinary = cloudinary;
     }
 
-    public async Task<string> UploadPhotoAsync(IFormFile image)
+    public async Task<string> UploadPhotoAsync(IFormFile image, CancellationToken cancellationToken)
     {
         using var stream = image.OpenReadStream();
 
@@ -33,7 +33,10 @@ public sealed class CloudinaryStorageHandler : ICloudinaryStorageHandler
         };
 
         ImageUploadResult uploadResult;
-        uploadResult = await _cloudinary.UploadAsync(uploadParams);
+        uploadResult = await _cloudinary.UploadAsync(
+            parameters: uploadParams,
+            cancellationToken: cancellationToken
+        );
         if (uploadResult.Error != null)
         {
             return String.Empty;

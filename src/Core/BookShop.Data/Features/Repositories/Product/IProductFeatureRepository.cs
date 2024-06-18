@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
 
 namespace BookShop.Data.Features.Repositories.Product;
@@ -11,4 +12,9 @@ public interface IProductFeatureRepository
     ///     Gets get all products feature repository.
     /// </summary>
     public IGetAllProductsRepository GetAllProductsRepository { get; }
+
+    /// <summary>
+    ///     Gets create products feature repository.
+    /// </summary>
+    public ICreateProductRepository CreateProductRepository { get; }
 }

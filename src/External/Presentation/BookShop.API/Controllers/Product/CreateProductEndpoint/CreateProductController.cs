@@ -1,31 +1,30 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.GetAllProductsEndpoint.HttpResponseMapper;
-using BookShop.API.Controllers.Product.GetAllProductsEndpoint.Middleware.Caching;
-using BookShop.Application.Features.Product.GetAllProducts;
+using BookShop.API.Controllers.Product.CreateProductEndpoint.HttpResponseMapper;
+using BookShop.Application.Features.Product.CreateProduct;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Product.GetAllProducts;
+namespace BookShop.API.Controllers.Product.CreateProduct;
 
 [ApiController]
-[Route(template: "api/product/get-all")]
+[Route(template: "api/product/create")]
 [Tags(tags: "Product")]
-public class GetAllProductsController : ControllerBase
+public class CreateProductController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetAllProductsController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+    public CreateProductController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for all product information.
+    ///     Endpoint for create product information.
     /// </summary>
     /// <param name="getAllProductsRequest">
-    ///     Class contains all products information.
+    ///     Class contains adding product information.
     /// </param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
@@ -36,13 +35,12 @@ public class GetAllProductsController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/product/get-all
+    ///     POST api/product/create
     ///
     /// </remarks>
-    [HttpGet]
-    [ServiceFilter(typeof(GetAllProductsCachingFilter))]
-    public async Task<IActionResult> GetAllProductsAsync(
-        [FromQuery] GetAllProductsRequest getAllProductsRequest,
+    [HttpPost]
+    public async Task<IActionResult> CreateProductAsync(
+        [FromQuery] CreateProductRequest getAllProductsRequest,
         CancellationToken cancellationToken
     )
     {
@@ -51,7 +49,7 @@ public class GetAllProductsController : ControllerBase
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = GetAllProductsHttpResponseMapper
+        var apiResponse = CreateProductHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
             .Invoke(arg1: getAllProductsRequest, featureResponse);

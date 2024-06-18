@@ -7,7 +7,7 @@ using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BookShop.API.Controllers.User.GetAllProductsEndpoint.Middleware.Caching;
+namespace BookShop.API.Controllers.Product.GetAllProductsEndpoint.Middleware.Caching;
 
 /// <summary>
 ///     Filter pipeline for get all products caching.

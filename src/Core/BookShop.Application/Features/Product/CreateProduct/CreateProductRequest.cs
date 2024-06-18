@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using BookShop.Application.Shared.Features;
+using Microsoft.AspNetCore.Http;
 
 namespace BookShop.Application.Features.Product.CreateProduct;
 
@@ -7,7 +9,27 @@ namespace BookShop.Application.Features.Product.CreateProduct;
 /// </summary>
 public class CreateProductRequest : IFeatureRequest<CreateProductResponse>
 {
-    public int PageIndex { get; init; } = 1;
+    public string FullName { get; init; }
 
-    public int PageSize { get; init; } = 10;
+    public string Description { get; init; }
+
+    public decimal Price { get; init; }
+
+    public int Discount { get; init; }
+
+    public string Size { get; init; }
+
+    public int NumberOfPage { get; init; }
+
+    public int QuantityCurrent { get; init; }
+
+    public FormFile ImageUrl { get; init; }
+
+    public string Author { get; init; }
+
+    public string Publisher { get; init; }
+
+    public string Languages { get; init; }
+
+    public IEnumerable<IFormFile> SubImages { get; init; }
 }

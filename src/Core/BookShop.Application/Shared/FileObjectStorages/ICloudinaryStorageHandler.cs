@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace BookShop.Application.Shared.FileObjectStorages;
@@ -22,5 +23,5 @@ public interface ICloudinaryStorageHandler
     /// <returns>
     ///     The response boolean.
     ///</returns>
-    Task<string> UploadPhotoAsync(IFormFile formFile);
+    Task<string> UploadPhotoAsync(IFormFile formFile, CancellationToken cancellationToken);
 }
