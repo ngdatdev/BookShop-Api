@@ -6,6 +6,7 @@ using BookShop.API.Controllers.Product.GetAllProductsEndpoint.HttpResponseMapper
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 
 namespace BookShop.API.Controllers.Product.GetAllProductsEndpoint.Middleware.Caching;
 
@@ -28,9 +29,9 @@ public class GetAllProductsCachingFilter : IAsyncActionFilter
     {
         if (!context.HttpContext.Response.HasStarted)
         {
-            GetAllProductsStateBag.CacheKey = $"{nameof(GetAllProductsHttpResponse)}";
+            var cacheKey = $"{nameof(GetAllProductsHttpResponse)}";
             var cacheModel = await _cacheHandler.GetAsync<GetAllProductsHttpResponse>(
-                key: GetAllProductsStateBag.CacheKey,
+                key: cacheKey,
                 cancellationToken: CancellationToken.None
             );
 
@@ -45,9 +46,11 @@ public class GetAllProductsCachingFilter : IAsyncActionFilter
 
             if (executedContext.Result is ObjectResult result)
             {
+                var httpResponse = (GetAllProductsHttpResponse)result.Value;
+
                 await _cacheHandler.SetAsync(
-                    key: GetAllProductsStateBag.CacheKey,
-                    value: result,
+                    key: cacheKey,
+                    value: httpResponse,
                     distributedCacheEntryOptions: new()
                     {
                         AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(

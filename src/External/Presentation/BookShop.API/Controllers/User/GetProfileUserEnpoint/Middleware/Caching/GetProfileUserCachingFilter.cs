@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using BookShop.API.Controllers.User.GetProfileUserEndpoint.Common;
 using BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
 using BookShop.Application.Shared.Caching;
-using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -42,17 +41,8 @@ public class GetProfileUserCachingFilter : IAsyncActionFilter
 
             if (!Equals(objA: cacheModel, objB: AppCacheModel<GetProfileUserHttpResponse>.NotFound))
             {
-                Console.WriteLine("CacheModel Data: ");
-                Console.WriteLine(
-                    Newtonsoft.Json.JsonConvert.SerializeObject(
-                        cacheModel,
-                        Newtonsoft.Json.Formatting.Indented
-                    )
-                );
-                context.Result = new JsonResult(cacheModel.Value)
-                {
-                    StatusCode = cacheModel.Value.HttpCode,
-                };
+                context.HttpContext.Response.StatusCode = cacheModel.Value.HttpCode;
+                context.Result = new JsonResult(cacheModel.Value);
                 return;
             }
 

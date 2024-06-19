@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
 using BookShop.API.Controllers.User.GetProfileUserEndpoint.Middleware.Caching;
+using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Users.GetProfileUser;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,7 @@ public class GetProfileUserController : ControllerBase
     /// </remarks>
     [HttpGet]
     [ServiceFilter(typeof(GetProfileUserCachingFilter), Order = 2)]
+    [ServiceFilter(typeof(AuthorizationFilter))]
     public async Task<IActionResult> GetProfileUserAsync(CancellationToken cancellationToken)
     {
         var getProfileUserRequest = new GetProfileUserRequest();

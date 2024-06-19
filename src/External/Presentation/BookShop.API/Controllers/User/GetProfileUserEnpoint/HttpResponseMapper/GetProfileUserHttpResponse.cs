@@ -22,7 +22,7 @@ internal sealed class GetProfileUserHttpResponse
             destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(id: "SE Asia Standard Time")
         );
 
-    public object Body { get; init; } = new();
+    public GetProfileUserResponse.Body Body { get; init; } = new();
 
     public IEnumerable<string> ErrorMessages { get; init; } = [];
 }

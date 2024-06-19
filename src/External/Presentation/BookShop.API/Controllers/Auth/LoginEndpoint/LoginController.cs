@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
-using BookShop.API.Controllers.Auth.LoginEndpoint.Middleware.Caching;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Auth.Login;
 using BookShop.Application.Shared.Features;
@@ -46,8 +45,7 @@ public class LoginController : ControllerBase
     ///
     /// </remarks>
     [HttpPost]
-    [ServiceFilter(typeof(ValidationRequestFilter<LoginRequest>), Order = 1)]
-    [ServiceFilter(typeof(LoginCachingFilter), Order = 2)]
+    [ServiceFilter(typeof(ValidationRequestFilter<LoginRequest>))]
     public async Task<IActionResult> LoginAsync(
         [FromBody] LoginRequest loginRequest,
         CancellationToken cancellationToken

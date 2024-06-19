@@ -22,7 +22,7 @@ internal sealed class GetAllProductsHttpResponse
             destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(id: "SE Asia Standard Time")
         );
 
-    public object Body { get; init; } = new();
+    public GetAllProductsResponse.Body Body { get; init; } = new();
 
     public IEnumerable<string> ErrorMessages { get; init; } = [];
 }
