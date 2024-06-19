@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Common;
@@ -24,11 +25,13 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
 
     public CreateProductHandler(
         IUnitOfWork unitOfWork,
-        ICloudinaryStorageHandler cloudinaryStorageHandler
+        ICloudinaryStorageHandler cloudinaryStorageHandler,
+        IHttpContextAccessor httpContextAccessor
     )
     {
         _unitOfWork = unitOfWork;
         _cloudinaryStorageHandler = cloudinaryStorageHandler;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -54,7 +57,7 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
             cancellationToken: cancellationToken
         );
 
-        if (Equals(objA: mainUrl, objB: default))
+        if (Equals(objA: mainUrl, objB: String.Empty))
         {
             return new() { StatusCode = CreateProductResponseStatusCode.MAIN_IMAGE_FILE_FAIL };
         }
@@ -68,14 +71,14 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
 
         var subUrls = await Task.WhenAll(uploads);
 
-        if (Equals(objA: subUrls.Length, objB: request.SubImages.Count()))
+        if (!Equals(objA: subUrls.Length, objB: request.SubImages.Count()))
         {
             return new() { StatusCode = CreateProductResponseStatusCode.SUB_IMAGE_FILE_FAIL };
         }
 
-        var userId = _httpContextAccessor
-            .HttpContext.User.FindFirst(type: JwtRegisteredClaimNames.Sub)
-            .ToString();
+        var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(
+            claimType: JwtRegisteredClaimNames.Sub
+        );
 
         var product = InitProduct(
             createProductRequest: request,
@@ -119,25 +122,28 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
             ImageUrl = mainImage,
             NumberOfPage = createProductRequest.NumberOfPage,
             QuantityCurrent = createProductRequest.QuantityCurrent,
+            Size = createProductRequest.Size,
             Author = createProductRequest.Author,
             Publisher = createProductRequest.Publisher,
             Languages = createProductRequest.Languages,
-            Assets = subImages.Select(subImage => new Data.Shared.Entities.Asset()
-            {
-                Id = Guid.NewGuid(),
-                ImageUrl = subImage,
-                UpdatedAt = CommonConstant.MIN_DATE_TIME,
-                UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-                RemovedAt = CommonConstant.MIN_DATE_TIME,
-                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-                CreatedAt = DateTime.Now,
-                CreatedBy = userId,
-            }),
+            Assets = subImages
+                .Select(subImage => new Data.Shared.Entities.Asset()
+                {
+                    Id = Guid.NewGuid(),
+                    ImageUrl = subImage,
+                    UpdatedAt = CommonConstant.MIN_DATE_TIME,
+                    UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                    RemovedAt = CommonConstant.MIN_DATE_TIME,
+                    RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = userId,
+                })
+                .ToList(),
             UpdatedAt = CommonConstant.MIN_DATE_TIME,
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             RemovedAt = CommonConstant.MIN_DATE_TIME,
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
             CreatedBy = userId,
         };
     }

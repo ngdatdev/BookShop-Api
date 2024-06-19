@@ -33,13 +33,12 @@ public static class DependencyInjection
 
         services.AddSingleton(provider =>
         {
-            var cloudinarySettings = new CloudinaryOption();
-            configuration.GetSection("Cloudinary").Get<CloudinaryOption>();
+            var cloudinaryOption = configuration.GetSection("Cloudinary").Get<CloudinaryOption>();
 
             var account = new Account(
-                cloudinarySettings.CloudName,
-                cloudinarySettings.ApiKey,
-                cloudinarySettings.ApiSecret
+                cloudinaryOption.CloudName,
+                cloudinaryOption.ApiKey,
+                cloudinaryOption.ApiSecret
             );
             var cloudinary = new Cloudinary(account) { Api = { Secure = true, } };
 

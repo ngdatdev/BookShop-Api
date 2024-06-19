@@ -19,8 +19,8 @@ public sealed class CreateProductRequestValidator
             .MinimumLength(
                 minimumLength: BookShop.Data.Shared.Entities.Product.MetaData.FullName.MinLength
             )
-            .MinimumLength(
-                minimumLength: BookShop.Data.Shared.Entities.Product.MetaData.FullName.MaxLength
+            .MaximumLength(
+                maximumLength: BookShop.Data.Shared.Entities.Product.MetaData.FullName.MaxLength
             );
 
         RuleFor(expression: request => request.Description)

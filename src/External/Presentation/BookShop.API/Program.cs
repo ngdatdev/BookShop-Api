@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Threading;
 using BookShop.API;
+using BookShop.API.Shared.Filter.Swagger;
 using BookShop.API.Shared.Middlewares;
 using BookShop.Application;
 using BookShop.Data.Shared.Entities;

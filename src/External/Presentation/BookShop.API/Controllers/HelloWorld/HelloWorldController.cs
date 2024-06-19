@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using BookShop.API.Controllers.Product.CreateProductEndpoint.Middleware.Authorization;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.HelloWorld;

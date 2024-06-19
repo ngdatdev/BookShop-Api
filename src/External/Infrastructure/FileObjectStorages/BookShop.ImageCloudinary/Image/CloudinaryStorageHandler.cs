@@ -19,12 +19,12 @@ public sealed class CloudinaryStorageHandler : ICloudinaryStorageHandler
 
     public async Task<string> UploadPhotoAsync(IFormFile image, CancellationToken cancellationToken)
     {
-        using var stream = image.OpenReadStream();
-
         if (image == null || image.Length == 0)
         {
             return string.Empty;
         }
+
+        using var stream = image.OpenReadStream();
 
         var uploadParams = new ImageUploadParams()
         {

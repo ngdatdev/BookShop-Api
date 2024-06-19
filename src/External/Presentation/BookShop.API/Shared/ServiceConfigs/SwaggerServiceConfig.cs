@@ -1,9 +1,11 @@
 using System;
 using System.IO;
 using System.Reflection;
+using BookShop.API.Shared.Filter.Swagger;
 using BookShop.Configuration.Presentation.WebApi.Swagger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace BookShop.API.Shared.ServiceConfigs;
@@ -34,6 +36,8 @@ internal static class SwaggerServiceConfig
                 .GetRequiredSection(key: "Swagger")
                 .GetRequiredSection(key: "Swashbuckle")
                 .Get<SwashbuckleOption>();
+
+            config.OperationFilter<FileUploadOperationFilter>();
 
             config.SwaggerDoc(
                 name: option.Doc.Name,

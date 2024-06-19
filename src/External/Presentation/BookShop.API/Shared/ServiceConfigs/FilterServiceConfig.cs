@@ -22,11 +22,20 @@ internal static class FilterServiceConfig
     {
         Assembly assembly = typeof(DependencyInjection).Assembly;
 
-        var filterTypes = assembly
+        var filterActionTypes = assembly
             .GetTypes()
             .Where(t => typeof(IAsyncActionFilter).IsAssignableFrom(t) && !t.IsAbstract);
 
-        foreach (var filterType in filterTypes)
+        foreach (var filterType in filterActionTypes)
+        {
+            services.AddScoped(filterType);
+        }
+
+        var filterAuthorizationTypes = assembly
+            .GetTypes()
+            .Where(t => typeof(IAsyncAuthorizationFilter).IsAssignableFrom(t) && !t.IsAbstract);
+
+        foreach (var filterType in filterAuthorizationTypes)
         {
             services.AddScoped(filterType);
         }

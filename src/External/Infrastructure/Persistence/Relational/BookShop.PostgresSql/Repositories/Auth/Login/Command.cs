@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Data.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.PostgresSql.Repositories.Auth.Login;
 
@@ -16,6 +18,10 @@ internal partial class LoginRepository
     {
         try
         {
+            await _refreshTokens
+                .Where(reToken => reToken.UserId.Equals(refreshToken.UserId))
+                .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
             await _refreshTokens.AddAsync(
                 entity: refreshToken,
                 cancellationToken: cancellationToken

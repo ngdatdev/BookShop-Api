@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Auth.LogoutEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.Product.CreateProductEndpoint.Middleware.Authorization;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Auth.Logout;
 using BookShop.Application.Shared.Features;

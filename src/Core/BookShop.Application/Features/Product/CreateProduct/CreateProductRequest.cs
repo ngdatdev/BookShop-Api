@@ -23,7 +23,7 @@ public class CreateProductRequest : IFeatureRequest<CreateProductResponse>
 
     public int QuantityCurrent { get; init; }
 
-    public FormFile ImageUrl { get; init; }
+    public IFormFile ImageUrl { get; init; }
 
     public string Author { get; init; }
 

@@ -1,6 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Product.CreateProductEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.Product.CreateProductEndpoint.Middleware.Authorization;
+using BookShop.API.Shared.Filter.AuthorizationFilter;
+using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Product.CreateProduct;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -39,8 +42,10 @@ public class CreateProductController : ControllerBase
     ///
     /// </remarks>
     [HttpPost]
+    [ServiceFilter(typeof(CreateProductAuthorizationFilter))]
+    [ServiceFilter(typeof(ValidationRequestFilter<CreateProductRequest>))]
     public async Task<IActionResult> CreateProductAsync(
-        [FromQuery] CreateProductRequest getAllProductsRequest,
+        [FromForm] CreateProductRequest getAllProductsRequest,
         CancellationToken cancellationToken
     )
     {
