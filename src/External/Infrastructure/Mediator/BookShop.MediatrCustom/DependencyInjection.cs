@@ -1,4 +1,3 @@
-using BookShop.Application.Features.HelloWorld;
 using BookShop.Application.Shared.Features;
 using BookShop.MediatrCustom.Handler;
 using Microsoft.Extensions.DependencyInjection;
