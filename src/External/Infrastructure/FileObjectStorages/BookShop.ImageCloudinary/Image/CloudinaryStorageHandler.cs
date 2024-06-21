@@ -32,16 +32,48 @@ public sealed class CloudinaryStorageHandler : ICloudinaryStorageHandler
             Overwrite = true
         };
 
-        ImageUploadResult uploadResult;
-        uploadResult = await _cloudinary.UploadAsync(
-            parameters: uploadParams,
-            cancellationToken: cancellationToken
-        );
-        if (uploadResult.Error != null)
+        try
         {
-            return String.Empty;
+            var uploadResult = await _cloudinary.UploadAsync(uploadParams, cancellationToken);
+            if (uploadResult.Error != null)
+            {
+                return string.Empty;
+            }
+
+            return uploadResult.Url.ToString();
+        }
+        catch
+        {
+            return string.Empty;
+        }
+    }
+
+    public async Task<bool> DeletePhotoAsync(string imageUrl)
+    {
+        if (string.IsNullOrEmpty(imageUrl))
+        {
+            return false;
         }
 
-        return uploadResult.Url.ToString();
+        try
+        {
+            var publicId = GetPublicId(imageUrl);
+            var deleteParams = new DeletionParams(publicId) { ResourceType = ResourceType.Image };
+
+            var result = await _cloudinary.DestroyAsync(parameters: deleteParams);
+
+            return result.Result == "ok";
+        }
+        catch (Exception)
+        {
+            // Log or handle the exception as needed
+            return false;
+        }
+    }
+
+    private string GetPublicId(string imageUrl)
+    {
+        var uri = new Uri(imageUrl);
+        return uri.Segments[uri.Segments.Length - 1].Split('.')[0];
     }
 }

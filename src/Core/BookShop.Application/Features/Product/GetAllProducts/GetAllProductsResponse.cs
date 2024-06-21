@@ -20,17 +20,15 @@ public class GetAllProductsResponse : IFeatureResponse
         {
             public string FullName { get; init; }
 
-            public string Description { get; init; }
+            public string OriginalPrice { get; init; }
 
-            public int QuantityCurrent { get; init; }
+            public string SalePrice { get; init; }
 
-            public int QuantitySold { get; init; }
+            public string Discount { get; init; }
 
             public string ImageUrl { get; init; }
 
             public string Author { get; init; }
-
-            public string Publisher { get; init; }
         }
     }
 }

@@ -64,11 +64,13 @@ public class GetAllProductsHandler : IFeatureHandler<GetAllProductsRequest, GetA
                     Contents = products.Select(product => new GetAllProductsResponse.Body.Product()
                     {
                         FullName = product.FullName,
-                        Description = product.Description,
                         Author = product.Author,
                         ImageUrl = product.ImageUrl,
-                        Publisher = product.Publisher,
-                        QuantitySold = product.QuantitySold
+                        Discount = $"{product.Discount}%",
+                        OriginalPrice = product.Price.ToString("0.000"),
+                        SalePrice = (product.Price * (1 - (product.Discount / 100.0m))).ToString(
+                            "0.000"
+                        ),
                     })
                 }
             }

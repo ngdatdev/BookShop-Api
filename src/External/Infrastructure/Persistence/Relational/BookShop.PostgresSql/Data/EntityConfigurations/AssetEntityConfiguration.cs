@@ -25,7 +25,7 @@ internal class AssetEntityConfiguration : IEntityTypeConfiguration<Asset>
             .Property(propertyExpression: asset => asset.ImageUrl)
             .HasColumnType(
                 typeName: CommonConstant.DataType.VarcharGenerator.Get(
-                    length: Address.MetaData.Ward.MaxLength
+                    length: Asset.MetaData.ImageUrl.MaxLength
                 )
             )
             .IsRequired();

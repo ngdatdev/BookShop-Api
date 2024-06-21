@@ -9,6 +9,7 @@ using BookShop.Application.Shared.Features;
 using BookShop.Application.Shared.FileObjectStorages;
 using BookShop.Application.Shared.Pagination;
 using BookShop.Data.Features.UnitOfWork;
+using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
@@ -52,6 +53,19 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
         CancellationToken cancellationToken
     )
     {
+        // Are categories id found
+        var areValidCategoriesId =
+            await _unitOfWork.ProductFeature.CreateProductRepository.AreCategoriesFoundByIdsQueryAsync(
+                categoriesId: request.CategoriesId,
+                cancellationToken: cancellationToken
+            );
+
+        // Responds if one of categories id is not found
+        if (!areValidCategoriesId)
+        {
+            return new() { StatusCode = CreateProductResponseStatusCode.CATEGORY_ID_IS_NOT_VALID };
+        }
+
         var mainUrl = await _cloudinaryStorageHandler.UploadPhotoAsync(
             formFile: request.ImageUrl,
             cancellationToken: cancellationToken
@@ -112,9 +126,10 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
         Guid userId
     )
     {
+        var productId = Guid.NewGuid();
         return new Data.Shared.Entities.Product()
         {
-            Id = Guid.NewGuid(),
+            Id = productId,
             FullName = createProductRequest.FullName,
             Description = createProductRequest.Description,
             Price = createProductRequest.Price,
@@ -122,6 +137,7 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
             ImageUrl = mainImage,
             NumberOfPage = createProductRequest.NumberOfPage,
             QuantityCurrent = createProductRequest.QuantityCurrent,
+            QuantitySold = 0,
             Size = createProductRequest.Size,
             Author = createProductRequest.Author,
             Publisher = createProductRequest.Publisher,
@@ -137,6 +153,13 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
                     RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                     CreatedAt = DateTime.UtcNow,
                     CreatedBy = userId,
+                })
+                .ToList(),
+            ProductCategories = createProductRequest
+                .CategoriesId.Select(categoryId => new ProductCategory()
+                {
+                    CategoryId = categoryId,
+                    ProductId = productId
                 })
                 .ToList(),
             UpdatedAt = CommonConstant.MIN_DATE_TIME,

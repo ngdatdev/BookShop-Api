@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,8 @@ public class CreateProductRequest : IFeatureRequest<CreateProductResponse>
     public string Publisher { get; init; }
 
     public string Languages { get; init; }
+
+    public IEnumerable<Guid> CategoriesId { get; init; }
 
     public IEnumerable<IFormFile> SubImages { get; init; }
 }

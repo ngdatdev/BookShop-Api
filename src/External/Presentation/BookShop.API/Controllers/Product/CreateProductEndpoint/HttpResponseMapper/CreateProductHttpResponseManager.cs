@@ -68,6 +68,16 @@ public class CreateProductHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: CreateProductResponseStatusCode.CATEGORY_ID_IS_NOT_VALID,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<CreateProductRequest, CreateProductResponse, CreateProductHttpResponse> Resolve(

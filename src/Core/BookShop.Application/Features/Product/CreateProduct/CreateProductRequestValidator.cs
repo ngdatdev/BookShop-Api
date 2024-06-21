@@ -72,8 +72,6 @@ public sealed class CreateProductRequestValidator
             );
 
         RuleForEach(product => product.SubImages)
-            .NotNull()
-            .WithMessage("Image is required.")
             .Must(BeAValidImage)
             .WithMessage("Only JPEG, PNG, and GIF images are allowed.")
             .Must(BeAValidSize)

@@ -33,11 +33,10 @@ internal partial class GetAllProductsRepository
             .Select(selector: product => new BookShop.Data.Shared.Entities.Product()
             {
                 FullName = product.FullName,
-                Description = product.Description,
-                Publisher = product.Publisher,
                 ImageUrl = product.ImageUrl,
                 Author = product.Author,
-                QuantitySold = product.QuantitySold
+                Discount = product.Discount,
+                Price = product.Price,
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }

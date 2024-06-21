@@ -13,7 +13,7 @@ internal sealed class CategoryEntityConfiguration : IEntityTypeConfiguration<Cat
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.ToTable(
-            name: $"{nameof(Category)}s",
+            name: $"Categories",
             buildAction: table => table.HasComment(comment: "Contain Category records.")
         );
 
@@ -60,6 +60,7 @@ internal sealed class CategoryEntityConfiguration : IEntityTypeConfiguration<Cat
             .HasMany(category => category.SubCategories)
             .WithOne(subCategory => subCategory.ParentCategory)
             .HasForeignKey(productCategory => productCategory.ParentCategoryId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

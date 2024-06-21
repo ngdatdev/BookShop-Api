@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using BookShop.Data.Shared.Entities.Base;
 
 namespace BookShop.Data.Shared.Entities;
@@ -13,6 +15,9 @@ public class OrderStatus : IBaseEntity
 
     // Normal properties.
     public string FullName { get; set; }
+
+    // Navigation collections.
+    public IEnumerable<Order> Orders { get; set; }
 
     public static class MetaData
     {

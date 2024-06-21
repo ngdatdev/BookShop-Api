@@ -10,4 +10,5 @@ public enum CreateProductResponseStatusCode
     INPUT_VALIDATION_FAIL,
     MAIN_IMAGE_FILE_FAIL,
     SUB_IMAGE_FILE_FAIL,
+    CATEGORY_ID_IS_NOT_VALID
 }

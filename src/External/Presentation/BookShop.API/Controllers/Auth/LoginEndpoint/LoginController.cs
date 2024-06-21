@@ -38,8 +38,8 @@ public class LoginController : ControllerBase
     ///
     ///     POST api/auth/login
     ///     {
-    ///         "username": "nguyendat",
-    ///         "password": "zzzzlaaah**asda",
+    ///         "username": "username",
+    ///         "password": "Username123@",
     ///         "rememberMe": true
     ///     }
     ///

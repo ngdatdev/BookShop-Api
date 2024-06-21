@@ -24,4 +24,15 @@ public interface ICloudinaryStorageHandler
     ///     The response boolean.
     ///</returns>
     Task<string> UploadPhotoAsync(IFormFile formFile, CancellationToken cancellationToken);
+
+    /// <summary>
+    ///     Handles the delete photo async with cloudinary.
+    /// </summary>
+    /// <param name="imageUrl">
+    //      The request contain image file.
+    //  </param>
+    /// <returns>
+    ///     The response boolean.
+    ///</returns>
+    Task<bool> DeletePhotoAsync(string imageUrl);
 }

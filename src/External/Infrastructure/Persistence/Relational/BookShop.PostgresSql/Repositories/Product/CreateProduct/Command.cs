@@ -25,8 +25,9 @@ internal partial class CreateProductRepository
             _products.Add(entity: product);
             await _context.SaveChangesAsync(cancellationToken: cancellationToken);
         }
-        catch
+        catch (Exception e)
         {
+            await Console.Out.WriteLineAsync(e.Message);
             return false;
         }
         return true;

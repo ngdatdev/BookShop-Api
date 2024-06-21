@@ -29,5 +29,12 @@ internal sealed class OrderStatusEntityConfiguration : IEntityTypeConfiguration<
                 )
             )
             .IsRequired();
+
+        // Relationship configurations.
+        builder
+            .HasMany(orderStatus => orderStatus.Orders)
+            .WithOne(order => order.OrderStatus)
+            .HasForeignKey(orderDetail => orderDetail.OrderStatusId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

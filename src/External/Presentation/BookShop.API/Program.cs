@@ -21,6 +21,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 
 // Default setting.
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 Console.OutputEncoding = Encoding.UTF8;
 JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
