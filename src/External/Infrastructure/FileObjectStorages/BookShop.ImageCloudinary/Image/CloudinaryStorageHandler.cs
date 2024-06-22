@@ -64,9 +64,8 @@ public sealed class CloudinaryStorageHandler : ICloudinaryStorageHandler
 
             return result.Result == "ok";
         }
-        catch (Exception)
+        catch
         {
-            // Log or handle the exception as needed
             return false;
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BookShop.Application.Shared.Features;
 
 namespace BookShop.Application.Shared.Pagination;
 
@@ -19,11 +18,4 @@ public class PaginationResponse<T>
     public bool HasPreviousPage => PageIndex > 1;
 
     public bool HasNextPage => PageIndex < TotalPages;
-
-    //public PaginationResponse(IEnumerable<T> contents, int pageIndex, int totalPages)
-    //{
-    //    Contents = contents;
-    //    PageIndex = pageIndex;
-    //    TotalPages = totalPages;
-    //}
 }

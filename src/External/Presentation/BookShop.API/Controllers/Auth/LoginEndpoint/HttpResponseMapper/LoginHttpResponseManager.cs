@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 namespace BookShop.API.Controllers.Auth.LoginEndpoint.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for login feature
+///     Manager for login feature
 /// </summary>
 public class LoginHttpResponseManager
 {

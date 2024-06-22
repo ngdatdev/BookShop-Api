@@ -109,6 +109,18 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
 
         if (!dbResult)
         {
+            try
+            {
+                await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: mainUrl);
+                _ = subUrls.Select(subUrl =>
+                    _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: subUrl)
+                );
+            }
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync(e.Message);
+            }
+
             return new() { StatusCode = CreateProductResponseStatusCode.DATABASE_OPERATION_FAIL, };
         }
 

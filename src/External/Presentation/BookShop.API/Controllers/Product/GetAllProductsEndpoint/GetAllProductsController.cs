@@ -25,13 +25,13 @@ public class GetAllProductsController : ControllerBase
     ///     Endpoint for all product information.
     /// </summary>
     /// <param name="getAllProductsRequest">
-    ///     Class contains all products information.
+    ///     Param query information.
     /// </param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
     /// <returns>
-    ///     App code.
+    ///     App code and class contains all products information.
     /// </returns>
     /// <remarks>
     /// Sample request:

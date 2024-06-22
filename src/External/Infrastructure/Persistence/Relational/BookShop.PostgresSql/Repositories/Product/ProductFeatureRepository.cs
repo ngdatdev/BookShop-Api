@@ -1,10 +1,11 @@
 ﻿using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
+using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Product.CreateProduct;
 using BookShop.PostgresSql.Repositories.Product.GetAllProducts;
-using Microsoft.AspNetCore.Identity;
+using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 
 namespace BookShop.PostgresSql.Repositories.Product;
 
@@ -17,6 +18,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
 
     private IGetAllProductsRepository _getAllProductsRepository;
     private ICreateProductRepository _createProductRepository;
+    private IGetProductsByCategoryIdRepository _getProductsByCategoryIdRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -34,5 +36,15 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     public ICreateProductRepository CreateProductRepository
     {
         get { return _createProductRepository ??= new CreateProductRepository(context: _context); }
+    }
+
+    public IGetProductsByCategoryIdRepository GetProductsByCategoryIdRepository
+    {
+        get
+        {
+            return _getProductsByCategoryIdRepository ??= new GetProductsByCategoryIdRepository(
+                context: _context
+            );
+        }
     }
 }
