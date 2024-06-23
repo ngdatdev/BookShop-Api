@@ -16,34 +16,6 @@ namespace BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 /// </summary>
 internal partial class GetProductsByCategoryIdRepository
 {
-    public async Task<
-        IEnumerable<BookShop.Data.Shared.Entities.Product>
-    > GetProductsByCategoryIdQueryAsync(
-        int pageIndex,
-        int pageSize,
-        CancellationToken cancellationToken
-    )
-    {
-        return await _products
-            .AsNoTracking()
-            .Where(predicate: product =>
-                product.RemovedAt == CommonConstant.MIN_DATE_TIME
-                && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-            )
-            .OrderBy(keySelector: product => product.CreatedAt)
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize)
-            .Select(selector: product => new BookShop.Data.Shared.Entities.Product()
-            {
-                FullName = product.FullName,
-                ImageUrl = product.ImageUrl,
-                Author = product.Author,
-                Discount = product.Discount,
-                Price = product.Price,
-            })
-            .ToListAsync(cancellationToken: cancellationToken);
-    }
-
     public Task<Category> FindCategoryByIdQueryAsync(
         Guid categoryId,
         CancellationToken cancellationToken

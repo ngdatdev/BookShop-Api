@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,9 +6,6 @@ using BookShop.Data.Shared.FilterAndPagination;
 
 namespace BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId.QueryMapper;
 
-/// <summary>
-///     Manager for GetProductsByCategoryId feature
-/// </summary>
 /// <summary>
 ///     Manager for GetProductsByCategoryId feature
 /// </summary>
@@ -70,23 +66,25 @@ internal class GetProductsByCategoryIdQueryManager
         FilterParameterQuery filterParameterQuery
     )
     {
-        if (!filterParameterQuery.MaxPrice.HasValue && !filterParameterQuery.MinPrice.HasValue)
+        if (filterParameterQuery.MaxPrice.HasValue && filterParameterQuery.MinPrice.HasValue)
         {
-            return query;
-        }
-
-        foreach (var filter in _filterPriceDictionary)
-        {
-            query = filter.Value(
-                query,
-                filterParameterQuery.MinPrice,
-                filterParameterQuery.MaxPrice
-            );
+            foreach (var filter in _filterPriceDictionary)
+            {
+                query = filter.Value(
+                    query,
+                    filterParameterQuery.MinPrice,
+                    filterParameterQuery.MaxPrice
+                );
+            }
         }
 
         if (_sortDictionary.TryGetValue(filterParameterQuery.SortField, out var sortFunc))
         {
             query = sortFunc(query, filterParameterQuery.Order);
+        }
+        else
+        {
+            query = query.OrderBy(product => product.CreatedAt);
         }
 
         return query;

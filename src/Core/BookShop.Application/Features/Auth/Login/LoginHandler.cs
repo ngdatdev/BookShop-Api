@@ -66,29 +66,21 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
             return new() { StatusCode = LoginResponseStatusCode.USER_IS_NOT_FOUND };
         }
 
-        // Check password request .
-        var isCorrectPassword = await _userManager.CheckPasswordAsync(
+        // Check password and handle lockout on failure.
+        var signInResult = await _signInManager.CheckPasswordSignInAsync(
             user: foundUser,
-            password: request.Password
+            password: request.Password,
+            lockoutOnFailure: true
         );
 
-        // Responds if password is not correct.
-        if (!isCorrectPassword)
+        // Responds if password is not correct or user is locked out.
+        if (!signInResult.Succeeded)
         {
-            // Check result of locked out.
-            var userLockedOutResult = await _signInManager.CheckPasswordSignInAsync(
-                user: foundUser,
-                password: request.Password,
-                lockoutOnFailure: true
-            );
-
-            // Responds if out of numbers try to login
-            if (userLockedOutResult.IsLockedOut)
+            if (signInResult.IsLockedOut)
             {
-                return new() { StatusCode = LoginResponseStatusCode.USER_IS_LOCKED_OUT, };
+                return new() { StatusCode = LoginResponseStatusCode.USER_IS_LOCKED_OUT };
             }
-
-            return new() { StatusCode = LoginResponseStatusCode.USER_PASSWORD_IS_NOT_CORRECT, };
+            return new() { StatusCode = LoginResponseStatusCode.USER_PASSWORD_IS_NOT_CORRECT };
         }
 
         // Is user not temporarily removed.
@@ -147,10 +139,11 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
         // Generate new access token.
         var newAccessToken = _accessTokenHandler.GenerateSigningToken(claims: userClaims);
 
-        var userDetail = await _unitOfWork.AuthFeature.LoginRepository.GetUserDetailByUserIdQueryAsync(
-            userId: foundUser.Id,
-            cancellationToken: cancellationToken
-        );
+        var userDetail =
+            await _unitOfWork.AuthFeature.LoginRepository.GetUserDetailByUserIdQueryAsync(
+                userId: foundUser.Id,
+                cancellationToken: cancellationToken
+            );
 
         // Response successfully.
         return new LoginResponse()

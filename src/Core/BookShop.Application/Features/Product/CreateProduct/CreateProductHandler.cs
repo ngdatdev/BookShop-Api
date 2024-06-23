@@ -53,29 +53,32 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
         CancellationToken cancellationToken
     )
     {
-        // Are categories id found
+        // Are categories id found.
         var areValidCategoriesId =
             await _unitOfWork.ProductFeature.CreateProductRepository.AreCategoriesFoundByIdsQueryAsync(
                 categoriesId: request.CategoriesId,
                 cancellationToken: cancellationToken
             );
 
-        // Responds if one of categories id is not found
+        // Responds if one of categories id is not found.
         if (!areValidCategoriesId)
         {
             return new() { StatusCode = CreateProductResponseStatusCode.CATEGORY_ID_IS_NOT_VALID };
         }
 
+        // Upload main url of product.
         var mainUrl = await _cloudinaryStorageHandler.UploadPhotoAsync(
             formFile: request.ImageUrl,
             cancellationToken: cancellationToken
         );
 
+        // Responds if upload is fail.
         if (Equals(objA: mainUrl, objB: String.Empty))
         {
             return new() { StatusCode = CreateProductResponseStatusCode.MAIN_IMAGE_FILE_FAIL };
         }
 
+        // Upload sub images url of product.
         var uploads = request.SubImages.Select(subImage =>
             _cloudinaryStorageHandler.UploadPhotoAsync(
                 formFile: subImage,
@@ -85,15 +88,20 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
 
         var subUrls = await Task.WhenAll(uploads);
 
+        // Responds if subUrls is fail.
         if (!Equals(objA: subUrls.Length, objB: request.SubImages.Count()))
         {
+            await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: mainUrl);
+
             return new() { StatusCode = CreateProductResponseStatusCode.SUB_IMAGE_FILE_FAIL };
         }
 
+        // Get userId from claim jwt token.
         var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(
             claimType: JwtRegisteredClaimNames.Sub
         );
 
+        // Init mapper from productRequest to ProductEntity
         var product = InitProduct(
             createProductRequest: request,
             subImages: subUrls,
@@ -101,19 +109,23 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
             userId: Guid.Parse(input: userId)
         );
 
+        // Create product to database
         var dbResult =
             await _unitOfWork.ProductFeature.CreateProductRepository.CreateProductCommandAsync(
                 product: product,
                 cancellationToken: cancellationToken
             );
 
-        if (!dbResult)
+        // Responds if dbResult is fail.
+        if (dbResult)
         {
             try
             {
                 await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: mainUrl);
-                _ = subUrls.Select(subUrl =>
-                    _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: subUrl)
+                await Task.WhenAll(
+                    subUrls.Select(subUrl =>
+                        _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: subUrl)
+                    )
                 );
             }
             catch (Exception e)

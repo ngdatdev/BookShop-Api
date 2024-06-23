@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Product.GetProductsByCategoryIdEndpoint.Common;
@@ -28,7 +29,14 @@ public class GetProductsByCategoryIdCachingFilter : IAsyncActionFilter
     {
         if (!context.HttpContext.Response.HasStarted)
         {
-            var cacheKey = $"{nameof(GetProductsByCategoryIdHttpResponse)}";
+            var request = context.HttpContext.Request;
+            var queryParameters = request.Query.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.ToString()
+            );
+
+            var cacheKey = GetProductsByCategoryIdStateBag.GenerateCacheKey(queryParameters);
+
             var cacheModel = await _cacheHandler.GetAsync<GetProductsByCategoryIdHttpResponse>(
                 key: cacheKey,
                 cancellationToken: CancellationToken.None

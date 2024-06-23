@@ -64,6 +64,8 @@ public class GetProductsByCategoryIdHandler
                     Order = request.Order,
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
+                    MaxPrice = request.MaxPrice,
+                    MinPrice = request.MinPrice,
                 },
                 cancellationToken: cancellationToken
             );
