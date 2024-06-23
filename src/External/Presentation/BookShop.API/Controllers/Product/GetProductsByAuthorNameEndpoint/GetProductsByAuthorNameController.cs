@@ -18,10 +18,7 @@ public class GetProductsByAuthorNameController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetProductsByAuthorNameController(
-        IMediator mediator,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public GetProductsByAuthorNameController(IMediator mediator)
     {
         _mediator = mediator;
     }

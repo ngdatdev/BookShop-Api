@@ -18,10 +18,7 @@ public class GetProductsByCategoryIdController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetProductsByCategoryIdController(
-        IMediator mediator,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public GetProductsByCategoryIdController(IMediator mediator)
     {
         _mediator = mediator;
     }
