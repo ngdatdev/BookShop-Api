@@ -1,11 +1,13 @@
 ﻿using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
+using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Product.CreateProduct;
 using BookShop.PostgresSql.Repositories.Product.GetAllProducts;
+using BookShop.PostgresSql.Repositories.Product.GetProductsByAuthorName;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 using BookShop.PostgresSql.Repositories.Product.UpdateProductById;
 
@@ -22,6 +24,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     private ICreateProductRepository _createProductRepository;
     private IGetProductsByCategoryIdRepository _getProductsByCategoryIdRepository;
     private IUpdateProductByIdRepository _updateProductByIdRepository;
+    private IGetProductsByAuthorNameRepository _getProductsByAuthorNameRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -56,6 +59,15 @@ internal class ProductFeatureRepository : IProductFeatureRepository
         get
         {
             return _updateProductByIdRepository ??= new UpdateProductByIdRepository(
+                context: _context
+            );
+        }
+    }
+    public IGetProductsByAuthorNameRepository GetProductsByAuthorNameRepository
+    {
+        get
+        {
+            return _getProductsByAuthorNameRepository ??= new GetProductsByAuthorNameRepository(
                 context: _context
             );
         }

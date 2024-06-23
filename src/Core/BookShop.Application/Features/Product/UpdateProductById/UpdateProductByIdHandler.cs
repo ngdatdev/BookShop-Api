@@ -142,6 +142,19 @@ public class UpdateProductByIdHandler
 
         if (!dbResult)
         {
+            try
+            {
+                await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: uploadMainUrl);
+                await Task.WhenAll(
+                    uploadSubUrl.Select(subUrl =>
+                        _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: subUrl)
+                    )
+                );
+            }
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync(e.Message);
+            }
             return new()
             {
                 StatusCode = UpdateProductByIdResponseStatusCode.DATABASE_OPERATION_FAIL,

@@ -154,8 +154,8 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
         return new Data.Shared.Entities.Product()
         {
             Id = productId,
-            FullName = createProductRequest.FullName,
-            Description = createProductRequest.Description,
+            FullName = createProductRequest.FullName.Trim(),
+            Description = createProductRequest.Description.Trim(),
             Price = createProductRequest.Price,
             Discount = createProductRequest.Discount,
             ImageUrl = mainImage,
@@ -163,11 +163,11 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
             QuantityCurrent = createProductRequest.QuantityCurrent,
             QuantitySold = 0,
             Size = createProductRequest.Size,
-            Author = createProductRequest.Author,
-            Publisher = createProductRequest.Publisher,
-            Languages = createProductRequest.Languages,
+            Author = createProductRequest.Author.Trim(),
+            Publisher = createProductRequest.Publisher.Trim(),
+            Languages = createProductRequest.Languages.Trim(),
             Assets = subImages
-                .Select(subImage => new Data.Shared.Entities.Asset()
+                .Select(subImage => new Asset()
                 {
                     Id = Guid.NewGuid(),
                     ImageUrl = subImage,

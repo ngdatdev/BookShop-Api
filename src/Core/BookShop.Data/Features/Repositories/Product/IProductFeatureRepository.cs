@@ -1,5 +1,6 @@
 using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
+using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 
@@ -29,4 +30,9 @@ public interface IProductFeatureRepository
     ///     Gets update products by id feature repository.
     /// </summary>
     public IUpdateProductByIdRepository UpdateProductByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets get products by author name feature repository.
+    /// </summary>
+    public IGetProductsByAuthorNameRepository GetProductsByAuthorNameRepository { get; }
 }
