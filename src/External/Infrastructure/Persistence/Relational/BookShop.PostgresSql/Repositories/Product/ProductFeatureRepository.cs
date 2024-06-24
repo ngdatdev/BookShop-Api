@@ -1,6 +1,7 @@
 ﻿using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
+using BookShop.Data.Features.Repositories.Product.GetAllTemporarilyRemovedProducts;
 using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyById;
@@ -9,6 +10,7 @@ using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Product.CreateProduct;
 using BookShop.PostgresSql.Repositories.Product.GetAllProducts;
+using BookShop.PostgresSql.Repositories.Product.GetAllTemporarilyRemovedProducts;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByAuthorName;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById;
@@ -31,6 +33,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     private IGetProductsByAuthorNameRepository _getProductsByAuthorNameRepository;
     private IRemoveProductTemporarilyByIdRepository _removeProductTemporarilyByIdRepository;
     private IRemoveProductPermanentlyByIdRepository _removeProductPermanentlyByIdRepository;
+    private IGetAllTemporarilyRemovedProductsRepository _getAllTemporarilyRemovedProductsRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -95,6 +98,15 @@ internal class ProductFeatureRepository : IProductFeatureRepository
         {
             return _removeProductPermanentlyByIdRepository ??=
                 new RemoveProductPermanentlyByIdRepository(context: _context);
+        }
+    }
+
+    public IGetAllTemporarilyRemovedProductsRepository GetAllTemporarilyRemovedProductsRepository
+    {
+        get
+        {
+            return _getAllTemporarilyRemovedProductsRepository ??=
+                new GetAllTemporarilyRemovedProductsRepository(context: _context);
         }
     }
 }

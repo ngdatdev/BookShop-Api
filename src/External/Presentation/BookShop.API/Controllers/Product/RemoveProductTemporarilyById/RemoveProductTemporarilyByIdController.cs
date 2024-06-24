@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using BookShop.API.Controllers.Product.RemoveProductTemporarilyByIdByIdEndpoint.Middleware.Authorization;
 using BookShop.API.Controllers.Product.RemoveProductTemporarilyByIdEndpoint.HttpResponseMapper;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
@@ -40,7 +41,7 @@ public class RemoveProductTemporarilyByIdController : ControllerBase
     /// </remarks>
     [HttpDelete("{product-id}")]
     [ServiceFilter(typeof(ValidationRequestFilter<RemoveProductTemporarilyByIdRequest>), Order = 1)]
-    [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(RemoveProductTemporarilyByIdByIdAuthorizationFilter))]
     public async Task<IActionResult> RemoveProductTemporarilyByIdAsync(
         RemoveProductTemporarilyByIdRequest removeProductTemporarilyByIdRequest,
         CancellationToken cancellationToken
