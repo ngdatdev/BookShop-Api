@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Controllers.Product.CreateProductEndpoint.Middleware.Authorization;
 
+/// <summary>
+///     Filter pipeline for CreateProduct authorization.
+/// </summary>
 public class CreateProductAuthorizationFilter : IAsyncAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

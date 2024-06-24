@@ -2,6 +2,7 @@
 using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
 using BookShop.Data.Features.Repositories.Product.GetAllTemporarilyRemovedProducts;
+using BookShop.Data.Features.Repositories.Product.GetProductById;
 using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyById;
@@ -11,6 +12,7 @@ using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Product.CreateProduct;
 using BookShop.PostgresSql.Repositories.Product.GetAllProducts;
 using BookShop.PostgresSql.Repositories.Product.GetAllTemporarilyRemovedProducts;
+using BookShop.PostgresSql.Repositories.Product.GetProductById;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByAuthorName;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById;
@@ -34,6 +36,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     private IRemoveProductTemporarilyByIdRepository _removeProductTemporarilyByIdRepository;
     private IRemoveProductPermanentlyByIdRepository _removeProductPermanentlyByIdRepository;
     private IGetAllTemporarilyRemovedProductsRepository _getAllTemporarilyRemovedProductsRepository;
+    private IGetProductByIdRepository _getProductByIdRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -107,6 +110,14 @@ internal class ProductFeatureRepository : IProductFeatureRepository
         {
             return _getAllTemporarilyRemovedProductsRepository ??=
                 new GetAllTemporarilyRemovedProductsRepository(context: _context);
+        }
+    }
+
+    public IGetProductByIdRepository GetProductByIdRepository
+    {
+        get
+        {
+            return _getProductByIdRepository ??= new GetProductByIdRepository(context: _context);
         }
     }
 }

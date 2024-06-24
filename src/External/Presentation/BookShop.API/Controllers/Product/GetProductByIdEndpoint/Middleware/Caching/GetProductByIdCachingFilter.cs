@@ -1,23 +1,23 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.GetAllProductsEndpoint.Common;
-using BookShop.API.Controllers.Product.GetAllProductsEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.Product.GetProductByIdEndpoint.Common;
+using BookShop.API.Controllers.Product.GetProductByIdEndpoint.HttpResponseMapper;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 
-namespace BookShop.API.Controllers.Product.GetAllProductsEndpoint.Middleware.Caching;
+namespace BookShop.API.Controllers.Product.GetProductByIdEndpoint.Middleware.Caching;
 
 /// <summary>
-///     Filter pipeline for GetAllProducts caching.
+///     Filter pipeline for GetProductById caching.
 /// </summary>
-public class GetAllProductsCachingFilter : IAsyncActionFilter
+public class GetProductByIdCachingFilter : IAsyncActionFilter
 {
     private readonly ICacheHandler _cacheHandler;
 
-    public GetAllProductsCachingFilter(ICacheHandler cacheHandler)
+    public GetProductByIdCachingFilter(ICacheHandler cacheHandler)
     {
         _cacheHandler = cacheHandler;
     }
@@ -29,13 +29,15 @@ public class GetAllProductsCachingFilter : IAsyncActionFilter
     {
         if (!context.HttpContext.Response.HasStarted)
         {
-            var cacheKey = $"{nameof(GetAllProductsHttpResponse)}";
-            var cacheModel = await _cacheHandler.GetAsync<GetAllProductsHttpResponse>(
+            var request = context.HttpContext.Request;
+
+            var cacheKey = $"GetProductById_{request.RouteValues["product-id"]}";
+            var cacheModel = await _cacheHandler.GetAsync<GetProductByIdHttpResponse>(
                 key: cacheKey,
                 cancellationToken: CancellationToken.None
             );
 
-            if (!Equals(objA: cacheModel, objB: AppCacheModel<GetAllProductsHttpResponse>.NotFound))
+            if (!Equals(objA: cacheModel, objB: AppCacheModel<GetProductByIdHttpResponse>.NotFound))
             {
                 context.HttpContext.Response.StatusCode = cacheModel.Value.HttpCode;
                 context.Result = new JsonResult(cacheModel.Value);
@@ -46,7 +48,7 @@ public class GetAllProductsCachingFilter : IAsyncActionFilter
 
             if (executedContext.Result is ObjectResult result)
             {
-                var httpResponse = (GetAllProductsHttpResponse)result.Value;
+                var httpResponse = (GetProductByIdHttpResponse)result.Value;
 
                 await _cacheHandler.SetAsync(
                     key: cacheKey,
@@ -54,7 +56,7 @@ public class GetAllProductsCachingFilter : IAsyncActionFilter
                     distributedCacheEntryOptions: new()
                     {
                         AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(
-                            seconds: GetAllProductsStateBag.CacheDurationInSeconds
+                            seconds: GetProductByIdStateBag.CacheDurationInSeconds
                         )
                     },
                     cancellationToken: CancellationToken.None

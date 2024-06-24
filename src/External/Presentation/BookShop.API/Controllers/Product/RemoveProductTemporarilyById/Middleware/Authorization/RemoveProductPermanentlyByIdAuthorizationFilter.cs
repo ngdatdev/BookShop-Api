@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyByIdByIdEndpoint.Middleware.Authorization;
 
+/// <summary>
+///     Filter pipeline for RemoveProductTemporarilyByIdById authorization.
+/// </summary>
 public class RemoveProductTemporarilyByIdByIdAuthorizationFilter : IAsyncAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

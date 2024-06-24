@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Controllers.Product.UpdateProductByIdEndpoint.Middleware.Authorization;
 
+/// <summary>
+///     Filter pipeline for UpdateProductById authorization.
+/// </summary>
 public class UpdateProductByIdAuthorizationFilter : IAsyncAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShop.API.Controllers.Product.GetAllTemporarilyRemovedProductsEndpoint.Middleware.Authorization;
 
+/// <summary>
+///     Filter pipeline for GetAllTemporarilyRemovedProducts authorization.
+/// </summary>
 public class GetAllTemporarilyRemovedProductsAuthorizationFilter : IAsyncAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
