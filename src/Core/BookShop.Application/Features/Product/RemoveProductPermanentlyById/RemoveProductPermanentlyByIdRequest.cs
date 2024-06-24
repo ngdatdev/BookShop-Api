@@ -10,5 +10,6 @@ namespace BookShop.Application.Features.Product.RemoveProductPermanentlyById;
 public class RemoveProductPermanentlyByIdRequest
     : IFeatureRequest<RemoveProductPermanentlyByIdResponse>
 {
+    [FromRoute(Name = "product-id")]
     public Guid ProductId { get; set; }
 }

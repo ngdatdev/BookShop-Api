@@ -28,7 +28,7 @@ public class RemoveProductPermanentlyByIdController : ControllerBase
     /// <summary>
     ///     Endpoint for remove products permanently by id.
     /// </summary>
-    /// <param name="productId"></param>
+    /// <param name="removeProductTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
@@ -46,14 +46,10 @@ public class RemoveProductPermanentlyByIdController : ControllerBase
     [ServiceFilter(typeof(RemoveProductPermanentlyByIdCachingFilter), Order = 2)]
     [ServiceFilter(typeof(RemoveProductPermanentlyByIdAuthorizationFilter), Order = 3)]
     public async Task<IActionResult> RemoveProductPermanentlyByIdAsync(
-        [FromRoute(Name = "product-id")] Guid productId,
+        RemoveProductPermanentlyByIdRequest removeProductTemporarilyByIdRequest,
         CancellationToken cancellationToken
     )
     {
-        var removeProductTemporarilyByIdRequest = new RemoveProductPermanentlyByIdRequest();
-
-        removeProductTemporarilyByIdRequest.ProductId = productId;
-
         var featureResponse = await _mediator.SendAsync(
             request: removeProductTemporarilyByIdRequest,
             cancellationToken: cancellationToken

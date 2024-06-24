@@ -36,14 +36,14 @@ public class GetProductsByCategoryIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/product/get-products-by-category-id/{categoryId}?field1={fieldName1}?field1={fieldName1}
+    ///     GET api/product/get-products-by-category-id/{category-id}?field1={fieldName1}?field1={fieldName1}
     ///
     /// </remarks>
-    [HttpGet]
+    [HttpGet("{category-id}")]
     [ServiceFilter(typeof(GetProductsByCategoryIdCachingFilter), Order = 2)]
     [ServiceFilter(typeof(ValidationRequestFilter<GetProductsByCategoryIdRequest>), Order = 1)]
     public async Task<IActionResult> GetProductsByCategoryIdAsync(
-        [FromQuery] GetProductsByCategoryIdRequest getProductsByCategoryIdRequest,
+        GetProductsByCategoryIdRequest getProductsByCategoryIdRequest,
         CancellationToken cancellationToken
     )
     {

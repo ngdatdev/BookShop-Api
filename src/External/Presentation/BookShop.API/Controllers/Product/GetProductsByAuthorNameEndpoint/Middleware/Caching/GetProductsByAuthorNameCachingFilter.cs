@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Product.GetProductsByAuthorNameEndpoint.Common;
 using BookShop.API.Controllers.Product.GetProductsByAuthorNameEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.Product.GetProductsByCategoryIdEndpoint.Common;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -35,8 +36,10 @@ public class GetProductsByAuthorNameCachingFilter : IAsyncActionFilter
                 kvp => kvp.Value.ToString()
             );
 
-            var cacheKey = GetProductsByAuthorNameStateBag.GenerateCacheKey(queryParameters);
-
+            var cacheKey = GetProductsByAuthorNameStateBag.GenerateCacheKey(
+                parameters: queryParameters,
+                request: request
+            );
             var cacheModel = await _cacheHandler.GetAsync<GetProductsByAuthorNameHttpResponse>(
                 key: cacheKey,
                 cancellationToken: CancellationToken.None

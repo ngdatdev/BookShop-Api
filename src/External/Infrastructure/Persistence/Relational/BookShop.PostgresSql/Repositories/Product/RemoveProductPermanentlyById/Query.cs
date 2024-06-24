@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Common;
@@ -11,17 +12,23 @@ namespace BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById
 /// </summary>
 internal partial class RemoveProductPermanentlyByIdRepository
 {
-    public Task<bool> IsProductFoundByIdQueryAsync(
+    public Task<BookShop.Data.Shared.Entities.Product> FindProductByIdQueryAsync(
         Guid productId,
         CancellationToken cancellationToken
     )
     {
         return _products
             .AsNoTracking()
-            .AnyAsync(
-                predicate: product => product.Id == productId,
-                cancellationToken: cancellationToken
-            );
+            .Where(predicate: product => product.Id == productId)
+            .Select(selector: product => new BookShop.Data.Shared.Entities.Product()
+            {
+                ImageUrl = product.ImageUrl,
+                Assets = product.Assets.Select(asset => new BookShop.Data.Shared.Entities.Asset()
+                {
+                    ImageUrl = asset.ImageUrl
+                })
+            })
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
     public Task<bool> IsProductTemporarilyRemovedByIdQueryAsync(

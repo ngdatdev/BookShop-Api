@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace BookShop.API.Controllers.Product.GetProductsByAuthorNameEndpoint.Common;
 
@@ -15,7 +17,10 @@ internal sealed class GetProductsByAuthorNameStateBag
 
     internal static int CacheDurationInSeconds { get; } = 60;
 
-    public static string GenerateCacheKey(Dictionary<string, string> parameters)
+    public static string GenerateCacheKey(
+        Dictionary<string, string> parameters,
+        HttpRequest request
+    )
     {
         var sortedParameters = parameters.OrderBy(kv => kv.Key);
 
@@ -30,7 +35,7 @@ internal sealed class GetProductsByAuthorNameStateBag
         using (var md5 = MD5.Create())
         {
             var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(key));
-            return Convert.ToBase64String(hash);
+            return $"{request.RouteValues["author-name"]}_{Convert.ToBase64String(hash)}";
         }
     }
 }

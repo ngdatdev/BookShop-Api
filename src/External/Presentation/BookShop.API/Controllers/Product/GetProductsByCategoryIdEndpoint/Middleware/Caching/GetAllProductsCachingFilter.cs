@@ -35,7 +35,10 @@ public class GetProductsByCategoryIdCachingFilter : IAsyncActionFilter
                 kvp => kvp.Value.ToString()
             );
 
-            var cacheKey = GetProductsByCategoryIdStateBag.GenerateCacheKey(queryParameters);
+            var cacheKey = GetProductsByCategoryIdStateBag.GenerateCacheKey(
+                parameters: queryParameters,
+                request: request
+            );
 
             var cacheModel = await _cacheHandler.GetAsync<GetProductsByCategoryIdHttpResponse>(
                 key: cacheKey,

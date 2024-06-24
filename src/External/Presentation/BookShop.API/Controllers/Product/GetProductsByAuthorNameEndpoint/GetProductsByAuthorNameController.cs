@@ -36,14 +36,14 @@ public class GetProductsByAuthorNameController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/product/get-products-by-author?field1={fieldName1}?field1={fieldName1}
+    ///     GET api/product/get-products-by-author/{author-name}?field1={fieldName1}?field1={fieldName1}
     ///
     /// </remarks>
-    [HttpGet]
+    [HttpGet("{author-name}")]
     [ServiceFilter(typeof(GetProductsByAuthorNameCachingFilter), Order = 2)]
     [ServiceFilter(typeof(ValidationRequestFilter<GetProductsByAuthorNameRequest>), Order = 1)]
     public async Task<IActionResult> GetProductsByAuthorNameAsync(
-        [FromQuery] GetProductsByAuthorNameRequest getProductsByAuthorNameRequest,
+        GetProductsByAuthorNameRequest getProductsByAuthorNameRequest,
         CancellationToken cancellationToken
     )
     {

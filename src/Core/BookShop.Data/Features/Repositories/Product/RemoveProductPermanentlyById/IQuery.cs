@@ -11,7 +11,10 @@ namespace BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyBy
 /// </summary>
 public partial interface IRemoveProductPermanentlyByIdRepository
 {
-    Task<bool> IsProductFoundByIdQueryAsync(Guid productId, CancellationToken cancellationToken);
+    Task<Shared.Entities.Product> FindProductByIdQueryAsync(
+        Guid productId,
+        CancellationToken cancellationToken
+    );
 
     Task<bool> IsProductTemporarilyRemovedByIdQueryAsync(
         Guid productId,

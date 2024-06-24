@@ -1,9 +1,9 @@
-using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Features;
+using BookShop.Application.Shared.FileObjectStorages;
 using BookShop.Data.Features.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -18,14 +18,17 @@ public class RemoveProductPermanentlyByIdHandler
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ICloudinaryStorageHandler _cloudinaryStorageHandler;
 
     public RemoveProductPermanentlyByIdHandler(
         IUnitOfWork unitOfWork,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        ICloudinaryStorageHandler cloudinaryStorageHandler
     )
     {
         _unitOfWork = unitOfWork;
         _httpContextAccessor = httpContextAccessor;
+        _cloudinaryStorageHandler = cloudinaryStorageHandler;
     }
 
     /// <summary>
@@ -47,20 +50,21 @@ public class RemoveProductPermanentlyByIdHandler
     )
     {
         // Check product id is exist in database.
-        var isProductIdFound =
-            await _unitOfWork.ProductFeature.RemoveProductPermanentlyByIdRepository.IsProductFoundByIdQueryAsync(
+        var foundProduct =
+            await _unitOfWork.ProductFeature.RemoveProductPermanentlyByIdRepository.FindProductByIdQueryAsync(
                 productId: request.ProductId,
                 cancellationToken: cancellationToken
             );
 
         // Responds if product is not found.
-        if (!isProductIdFound)
+        if (Equals(objA: foundProduct, objB: default))
         {
             return new()
             {
                 StatusCode = RemoveProductPermanentlyByIdResponseStatusCode.PRODUCT_ID_IS_NOT_FOUND
             };
         }
+
         // Check product is temporarily removed by id.
         var isProductTemporarilyRemoved =
             await _unitOfWork.ProductFeature.RemoveProductPermanentlyByIdRepository.IsProductTemporarilyRemovedByIdQueryAsync(
@@ -93,6 +97,14 @@ public class RemoveProductPermanentlyByIdHandler
         // Responds if database transaction fasle.
         if (!dbResult)
         {
+            await _cloudinaryStorageHandler.DeletePhotoAsync(foundProduct.ImageUrl);
+
+            _ = Task.WhenAll(
+                foundProduct.Assets.Select(asset =>
+                    _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: asset.ImageUrl)
+                )
+            );
+
             return new()
             {
                 StatusCode = RemoveProductPermanentlyByIdResponseStatusCode.DATABASE_OPERATION_FAIL
