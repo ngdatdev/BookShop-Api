@@ -3,6 +3,7 @@ using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
 using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
+using BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.Data.Features.Repositories.Product.RemoveProductTemporarilyById;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 using BookShop.PostgresSql.Data;
@@ -10,6 +11,7 @@ using BookShop.PostgresSql.Repositories.Product.CreateProduct;
 using BookShop.PostgresSql.Repositories.Product.GetAllProducts;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByAuthorName;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
+using BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductTemporarilyById;
 using BookShop.PostgresSql.Repositories.Product.UpdateProductById;
 
@@ -28,6 +30,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     private IUpdateProductByIdRepository _updateProductByIdRepository;
     private IGetProductsByAuthorNameRepository _getProductsByAuthorNameRepository;
     private IRemoveProductTemporarilyByIdRepository _removeProductTemporarilyByIdRepository;
+    private IRemoveProductPermanentlyByIdRepository _removeProductPermanentlyByIdRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -66,6 +69,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
             );
         }
     }
+
     public IGetProductsByAuthorNameRepository GetProductsByAuthorNameRepository
     {
         get
@@ -82,6 +86,15 @@ internal class ProductFeatureRepository : IProductFeatureRepository
         {
             return _removeProductTemporarilyByIdRepository ??=
                 new RemoveProductTemporarilyByIdRepository(context: _context);
+        }
+    }
+
+    public IRemoveProductPermanentlyByIdRepository RemoveProductPermanentlyByIdRepository
+    {
+        get
+        {
+            return _removeProductPermanentlyByIdRepository ??=
+                new RemoveProductPermanentlyByIdRepository(context: _context);
         }
     }
 }

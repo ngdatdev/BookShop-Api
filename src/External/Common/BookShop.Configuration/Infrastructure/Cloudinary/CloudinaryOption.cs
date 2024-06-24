@@ -1,13 +1,11 @@
-﻿
-namespace BookShop.Configuration.Infrastructure.Cloudinary;
+﻿namespace BookShop.Configuration.Infrastructure.Cloudinary;
 
 /// summary
-///     The JwtAuthenticationOption class is used to hold connectionString redis configuration settings.
+///     The CloudinaryOption class is used to hold cloudinary configuration settings.
 /// summary
 public class CloudinaryOption
-    {
-        public string CloudName { get; set; }
-        public string ApiKey { get; set; }
-        public string ApiSecret { get; set; }
-    }
-
+{
+    public string CloudName { get; set; }
+    public string ApiKey { get; set; }
+    public string ApiSecret { get; set; }
+}

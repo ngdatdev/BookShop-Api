@@ -2,6 +2,7 @@ using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
 using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
+using BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.Data.Features.Repositories.Product.RemoveProductTemporarilyById;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 
@@ -38,7 +39,12 @@ public interface IProductFeatureRepository
     public IGetProductsByAuthorNameRepository GetProductsByAuthorNameRepository { get; }
 
     /// <summary>
-    ///     Gets remove product by id feature repository.
+    ///     Gets remove product temporarily by id feature repository.
     /// </summary>
     public IRemoveProductTemporarilyByIdRepository RemoveProductTemporarilyByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets remove product permanently by id feature repository.
+    /// </summary>
+    public IRemoveProductPermanentlyByIdRepository RemoveProductPermanentlyByIdRepository { get; }
 }
