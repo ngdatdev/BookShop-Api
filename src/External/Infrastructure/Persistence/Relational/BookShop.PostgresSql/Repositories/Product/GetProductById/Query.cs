@@ -21,8 +21,8 @@ internal partial class GetProductByIdRepository
         return _products
             .AsNoTracking()
             .Where(predicate: product =>
-                product.RemovedAt != CommonConstant.MIN_DATE_TIME
-                && product.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                product.RemovedAt == CommonConstant.MIN_DATE_TIME
+                && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             )
             .Select(product => new BookShop.Data.Shared.Entities.Product()
             {
@@ -60,8 +60,8 @@ internal partial class GetProductByIdRepository
     {
         return _products.AnyAsync(
             predicate: product =>
-                product.RemovedAt == CommonConstant.MIN_DATE_TIME
-                && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                product.RemovedAt != CommonConstant.MIN_DATE_TIME
+                && product.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             cancellationToken: cancellationToken
         );
     }

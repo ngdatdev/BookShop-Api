@@ -23,7 +23,7 @@ public class UpdateProductByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for update product information.
+    ///     Endpoint for update product.
     /// </summary>
     /// <param name="updateProductByIdRequest">
     ///     Class contains updating product request.

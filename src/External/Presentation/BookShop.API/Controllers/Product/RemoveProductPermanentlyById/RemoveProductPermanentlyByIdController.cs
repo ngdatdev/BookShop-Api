@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById;
 
 [ApiController]
-[Route(template: "api/product/remove-permanently")]
+[Route(template: "api/product/permanently")]
 [Tags(tags: "Product")]
 public class RemoveProductPermanentlyByIdController : ControllerBase
 {
@@ -37,7 +37,7 @@ public class RemoveProductPermanentlyByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/product/remove-permanently/{product-id}
+    ///     DELETE api/product/{product-id}
     ///
     /// </remarks>
     [HttpDelete("{product-id}")]

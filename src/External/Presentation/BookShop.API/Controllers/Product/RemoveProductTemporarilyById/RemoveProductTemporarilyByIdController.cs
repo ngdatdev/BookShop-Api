@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyById;
 
 [ApiController]
-[Route(template: "api/product/remove-temporarily")]
+[Route(template: "api/product/temporarily")]
 [Tags(tags: "Product")]
 public class RemoveProductTemporarilyByIdController : ControllerBase
 {
@@ -36,7 +36,7 @@ public class RemoveProductTemporarilyByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/product/remove-temporariy
+    ///     DELETE api/product/{product-id}
     ///
     /// </remarks>
     [HttpDelete("{product-id}")]
