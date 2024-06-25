@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using BookShop.Application.Features.Users.GetProfileUser;
 
-namespace BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
 
 /// <summary>
 ///     GetProfileUser http response

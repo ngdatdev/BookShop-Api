@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using BookShop.Application.Features.Product.RemoveProductPermanentlyById;
 
-namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById.HttpResponseMapper;
 
 /// <summary>
 ///     RemoveProductPermanentlyById http response

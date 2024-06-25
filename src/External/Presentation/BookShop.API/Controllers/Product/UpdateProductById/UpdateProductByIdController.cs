@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.UpdateProductByIdEndpoint.HttpResponseMapper;
-using BookShop.API.Controllers.Product.UpdateProductByIdEndpoint.Middleware.Authorization;
+using BookShop.API.Controllers.Product.UpdateProductById.HttpResponseMapper;
+using BookShop.API.Controllers.Product.UpdateProductById.Middleware.Authorization;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Product.UpdateProductById;
 using BookShop.Application.Shared.Features;

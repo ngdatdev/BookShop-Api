@@ -1,6 +1,6 @@
 using BookShop.Application.Features.Users.GetProfileUser;
 
-namespace BookShop.API.Controllers.User.GetProfileUserEndpoint.Common;
+namespace BookShop.API.Controllers.User.GetProfileUser.Common;
 
 /// <summary>
 ///     Represents the login state bag.

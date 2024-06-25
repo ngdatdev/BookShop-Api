@@ -3,13 +3,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.User.GetProfileUserEndpoint.Common;
-using BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.User.GetProfileUser.Common;
+using BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BookShop.API.Controllers.User.GetProfileUserEndpoint.Middleware.Caching;
+namespace BookShop.API.Controllers.User.GetProfileUser.Middleware.Caching;
 
 /// <summary>
 ///     Filter pipeline for get profile user caching.

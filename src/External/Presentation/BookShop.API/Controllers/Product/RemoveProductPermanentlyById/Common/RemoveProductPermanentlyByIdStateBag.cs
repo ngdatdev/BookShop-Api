@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.Common;
+namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Common;
 
 /// <summary>
 ///     Represents the get RemoveProductPermanentlyById state bag.

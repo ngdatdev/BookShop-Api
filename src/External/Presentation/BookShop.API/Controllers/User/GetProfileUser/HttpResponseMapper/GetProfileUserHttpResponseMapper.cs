@@ -1,4 +1,4 @@
-namespace BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
 
 /// <summary>
 ///     GetProfileUser extension method

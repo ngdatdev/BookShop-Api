@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.HttpResponseMapper;
+using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.HttpResponseMapper;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.Middleware.Caching;
+namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Middleware.Caching;
 
 /// <summary>
 ///     Filter pipeline for RemoveProductPermanentlyById caching.

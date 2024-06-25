@@ -1,6 +1,9 @@
 ﻿using BookShop.Data.Features.Repositories.User;
+using BookShop.Data.Features.Repositories.User.GetAllUsers;
 using BookShop.Data.Features.Repositories.User.GetProfileUser;
 using BookShop.PostgresSql.Data;
+using BookShop.PostgresSql.Repositories.Product.GetAllProducts;
+using BookShop.PostgresSql.Repositories.User.GetAllUsers;
 using BookShop.PostgresSql.Repositories.User.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,7 +17,8 @@ internal class UserFeatureRepository : IUserFeatureRepository
     private readonly BookShopContext _context;
     private readonly UserManager<BookShop.Data.Shared.Entities.User> _userManager;
 
-    private IGetProfileUserRepository _geProfileUserRepository;
+    private IGetProfileUserRepository _getProfileUserRepository;
+    private IGetAllUsersRepository _getAllUsersRepository;
 
     internal UserFeatureRepository(
         BookShopContext context,
@@ -27,6 +31,14 @@ internal class UserFeatureRepository : IUserFeatureRepository
 
     public IGetProfileUserRepository GetProfileUserRepository
     {
-        get { return _geProfileUserRepository ??= new GetProfileUserRepository(context: _context); }
+        get
+        {
+            return _getProfileUserRepository ??= new GetProfileUserRepository(context: _context);
+        }
+    }
+
+    public IGetAllUsersRepository GetAllUsersRepository
+    {
+        get { return _getAllUsersRepository ??= new GetAllUsersRepository(context: _context); }
     }
 }

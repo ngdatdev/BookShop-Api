@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using BookShop.Application.Features.Product.UpdateProductById;
 
-namespace BookShop.API.Controllers.Product.UpdateProductByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.UpdateProductById.HttpResponseMapper;
 
 /// <summary>
 ///     UpdateProductById http response

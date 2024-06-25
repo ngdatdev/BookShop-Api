@@ -1,4 +1,4 @@
-namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById.HttpResponseMapper;
 
 /// <summary>
 ///     RemoveProductPermanentlyById extension method

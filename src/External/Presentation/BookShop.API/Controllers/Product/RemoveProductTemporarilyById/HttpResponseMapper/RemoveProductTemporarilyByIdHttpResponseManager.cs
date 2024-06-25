@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BookShop.Application.Features.Product.RemoveProductTemporarilyById;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyById.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for RemoveProductTemporarilyById feature

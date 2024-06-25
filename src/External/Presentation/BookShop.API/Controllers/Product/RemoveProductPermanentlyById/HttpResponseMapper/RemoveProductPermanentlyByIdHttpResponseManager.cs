@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BookShop.Application.Features.Product.RemoveProductPermanentlyById;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for RemoveProductPermanentlyById feature

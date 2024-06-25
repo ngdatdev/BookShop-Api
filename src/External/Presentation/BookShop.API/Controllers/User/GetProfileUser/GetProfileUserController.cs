@@ -1,14 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
-using BookShop.API.Controllers.User.GetProfileUserEndpoint.Middleware.Caching;
+using BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
+using BookShop.API.Controllers.User.GetProfileUser.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Users.GetProfileUser;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Auth.GetProfileUserEndpoint;
+namespace BookShop.API.Controllers.Auth.GetProfileUser;
 
 [ApiController]
 [Route(template: "api/user/profile")]

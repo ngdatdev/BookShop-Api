@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BookShop.Application.Features.Product.UpdateProductById;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Controllers.Product.UpdateProductByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.UpdateProductById.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for UpdateProductById feature

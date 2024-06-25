@@ -1,9 +1,8 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.HttpResponseMapper;
-using BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.Middleware.Authorization;
-using BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.Middleware.Caching;
+using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.HttpResponseMapper;
+using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Middleware.Authorization;
+using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Middleware.Caching;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Product.RemoveProductPermanentlyById;
 using BookShop.Application.Shared.Features;

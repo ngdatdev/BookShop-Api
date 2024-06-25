@@ -4,7 +4,7 @@ using BookShop.Application.Features.Address.GetAllAddresses;
 using BookShop.Application.Features.Users.GetProfileUser;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Controllers.User.GetProfileUserEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for login feature

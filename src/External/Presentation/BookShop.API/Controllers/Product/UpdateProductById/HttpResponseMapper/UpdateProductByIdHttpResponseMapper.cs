@@ -1,4 +1,4 @@
-namespace BookShop.API.Controllers.Product.UpdateProductByIdEndpoint.HttpResponseMapper;
+namespace BookShop.API.Controllers.Product.UpdateProductById.HttpResponseMapper;
 
 /// <summary>
 ///     UpdateProductById extension method

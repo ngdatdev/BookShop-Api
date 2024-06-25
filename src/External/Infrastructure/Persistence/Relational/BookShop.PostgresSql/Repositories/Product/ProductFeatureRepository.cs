@@ -7,6 +7,7 @@ using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
 using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.Data.Features.Repositories.Product.RemoveProductTemporarilyById;
+using BookShop.Data.Features.Repositories.Product.RestoreProductById;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Product.CreateProduct;
@@ -17,6 +18,7 @@ using BookShop.PostgresSql.Repositories.Product.GetProductsByAuthorName;
 using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductTemporarilyById;
+using BookShop.PostgresSql.Repositories.Product.RestoreProductById;
 using BookShop.PostgresSql.Repositories.Product.UpdateProductById;
 
 namespace BookShop.PostgresSql.Repositories.Product;
@@ -37,6 +39,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     private IRemoveProductPermanentlyByIdRepository _removeProductPermanentlyByIdRepository;
     private IGetAllTemporarilyRemovedProductsRepository _getAllTemporarilyRemovedProductsRepository;
     private IGetProductByIdRepository _getProductByIdRepository;
+    private IRestoreProductByIdRepository _restoreProductByIdRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -118,6 +121,16 @@ internal class ProductFeatureRepository : IProductFeatureRepository
         get
         {
             return _getProductByIdRepository ??= new GetProductByIdRepository(context: _context);
+        }
+    }
+
+    public IRestoreProductByIdRepository RestoreProductByIdRepository
+    {
+        get
+        {
+            return _restoreProductByIdRepository ??= new RestoreProductByIdRepository(
+                context: _context
+            );
         }
     }
 }

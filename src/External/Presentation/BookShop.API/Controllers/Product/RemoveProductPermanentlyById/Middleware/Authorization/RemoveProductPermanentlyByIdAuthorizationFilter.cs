@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyByIdEndpoint.Middleware.Authorization;
+namespace BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Middleware.Authorization;
 
 /// <summary>
 ///     Filter pipeline for RemoveProductPermanentlyById authorization.

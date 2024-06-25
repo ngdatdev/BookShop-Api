@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyByIdByIdEndpoint.Middleware.Authorization;
+namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyById.Middleware.Authorization;
 
 /// <summary>
-///     Filter pipeline for RemoveProductTemporarilyByIdById authorization.
+///     Filter pipeline for RemoveProductTemporarilyById authorization.
 /// </summary>
 public class RemoveProductTemporarilyByIdByIdAuthorizationFilter : IAsyncAuthorizationFilter
 {
