@@ -14,6 +14,7 @@ using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BookShop.Application.Features.Product.UpdateProductById;
 
@@ -88,34 +89,46 @@ public class UpdateProductByIdHandler
             };
         }
 
+        string uploadMainUrl = string.Empty;
         // Upload main url to cloudinary.
-        var uploadMainUrl = await _cloudinaryStorageHandler.UploadPhotoAsync(
-            formFile: request.MainUrl,
-            cancellationToken: cancellationToken
-        );
-
-        // Responds if upload result of main url is fail.
-        if (string.IsNullOrEmpty(uploadMainUrl))
+        if (string.IsNullOrEmpty(request.OldMainUrl))
         {
-            return new() { StatusCode = UpdateProductByIdResponseStatusCode.MAIN_IMAGE_FILE_FAIL, };
+            uploadMainUrl = await _cloudinaryStorageHandler.UploadPhotoAsync(
+                formFile: request.MainUrl,
+                cancellationToken: cancellationToken
+            );
+            // Responds if upload result of main url is fail.
+            if (string.IsNullOrEmpty(uploadMainUrl))
+            {
+                return new()
+                {
+                    StatusCode = UpdateProductByIdResponseStatusCode.MAIN_IMAGE_FILE_FAIL,
+                };
+            }
         }
 
         // Handle upload sub url if it is not null.
-
-        var subUrl = request.SubImages.Select(subImage =>
-            _cloudinaryStorageHandler.UploadPhotoAsync(
-                formFile: subImage,
-                cancellationToken: cancellationToken
-            )
-        );
-
-        var uploadSubUrl = await Task.WhenAll(subUrl);
-
-        // Respond if upload result of sub url is fail.
-        if (!Equals(objA: uploadSubUrl.Length, objB: request.SubImages.Count()))
+        IEnumerable<string> subUrl = Enumerable.Empty<string>();
+        if (!request.SubImages.IsNullOrEmpty())
         {
-            await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: uploadMainUrl);
-            return new() { StatusCode = UpdateProductByIdResponseStatusCode.SUB_IMAGE_FILE_FAIL };
+            subUrl = await Task.WhenAll(
+                request.SubImages?.Select(subImage =>
+                    _cloudinaryStorageHandler.UploadPhotoAsync(
+                        formFile: subImage,
+                        cancellationToken: cancellationToken
+                    )
+                )
+            );
+
+            // Respond if upload result of sub url is fail.
+            if (!Equals(objA: subUrl.Count(), objB: request.SubImages.Count()))
+            {
+                await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: uploadMainUrl);
+                return new()
+                {
+                    StatusCode = UpdateProductByIdResponseStatusCode.SUB_IMAGE_FILE_FAIL
+                };
+            }
         }
 
         // Get userId from claim jwt token.
@@ -126,8 +139,8 @@ public class UpdateProductByIdHandler
         // Mapping request to product entity.
         var updateProduct = MapperToProduct(
             updateProductByIdRequest: request,
-            mainUrl: uploadMainUrl,
-            subUrls: uploadSubUrl,
+            mainUrl: uploadMainUrl.IsNullOrEmpty() ? request.OldMainUrl : "",
+            subUrls: subUrl.Concat(second: request.OldSubUrls ?? Enumerable.Empty<string>()),
             userId: Guid.Parse(input: userId),
             product: foundProduct
         );
@@ -146,7 +159,7 @@ public class UpdateProductByIdHandler
             {
                 await _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: uploadMainUrl);
                 await Task.WhenAll(
-                    uploadSubUrl.Select(subUrl =>
+                    subUrl.Select(subUrl =>
                         _cloudinaryStorageHandler.DeletePhotoAsync(imageUrl: subUrl)
                     )
                 );
@@ -176,6 +189,7 @@ public class UpdateProductByIdHandler
         Data.Shared.Entities.Product product
     )
     {
+        var finalSubUrls = subUrls ?? Enumerable.Empty<string>();
         return new()
         {
             Id = updateProductByIdRequest.ProductId,
@@ -197,7 +211,7 @@ public class UpdateProductByIdHandler
                     ProductId = updateProductByIdRequest.ProductId
                 })
                 .ToList(),
-            Assets = subUrls
+            Assets = finalSubUrls
                 .Select(subUrl => new Asset()
                 {
                     ProductId = updateProductByIdRequest.ProductId,

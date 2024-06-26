@@ -30,22 +30,28 @@ internal partial class UpdateProductByIdRepository
             {
                 // Asset of product table database operation.
                 #region Asset
-                var currentSubUrls = currentProduct.Assets.Select(asset => asset.Id);
-                var updateSubUrls = updateProduct.Assets.Select(asset => asset.Id);
+                var currentSubUrls = currentProduct.Assets.Select(asset => asset.ImageUrl);
+                var updateSubUrls = updateProduct.Assets.Select(asset => asset.ImageUrl);
 
-                var removedSubUrls = currentSubUrls.Except(updateSubUrls);
+                var removedSubUrls = currentSubUrls.Except(
+                    second: updateSubUrls,
+                    comparer: StringComparer.OrdinalIgnoreCase
+                );
 
                 if (!removedSubUrls.IsNullOrEmpty())
                 {
                     await _assets
                         .Where(predicate: asset =>
                             asset.ProductId == currentProduct.Id
-                            && removedSubUrls.Contains(asset.Id)
+                            && removedSubUrls.Contains(asset.ImageUrl)
                         )
                         .ExecuteDeleteAsync(cancellationToken: cancellationToken);
                 }
 
-                var addSubUrls = updateSubUrls.Except(currentSubUrls);
+                var addSubUrls = updateSubUrls.Except(
+                    second: currentSubUrls,
+                    comparer: StringComparer.OrdinalIgnoreCase
+                );
 
                 if (!addSubUrls.IsNullOrEmpty())
                 {

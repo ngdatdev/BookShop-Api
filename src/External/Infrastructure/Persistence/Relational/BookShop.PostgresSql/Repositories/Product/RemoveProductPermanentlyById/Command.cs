@@ -29,15 +29,23 @@ internal partial class RemoveProductPermanentlyByIdRepository
                 try
                 {
                     await _assets
-                        .Where(product => product.ProductId == productId)
+                        .Where(entity => entity.ProductId == productId)
                         .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
-                    await _productCategories
-                        .Where(product => product.ProductId == productId)
+                    await _cartItems
+                        .Where(entity => entity.ProductId == productId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _orderItems
+                        .Where(entity => entity.ProductId == productId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _reviews
+                        .Where(entity => entity.ProductId == productId)
                         .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
                     await _products
-                        .Where(predicate: product => product.Id == productId)
+                        .Where(predicate: entity => entity.Id == productId)
                         .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
                     await dbTransaction.CommitAsync(cancellationToken: cancellationToken);

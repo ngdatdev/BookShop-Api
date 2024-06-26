@@ -45,7 +45,7 @@ public class RemoveUserPermanentlyByIdHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveUserPermanentlyByIdResponseStatusCode.USER_IS_NOT_TEMPORARILY_REMOVED,
+            key: RemoveUserPermanentlyByIdResponseStatusCode.USER_ID_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {

@@ -15,6 +15,9 @@ internal partial class RemoveProductPermanentlyByIdRepository
     private DbSet<BookShop.Data.Shared.Entities.Product> _products;
     private DbSet<Asset> _assets;
     private DbSet<ProductCategory> _productCategories;
+    private DbSet<CartItem> _cartItems;
+    private DbSet<OrderDetail> _orderItems;
+    private DbSet<Review> _reviews;
 
     public RemoveProductPermanentlyByIdRepository(BookShopContext context)
     {
@@ -22,5 +25,8 @@ internal partial class RemoveProductPermanentlyByIdRepository
         _products = _context.Set<BookShop.Data.Shared.Entities.Product>();
         _assets = _context.Set<Asset>();
         _productCategories = _context.Set<ProductCategory>();
+        _cartItems = _context.Set<CartItem>();
+        _orderItems = _context.Set<OrderDetail>();
+        _reviews = _context.Set<Review>();
     }
 }

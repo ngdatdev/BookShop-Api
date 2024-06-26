@@ -26,7 +26,11 @@ internal partial class GetProductsByAuthorNameRepository
         var query = _products
             .AsQueryable()
             .Where(product =>
-                product.Author == authorName
+                EF.Functions.Collate(
+                        product.Author,
+                        Constants.CommonConstant.DbCollation.CASE_INSENSITIVE
+                    )
+                    .Equals(authorName)
                 && product.RemovedAt == CommonConstant.MIN_DATE_TIME
                 && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             );

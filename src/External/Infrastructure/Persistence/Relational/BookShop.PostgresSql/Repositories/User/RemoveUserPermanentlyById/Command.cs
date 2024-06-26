@@ -28,6 +28,30 @@ internal partial class RemoveUserPermanentlyByIdRepository
 
                 try
                 {
+                    await _carts
+                        .Where(predicate: entity => entity.UserId == userId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _orders
+                        .Where(predicate: entity => entity.UserId == userId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _refreshTokens
+                        .Where(predicate: entity => entity.UserId == userId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _reviews
+                        .Where(predicate: entity => entity.UserId == userId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _userDetails
+                        .Where(predicate: entity => entity.UserId == userId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+                    await _users
+                        .Where(predicate: entity => entity.Id == userId)
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
                     await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
 
                     dbTransactionResult = true;

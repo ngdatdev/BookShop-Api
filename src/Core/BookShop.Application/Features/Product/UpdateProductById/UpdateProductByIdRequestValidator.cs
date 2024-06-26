@@ -43,8 +43,6 @@ public sealed class UpdateProductByIdRequestValidator
         RuleFor(expression: request => request.QuantityCurrent).NotEmpty().GreaterThan(0);
 
         RuleFor(product => product.MainUrl)
-            .NotNull()
-            .WithMessage("Image is required.")
             .Must(BeAValidImage)
             .WithMessage("Only JPEG, PNG, and GIF images are allowed.")
             .Must(BeAValidSize)
@@ -81,8 +79,7 @@ public sealed class UpdateProductByIdRequestValidator
     private bool BeAValidImage(IFormFile file)
     {
         if (Equals(objA: file, objB: default))
-            return false;
-
+            return true;
         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
         var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
         return !string.IsNullOrEmpty(extension) && allowedExtensions.Contains(extension);
@@ -91,7 +88,7 @@ public sealed class UpdateProductByIdRequestValidator
     private bool BeAValidSize(IFormFile file)
     {
         if (Equals(objA: file, objB: default))
-            return false;
+            return true;
 
         return file.Length < 2 * 1024 * 1024;
     }

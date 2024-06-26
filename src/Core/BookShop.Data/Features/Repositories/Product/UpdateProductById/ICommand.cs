@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Data.Shared.Entities;
 
 namespace BookShop.Data.Features.Repositories.Product.UpdateProductById;
 
@@ -12,8 +11,8 @@ namespace BookShop.Data.Features.Repositories.Product.UpdateProductById;
 public partial interface IUpdateProductByIdRepository
 {
     Task<bool> UpdateProductByIdCommandAsync(
-        Data.Shared.Entities.Product updateProduct,
-        Data.Shared.Entities.Product currentProduct,
+        Shared.Entities.Product updateProduct,
+        Shared.Entities.Product currentProduct,
         CancellationToken cancellationToken
     );
 }

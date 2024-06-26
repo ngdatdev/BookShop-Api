@@ -29,6 +29,8 @@ public class UpdateProductByIdRequest : IFeatureRequest<UpdateProductByIdRespons
 
     public IFormFile MainUrl { get; init; }
 
+    public string OldMainUrl { get; init; }
+
     public string Author { get; init; }
 
     public string Publisher { get; init; }
@@ -38,4 +40,6 @@ public class UpdateProductByIdRequest : IFeatureRequest<UpdateProductByIdRespons
     public IEnumerable<Guid> CategoriesId { get; init; }
 
     public IEnumerable<IFormFile> SubImages { get; init; }
+
+    public IEnumerable<string> OldSubUrls { get; init; }
 }

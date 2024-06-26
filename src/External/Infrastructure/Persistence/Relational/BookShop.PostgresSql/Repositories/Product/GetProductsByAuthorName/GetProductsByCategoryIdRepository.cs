@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Product.GetProductsByAuthorName;
-using BookShop.Data.Shared.Entities;
-using BookShop.Data.Shared.FilterAndPagination;
 using BookShop.PostgresSql.Data;
 using Microsoft.EntityFrameworkCore;
 
