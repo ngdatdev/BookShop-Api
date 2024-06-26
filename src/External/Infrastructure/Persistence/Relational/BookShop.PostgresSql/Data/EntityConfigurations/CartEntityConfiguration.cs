@@ -52,6 +52,6 @@ internal sealed class CartEntityConfiguration : IEntityTypeConfiguration<Cart>
             .HasMany(cart => cart.CartItems)
             .WithOne(cart => cart.Cart)
             .HasForeignKey(cart => cart.CartId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -58,6 +58,6 @@ internal sealed class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
             .HasMany(order => order.OrderDetails)
             .WithOne(orderDetail => orderDetail.Order)
             .HasForeignKey(orderDetail => orderDetail.OrderId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -143,14 +143,14 @@ internal sealed class ProductEntityConfiguration : IEntityTypeConfiguration<Prod
             .HasMany(product => product.CartItems)
             .WithOne(cartItem => cartItem.Product)
             .HasForeignKey(cartItem => cartItem.ProductId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         // [Product] - [ProductCategory] (1 - N).
         builder
             .HasMany(product => product.ProductCategories)
             .WithOne(productCategory => productCategory.Product)
             .HasForeignKey(productCategory => productCategory.ProductId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         // [Product] - [Assets] (1 - N).
         builder
