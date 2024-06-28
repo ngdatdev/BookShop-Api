@@ -1,29 +1,29 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.RemoveProductTemporarilyById.HttpResponseMapper;
-using BookShop.API.Controllers.Product.RemoveProductTemporarilyById.Middleware.Authorization;
+using BookShop.API.Controllers.Product.RestoreProductById.HttpResponseMapper;
+using BookShop.API.Controllers.Product.RestoreProductById.Middleware.Authorization;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
-using BookShop.Application.Features.Product.RemoveProductTemporarilyById;
+using BookShop.Application.Features.Product.RestoreProductById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Product.RemoveProductTemporarilyById;
+namespace BookShop.API.Controllers.Product.RestoreProductById;
 
 [ApiController]
-[Route(template: "api/product/temporarily")]
+[Route(template: "api/product/restore")]
 [Tags(tags: "Product")]
-public class RemoveProductTemporarilyByIdController : ControllerBase
+public class RestoreProductByIdController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public RemoveProductTemporarilyByIdController(IMediator mediator)
+    public RestoreProductByIdController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for remove products temporarily by id.
+    ///     Endpoint for resotre products temporarily by id.
     /// </summary>
     /// <param name="removeProductTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">
@@ -35,14 +35,14 @@ public class RemoveProductTemporarilyByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/product/temporarily/{product-id}
+    ///     PATCH api/product/{product-id}
     ///
     /// </remarks>
-    [HttpDelete("{product-id}")]
-    [ServiceFilter(typeof(ValidationRequestFilter<RemoveProductTemporarilyByIdRequest>), Order = 1)]
-    [ServiceFilter(typeof(RemoveProductTemporarilyByIdByIdAuthorizationFilter))]
-    public async Task<IActionResult> RemoveProductTemporarilyByIdAsync(
-        RemoveProductTemporarilyByIdRequest removeProductTemporarilyByIdRequest,
+    [HttpPatch("{product-id}")]
+    [ServiceFilter(typeof(ValidationRequestFilter<RestoreProductByIdRequest>), Order = 1)]
+    [ServiceFilter(typeof(RestoreProductByIdAuthorizationFilter))]
+    public async Task<IActionResult> RestoreProductByIdAsync(
+        RestoreProductByIdRequest removeProductTemporarilyByIdRequest,
         CancellationToken cancellationToken
     )
     {
@@ -51,7 +51,7 @@ public class RemoveProductTemporarilyByIdController : ControllerBase
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = RemoveProductTemporarilyByIdHttpResponseMapper
+        var apiResponse = RestoreProductByIdHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
             .Invoke(arg1: removeProductTemporarilyByIdRequest, featureResponse);
