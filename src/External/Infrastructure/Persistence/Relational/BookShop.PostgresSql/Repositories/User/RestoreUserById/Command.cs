@@ -29,8 +29,8 @@ internal partial class RestoreUserByIdRepository
 
                 try
                 {
-                    _users
-                        .Where(predicate: user => user.Id == userId)
+                    _userDetails
+                        .Where(predicate: user => user.UserId == userId)
                         .ExecuteUpdate(setPropertyCalls: builder =>
                             builder
                                 .SetProperty(user => user.RemovedAt, CommonConstant.MIN_DATE_TIME)

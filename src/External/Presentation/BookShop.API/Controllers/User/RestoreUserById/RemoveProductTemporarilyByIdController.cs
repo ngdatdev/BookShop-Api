@@ -1,31 +1,30 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Product.RestoreProductById.HttpResponseMapper;
-using BookShop.API.Controllers.Product.RestoreProductById.Middleware.Authorization;
+using BookShop.API.Controllers.User.RestoreUserById.HttpResponseMapper;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
-using BookShop.Application.Features.Product.RestoreProductById;
+using BookShop.Application.Features.Users.RestoreUserById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Product.RestoreProductById;
+namespace BookShop.API.Controllers.User.RestoreUserById;
 
 [ApiController]
-[Route(template: "api/product/restore")]
-[Tags(tags: "Product")]
-public class RestoreProductByIdController : ControllerBase
+[Route(template: "api/user/restore")]
+[Tags(tags: "User")]
+public class RestoreUserByIdController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public RestoreProductByIdController(IMediator mediator)
+    public RestoreUserByIdController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for resotre products temporarily by id.
+    ///     Endpoint for resotre user temporarily by id.
     /// </summary>
-    /// <param name="removeProductTemporarilyByIdRequest"></param>
+    /// <param name="removeUserTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
@@ -35,26 +34,26 @@ public class RestoreProductByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/product/{product-id}
+    ///     PATCH api/user/{user-id}
     ///
     /// </remarks>
-    [HttpPatch("{product-id}")]
-    [ServiceFilter(typeof(ValidationRequestFilter<RestoreProductByIdRequest>), Order = 1)]
-    [ServiceFilter(typeof(RestoreProductByIdAuthorizationFilter))]
-    public async Task<IActionResult> RestoreProductByIdAsync(
-        RestoreProductByIdRequest removeProductTemporarilyByIdRequest,
+    [HttpPatch("{user-id}")]
+    [ServiceFilter(typeof(ValidationRequestFilter<RestoreUserByIdRequest>), Order = 1)]
+    [ServiceFilter(typeof(RestoreUserByIdAuthorizationFilter))]
+    public async Task<IActionResult> RestoreUserByIdAsync(
+        RestoreUserByIdRequest removeUserTemporarilyByIdRequest,
         CancellationToken cancellationToken
     )
     {
         var featureResponse = await _mediator.SendAsync(
-            request: removeProductTemporarilyByIdRequest,
+            request: removeUserTemporarilyByIdRequest,
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = RestoreProductByIdHttpResponseMapper
+        var apiResponse = RestoreUserByIdHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
-            .Invoke(arg1: removeProductTemporarilyByIdRequest, featureResponse);
+            .Invoke(arg1: removeUserTemporarilyByIdRequest, featureResponse);
 
         return StatusCode(statusCode: apiResponse.HttpCode, value: apiResponse);
     }

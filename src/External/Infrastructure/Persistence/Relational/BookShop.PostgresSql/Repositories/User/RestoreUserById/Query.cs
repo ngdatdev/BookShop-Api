@@ -11,29 +11,26 @@ namespace BookShop.PostgresSql.Repositories.User.RestoreUserById;
 /// </summary>
 internal partial class RestoreUserByIdRepository
 {
-    public Task<bool> IsProductFoundByIdQueryAsync(
-        Guid productId,
-        CancellationToken cancellationToken
-    )
+    public Task<bool> IsUserFoundByIdQueryAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return _products.AnyAsync(
-            predicate: product => product.Id == productId,
+        return _users.AnyAsync(
+            predicate: user => user.Id == userId,
             cancellationToken: cancellationToken
         );
     }
 
-    public Task<bool> IsProductTemporarilyRemovedByIdQueryAsync(
-        Guid productId,
+    public Task<bool> IsUserTemporarilyRemovedByIdQueryAsync(
+        Guid userId,
         CancellationToken cancellationToken
     )
     {
-        return _products
+        return _userDetails
             .AsNoTracking()
             .AnyAsync(
-                predicate: product =>
-                    product.Id == productId
-                    && product.RemovedAt != CommonConstant.MIN_DATE_TIME
-                    && product.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                predicate: user =>
+                    user.UserId == userId
+                    && user.RemovedAt != CommonConstant.MIN_DATE_TIME
+                    && user.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                 cancellationToken: cancellationToken
             );
     }

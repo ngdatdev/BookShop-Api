@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
-using BookShop.Application.Features.Product.RestoreProductById;
+using BookShop.Application.Features.Users.RestoreUserById;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Controllers.Product.RestoreProductById.HttpResponseMapper;
+namespace BookShop.API.Controllers.User.RestoreUserById.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for RestoreProductById feature
+///     Mapper for RestoreUserById feature
 /// </summary>
-public class RestoreProductByIdHttpResponseManager
+public class RestoreUserByIdHttpResponseManager
 {
     private readonly Dictionary<
-        RestoreProductByIdResponseStatusCode,
-        Func<RestoreProductByIdRequest, RestoreProductByIdResponse, RestoreProductByIdHttpResponse>
+        RestoreUserByIdResponseStatusCode,
+        Func<RestoreUserByIdRequest, RestoreUserByIdResponse, RestoreUserByIdHttpResponse>
     > _dictionary;
 
-    internal RestoreProductByIdHttpResponseManager()
+    internal RestoreUserByIdHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: RestoreProductByIdResponseStatusCode.OPERATION_SUCCESS,
+            key: RestoreUserByIdResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -30,7 +30,7 @@ public class RestoreProductByIdHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RestoreProductByIdResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: RestoreUserByIdResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -40,7 +40,7 @@ public class RestoreProductByIdHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RestoreProductByIdResponseStatusCode.PRODUCT_IS_ALREADY_TEMPORARILY_REMOVED,
+            key: RestoreUserByIdResponseStatusCode.USER_IS_ALREADY_TEMPORARILY_REMOVED,
             value: (_, response) =>
                 new()
                 {
@@ -50,7 +50,7 @@ public class RestoreProductByIdHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RestoreProductByIdResponseStatusCode.PRODUCT_ID_IS_NOT_FOUND,
+            key: RestoreUserByIdResponseStatusCode.USER_ID_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -61,10 +61,10 @@ public class RestoreProductByIdHttpResponseManager
     }
 
     internal Func<
-        RestoreProductByIdRequest,
-        RestoreProductByIdResponse,
-        RestoreProductByIdHttpResponse
-    > Resolve(RestoreProductByIdResponseStatusCode statusCode)
+        RestoreUserByIdRequest,
+        RestoreUserByIdResponse,
+        RestoreUserByIdHttpResponse
+    > Resolve(RestoreUserByIdResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

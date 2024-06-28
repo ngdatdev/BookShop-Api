@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using BookShop.Application.Features.Users.RestoreUserById;
 
-namespace BookShop.API.Controllers.Product.RestoreUserById.HttpResponseMapper;
+namespace BookShop.API.Controllers.User.RestoreUserById.HttpResponseMapper;
 
 /// <summary>
 ///     RestoreUserById http response

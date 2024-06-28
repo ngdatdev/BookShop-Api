@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookShop.API.Controllers.Product.RestoreProductById.Middleware.Authorization;
+namespace BookShop.API.Controllers.User.RestoreProductById.Middleware.Authorization;
 
 /// <summary>
 ///     Filter pipeline for RestoreProductById authorization.
