@@ -1,7 +1,7 @@
 namespace BookShop.Application.Features.Auth.ConfirmUserRegistrationEmail;
 
 /// <summary>
-///     Extension Method for changing password features.
+///     Extension Method for ConfirmUserRegistrationEmail features.
 /// </summary>
 public static class ConfirmUserRegistrationEmailExtensionMethod
 {

@@ -1,9 +1,12 @@
+using System;
+using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Features;
-using BookShop.Application.Shared.Mail;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -17,17 +20,17 @@ public class ConfirmUserRegistrationEmailHandler
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<User> _userManager;
-    private readonly ISendingMailHandler _sendingMailHandler;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
     public ConfirmUserRegistrationEmailHandler(
         IUnitOfWork unitOfWork,
         UserManager<User> userManager,
-        ISendingMailHandler sendingMailHandler
+        IWebHostEnvironment webHostEnvironment
     )
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
-        _sendingMailHandler = sendingMailHandler;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     /// <summary>
@@ -43,12 +46,63 @@ public class ConfirmUserRegistrationEmailHandler
     /// </param>
     /// <returns>
     ///     A task containing the response.
+    /// <returns\>
+
     public async Task<ConfirmUserRegistrationEmailResponse> HandlerAsync(
         ConfirmUserRegistrationEmailRequest request,
         CancellationToken cancellationToken
     )
     {
-        // Is user not temporarily removed.
+        const string AccountConfirmedUrlIsNotValidTemplateName =
+            "AccountConfirmedUrlIsNotValidTemplate.html";
+        const string UserHasAlreadyConfirmedAccountSuccessfullyTemplateName =
+            "UserHasAlreadyConfirmedAccountSuccessfullyTemplate.html";
+        const string UserHasConfirmedAccountSuccessfullyTemplateName =
+            "UserHasConfirmedAccountSuccessfullyTemplate.html";
+        const string ServerErrorTemplateName = "ServerErrorTemplate.html";
+
+        byte[] decodeAccountCreationConfirmedEmailToken;
+
+        // Decode token base 64.
+        try
+        {
+            decodeAccountCreationConfirmedEmailToken = WebEncoders.Base64UrlDecode(
+                input: request.UserRegistrationEmailConfirmedTokenAsBase64
+            );
+        }
+        catch
+        {
+            return new()
+            {
+                StatusCode = ConfirmUserRegistrationEmailResponseStatusCode.TOKEN_IS_NOT_CORRECT,
+                ResponseBodyAsHtml = await GenerateHtmlResponseAsync(
+                    responseTemplateName: AccountConfirmedUrlIsNotValidTemplateName,
+                    cancellationToken: cancellationToken
+                )
+            };
+        }
+
+        // Extract decode token.
+        var tokens = Encoding
+            .UTF8.GetString(bytes: decodeAccountCreationConfirmedEmailToken)
+            .Split(separator: "<token/>");
+
+        // Get the user id.
+        var userId = Guid.Parse(input: tokens[1]);
+
+        // Find user by user id.
+        var foundUser = await _userManager.FindByIdAsync(userId: userId.ToString());
+
+        // Responds if user is not exist
+        if (Equals(objA: foundUser, objB: default))
+        {
+            return new()
+            {
+                StatusCode = ConfirmUserRegistrationEmailResponseStatusCode.USER_IS_NOT_FOUND,
+            };
+        }
+
+        // Check if user is not temporarily removed.
         var isUserNotTemporarilyRemoved =
             await _unitOfWork.AuthFeature.ConfirmUserRegistrationEmailRepository.IsUserNotTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
@@ -65,51 +119,38 @@ public class ConfirmUserRegistrationEmailHandler
             };
         }
 
-        // Is new user password valid.
-        var isPasswordValid = await ValidateUserPasswordAsync(
-            newUser: foundUser,
-            newPassword: request.NewPassword
-        );
+        // Has user confirmed account registration email.
+        var hasUserConfirmed = await _userManager.IsEmailConfirmedAsync(user: foundUser);
 
-        // Responds if is not valid.
-        if (!isPasswordValid)
+        // Responds if user has confirmed account registration email.
+        if (hasUserConfirmed)
         {
             return new()
             {
                 StatusCode =
-                    ConfirmUserRegistrationEmailResponseStatusCode.NEW_PASSWORD_IS_NOT_VALID
+                    ConfirmUserRegistrationEmailResponseStatusCode.USER_HAS_CONFIRMED_REGISTRATION_EMAIL,
+                ResponseBodyAsHtml = await GenerateHtmlResponseAsync(
+                    responseTemplateName: UserHasAlreadyConfirmedAccountSuccessfullyTemplateName,
+                    cancellationToken: cancellationToken
+                )
             };
         }
 
-        // Reset user password with new password by reset password token.
-        var resetPasswordResult = await _userManager.ResetPasswordAsync(
+        // Confirm user account registration.
+        var dbResult = await _userManager.ConfirmEmailAsync(
             user: foundUser,
-            token: request.ResetPasswordToken,
-            newPassword: request.NewPassword
+            token: tokens[default]
         );
 
-        // Responds if cannot reset user password.
-        if (!resetPasswordResult.Succeeded)
+        if (!dbResult.Succeeded)
         {
             return new()
             {
-                StatusCode = ConfirmUserRegistrationEmailResponseStatusCode.DATABASE_OPERATION_FAIL
-            };
-        }
-
-        // Remove the rset password token.
-        var dbResult =
-            await _unitOfWork.AuthFeature.ConfirmUserRegistrationEmailRepository.RemoveUserResetPasswordTokenCommandAsync(
-                resetPasswordToken: request.ResetPasswordToken,
-                cancellationToken: cancellationToken
-            );
-
-        // Cannot remove the reset password token.
-        if (!dbResult)
-        {
-            return new()
-            {
-                StatusCode = ConfirmUserRegistrationEmailResponseStatusCode.DATABASE_OPERATION_FAIL
+                StatusCode = ConfirmUserRegistrationEmailResponseStatusCode.DATABASE_OPERATION_FAIL,
+                ResponseBodyAsHtml = await GenerateHtmlResponseAsync(
+                    responseTemplateName: ServerErrorTemplateName,
+                    cancellationToken: cancellationToken
+                )
             };
         }
 
@@ -117,6 +158,28 @@ public class ConfirmUserRegistrationEmailHandler
         return new ConfirmUserRegistrationEmailResponse()
         {
             StatusCode = ConfirmUserRegistrationEmailResponseStatusCode.OPERATION_SUCCESS,
+            ResponseBodyAsHtml = await GenerateHtmlResponseAsync(
+                responseTemplateName: UserHasConfirmedAccountSuccessfullyTemplateName,
+                cancellationToken: cancellationToken
+            )
         };
+    }
+
+    private Task<string> GenerateHtmlResponseAsync(
+        string responseTemplateName,
+        CancellationToken cancellationToken
+    )
+    {
+        var userHasConfirmedAccountSuccessfullyHtmlPath = Path.Combine(
+            path1: "CreateUserAccount",
+            path2: responseTemplateName
+        );
+
+        var fullPath = Path.Combine(
+            path1: _webHostEnvironment.WebRootPath,
+            path2: userHasConfirmedAccountSuccessfullyHtmlPath
+        );
+
+        return File.ReadAllTextAsync(path: fullPath, cancellationToken: cancellationToken);
     }
 }

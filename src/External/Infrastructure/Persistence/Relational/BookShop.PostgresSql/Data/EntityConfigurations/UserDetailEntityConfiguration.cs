@@ -38,7 +38,7 @@ internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<U
             .Property(propertyExpression: userDetail => userDetail.FirstName)
             .HasColumnType(
                 typeName: CommonConstant.DataType.VarcharGenerator.Get(
-                    length: UserDetail.MetaData.LastName.MaxLength
+                    length: UserDetail.MetaData.FirstName.MaxLength
                 )
             )
             .IsRequired();

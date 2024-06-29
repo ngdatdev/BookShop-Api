@@ -73,7 +73,7 @@ public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporar
         {
             public const int MinLength = 2;
 
-            public const int MaxLength = 100;
+            public const int MaxLength = 300;
         }
 
         public static class BackgroundUrl

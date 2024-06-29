@@ -1,5 +1,4 @@
 using BookShop.Application.Shared.Features;
-using BookShop.Data.Shared.Entities;
 using FluentValidation;
 
 namespace BookShop.Application.Features.Auth.ConfirmUserRegistrationEmail;
