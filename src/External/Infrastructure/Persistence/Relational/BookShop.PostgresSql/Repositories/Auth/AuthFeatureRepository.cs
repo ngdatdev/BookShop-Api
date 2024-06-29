@@ -1,5 +1,6 @@
 using BookShop.Data.Features.Repositories.Auth;
 using BookShop.Data.Features.Repositories.Auth.ChangingPassword;
+using BookShop.Data.Features.Repositories.Auth.ConfirmUserRegistrationEmail;
 using BookShop.Data.Features.Repositories.Auth.ForgotPassword;
 using BookShop.Data.Features.Repositories.Auth.Login;
 using BookShop.Data.Features.Repositories.Auth.Logout;
@@ -7,6 +8,7 @@ using BookShop.Data.Features.Repositories.Auth.RefreshAccessToken;
 using BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Auth.ChangingPassword;
+using BookShop.PostgresSql.Repositories.Auth.ConfirmUserRegistrationEmail;
 using BookShop.PostgresSql.Repositories.Auth.ForgotPassword;
 using BookShop.PostgresSql.Repositories.Auth.Login;
 using BookShop.PostgresSql.Repositories.Auth.Logout;
@@ -27,6 +29,7 @@ internal class AuthFeatureRepository : IAuthFeatureRepository
     private IChangingPasswordRepository _changingPasswordRepository;
     private IRefreshAccessTokenRepository _refreshAccessTokenRepository;
     private IRegisterAsUserRepository _registerAsUserRepository;
+    private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
 
     internal AuthFeatureRepository(BookShopContext context)
     {
@@ -76,6 +79,15 @@ internal class AuthFeatureRepository : IAuthFeatureRepository
         get
         {
             return _registerAsUserRepository ??= new RegisterAsUserRepository(context: _context);
+        }
+    }
+
+    public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository
+    {
+        get
+        {
+            return _confirmUserRegistrationEmailRepository ??=
+                new ConfirmUserRegistrationEmailRepository(context: _context);
         }
     }
 }

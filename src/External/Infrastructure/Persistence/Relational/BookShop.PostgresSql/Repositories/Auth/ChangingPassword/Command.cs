@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.ChangingPassword;
 
 /// <summary>
-///    Implement of command forgot password repository.
+///    Implement of command ChangingPassword Repository.
 /// </summary>
 internal partial class ChangingPasswordRepository
 {

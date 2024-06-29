@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.Auth.ChangingPassword;
+using BookShop.Data.Features.Repositories.Auth.ConfirmUserRegistrationEmail;
 using BookShop.Data.Features.Repositories.Auth.ForgotPassword;
 using BookShop.Data.Features.Repositories.Auth.Login;
 using BookShop.Data.Features.Repositories.Auth.Logout;
@@ -41,4 +42,9 @@ public interface IAuthFeatureRepository
     ///     Gets register as user feature repository.
     /// </summary>
     public IRegisterAsUserRepository RegisterAsUserRepository { get; }
+
+    /// <summary>
+    ///     Gets confirm user registration email feature repository.
+    /// </summary>
+    public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
 }

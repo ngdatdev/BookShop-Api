@@ -89,6 +89,16 @@ public class LoginHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: LoginResponseStatusCode.EMAIL_IS_NOT_CONFIRMED,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status403Forbidden,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<LoginRequest, LoginResponse, LoginHttpResponse> Resolve(

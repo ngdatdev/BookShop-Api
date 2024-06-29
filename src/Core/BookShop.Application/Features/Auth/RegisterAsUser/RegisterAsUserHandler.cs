@@ -256,7 +256,7 @@ public class RegisterAsUserHandler : IFeatureHandler<RegisterAsUserRequest, Regi
             FirstName = string.Empty,
             LastName = string.Empty,
             AddressId = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-            AvatarUrl = string.Empty,
+            AvatarUrl = _defaultUserAvatarAsUrlHandler.Get(),
             Gender = string.Empty,
             DateOfBirth = CommonConstant.MIN_DATE_TIME,
             UpdatedAt = CommonConstant.MIN_DATE_TIME,

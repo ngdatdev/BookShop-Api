@@ -66,6 +66,15 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
             return new() { StatusCode = LoginResponseStatusCode.USER_IS_NOT_FOUND };
         }
 
+        // Check email confirmation.
+        var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(foundUser);
+
+        // Responds if email is not confirmed.
+        if (!isEmailConfirmed)
+        {
+            return new() { StatusCode = LoginResponseStatusCode.EMAIL_IS_NOT_CONFIRMED };
+        }
+
         // Check password and handle lockout on failure.
         var signInResult = await _signInManager.CheckPasswordSignInAsync(
             user: foundUser,
@@ -80,6 +89,7 @@ public class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
             {
                 return new() { StatusCode = LoginResponseStatusCode.USER_IS_LOCKED_OUT };
             }
+
             return new() { StatusCode = LoginResponseStatusCode.USER_PASSWORD_IS_NOT_CORRECT };
         }
 
