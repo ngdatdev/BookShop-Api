@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Application.Shared.Authentication.Jwt;
 using BookShop.Application.Shared.Features;
 using BookShop.Application.Shared.Mail;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.JsonWebTokens;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BookShop.Application.Features.Auth.ForgotPassword;
 
@@ -87,13 +81,14 @@ public class ForgotPasswordHandler : IFeatureHandler<ForgotPasswordRequest, Forg
         );
 
         // Add password reset token to database.
-        var dbResult = await _unitOfWork.AuthFeature.ForgotPasswordRepository.AddResetPasswordTokenCommandAsync(
-            newResetPasswordToken: InitNewResetPasswordToken(
-                userId: foundUser.Id,
-                passwordResetToken: passwordResetToken
-            ),
-            cancellationToken: cancellationToken
-        );
+        var dbResult =
+            await _unitOfWork.AuthFeature.ForgotPasswordRepository.AddResetPasswordTokenCommandAsync(
+                newResetPasswordToken: InitNewResetPasswordToken(
+                    userId: foundUser.Id,
+                    passwordResetToken: passwordResetToken
+                ),
+                cancellationToken: cancellationToken
+            );
 
         // Responds if cannot add password reset token.
         if (!dbResult)

@@ -4,12 +4,14 @@ using BookShop.Data.Features.Repositories.Auth.ForgotPassword;
 using BookShop.Data.Features.Repositories.Auth.Login;
 using BookShop.Data.Features.Repositories.Auth.Logout;
 using BookShop.Data.Features.Repositories.Auth.RefreshAccessToken;
+using BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Auth.ChangingPassword;
 using BookShop.PostgresSql.Repositories.Auth.ForgotPassword;
 using BookShop.PostgresSql.Repositories.Auth.Login;
 using BookShop.PostgresSql.Repositories.Auth.Logout;
 using BookShop.PostgresSql.Repositories.Auth.RefreshAccessToken;
+using BookShop.PostgresSql.Repositories.Auth.RegisterAsUser;
 
 namespace BookShop.PostgresSql.Repositories.Auth;
 
@@ -24,6 +26,7 @@ internal class AuthFeatureRepository : IAuthFeatureRepository
     private IForgotPasswordRepository _forgotPasswordRepository;
     private IChangingPasswordRepository _changingPasswordRepository;
     private IRefreshAccessTokenRepository _refreshAccessTokenRepository;
+    private IRegisterAsUserRepository _registerAsUserRepository;
 
     internal AuthFeatureRepository(BookShopContext context)
     {
@@ -65,6 +68,14 @@ internal class AuthFeatureRepository : IAuthFeatureRepository
             return _refreshAccessTokenRepository ??= new RefreshAccessTokenRepository(
                 context: _context
             );
+        }
+    }
+
+    public IRegisterAsUserRepository RegisterAsUserRepository
+    {
+        get
+        {
+            return _registerAsUserRepository ??= new RegisterAsUserRepository(context: _context);
         }
     }
 }

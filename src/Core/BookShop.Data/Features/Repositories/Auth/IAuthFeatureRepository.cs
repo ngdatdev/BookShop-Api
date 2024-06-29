@@ -3,6 +3,7 @@ using BookShop.Data.Features.Repositories.Auth.ForgotPassword;
 using BookShop.Data.Features.Repositories.Auth.Login;
 using BookShop.Data.Features.Repositories.Auth.Logout;
 using BookShop.Data.Features.Repositories.Auth.RefreshAccessToken;
+using BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
 
 namespace BookShop.Data.Features.Repositories.Auth;
 
@@ -35,4 +36,9 @@ public interface IAuthFeatureRepository
     ///     Gets refresh access token feature repository.
     /// </summary>
     public IRefreshAccessTokenRepository RefreshAccessTokenRepository { get; }
+
+    /// <summary>
+    ///     Gets register as user feature repository.
+    /// </summary>
+    public IRegisterAsUserRepository RegisterAsUserRepository { get; }
 }

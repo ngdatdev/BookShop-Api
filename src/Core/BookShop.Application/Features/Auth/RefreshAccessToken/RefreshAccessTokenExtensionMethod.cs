@@ -1,7 +1,7 @@
 namespace BookShop.Application.Features.Auth.RefreshAccessToken;
 
 /// <summary>
-///     Extension Method for login features.
+///     Extension Method for RefreshAccessToken features.
 /// </summary>
 public static class RefreshAccessTokenExtensionMethod
 {

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.RefreshAccessToken;
 
 /// <summary>
-///    Implement of login repository.
+///    Implement of RefreshAccessToken repository.
 /// </summary>
 internal partial class RefreshAccessTokenRepository : IRefreshAccessTokenRepository
 {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.Logout;
 
 /// <summary>
-///    Implement of logout repository.
+///    Implement of Logout repository.
 /// </summary>
 internal partial class LogoutRepository : ILogoutRepository
 {
