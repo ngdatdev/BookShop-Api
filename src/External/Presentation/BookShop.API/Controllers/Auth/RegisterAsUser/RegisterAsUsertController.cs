@@ -38,9 +38,9 @@ public class RegisterAsUsertController : ControllerBase
     ///
     ///     POST api/auth/sign-up
     ///     {
-    ///         "Email": "string",
-    ///         "Username": "string",
-    ///         "Password": "string",
+    ///         "email": "string",
+    ///         "username": "string",
+    ///         "password": "string",
     ///     }
     ///
     /// </remarks>

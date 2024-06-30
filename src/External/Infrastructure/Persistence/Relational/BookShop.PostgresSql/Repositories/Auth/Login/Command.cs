@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.Login;
 
 /// <summary>
-///    Implement of command login repository.
+///    Implement of command ILogin repository.
 /// </summary>
 internal partial class LoginRepository
 {

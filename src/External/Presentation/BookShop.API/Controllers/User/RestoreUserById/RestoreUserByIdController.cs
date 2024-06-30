@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.User.RestoreUserById.HttpResponseMapper;
+using BookShop.API.Controllers.User.RestoreUserById.Middleware.Authorization;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Users.RestoreUserById;
 using BookShop.Application.Shared.Features;

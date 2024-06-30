@@ -5,6 +5,7 @@ using BookShop.Data.Features.Repositories.Auth.Login;
 using BookShop.Data.Features.Repositories.Auth.Logout;
 using BookShop.Data.Features.Repositories.Auth.RefreshAccessToken;
 using BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
+using BookShop.Data.Features.Repositories.Auth.ResendUserRegistrationConfirmedEmail;
 
 namespace BookShop.Data.Features.Repositories.Auth;
 
@@ -47,4 +48,9 @@ public interface IAuthFeatureRepository
     ///     Gets confirm user registration email feature repository.
     /// </summary>
     public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
+
+    /// <summary>
+    ///     Gets resend user registration confirmed email feature repository.
+    /// </summary>
+    public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }
 }

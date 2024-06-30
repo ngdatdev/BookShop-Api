@@ -12,17 +12,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookShop.API.Controllers.User.RestoreProductById.Middleware.Authorization;
+namespace BookShop.API.Controllers.User.RestoreUserById.Middleware.Authorization;
 
 /// <summary>
-///     Filter pipeline for RestoreProductById authorization.
+///     Filter pipeline for RestoreUserById authorization.
 /// </summary>
-public class RestoreProductByIdAuthorizationFilter : IAsyncAuthorizationFilter
+public class RestoreUserByIdAuthorizationFilter : IAsyncAuthorizationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public RestoreProductByIdAuthorizationFilter(
+    public RestoreUserByIdAuthorizationFilter(
         IHttpContextAccessor httpContextAccessor,
         IServiceScopeFactory serviceScopeFactory
     )
