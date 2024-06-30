@@ -36,7 +36,7 @@ public class ResendUserRegistrationConfirmedEmailtController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST api/auth/resend-email
+    ///     POST api/auth/sign-up/resend-email
     ///     {
     ///         "username": "string",
     ///     }

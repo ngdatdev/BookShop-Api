@@ -103,18 +103,21 @@ internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<U
             .HasForeignKey(foreignKeyExpression: refreshToken => refreshToken.UserId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
+        // [UserDetails] - [Reviews] (1 - n).
         builder
             .HasMany(navigationExpression: userDetail => userDetail.Reviews)
             .WithOne(navigationExpression: review => review.UserDetail)
             .HasForeignKey(foreignKeyExpression: review => review.UserId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
+        // [UserDetails] - [Carts] (1 - 1).
         builder
-            .HasMany(navigationExpression: userDetail => userDetail.Carts)
+            .HasOne(navigationExpression: userDetail => userDetail.Cart)
             .WithOne(navigationExpression: cart => cart.UserDetail)
-            .HasForeignKey(foreignKeyExpression: cart => cart.UserId)
+            .HasForeignKey<Cart>(foreignKeyExpression: cart => cart.UserId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        // [UserDetails] - [Orders] (1 - n).
         builder
             .HasMany(navigationExpression: userDetail => userDetail.Orders)
             .WithOne(navigationExpression: orders => orders.UserDetail)

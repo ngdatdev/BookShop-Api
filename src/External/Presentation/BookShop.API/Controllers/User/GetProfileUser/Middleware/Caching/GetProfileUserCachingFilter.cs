@@ -4,8 +4,12 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.User.GetProfileUser.Common;
+using BookShop.API.Controllers.User.GetProfileUser.Common;
 using BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
+using BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
+using BookShop.Application.Features.Users.GetProfileUser;
 using BookShop.Application.Shared.Caching;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

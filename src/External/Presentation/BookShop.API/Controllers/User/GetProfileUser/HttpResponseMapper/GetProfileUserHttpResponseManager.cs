@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace BookShop.API.Controllers.User.GetProfileUser.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for login feature
+///     Mapper for GetProfileUser feature
 /// </summary>
 public class GetProfileUserHttpResponseManager
 {

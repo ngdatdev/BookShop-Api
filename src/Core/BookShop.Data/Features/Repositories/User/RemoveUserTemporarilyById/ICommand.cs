@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.User.RemoveUserTemporarilyById;
 
 /// <summary>
-///     Interface for Command RemoveUserTemporarilyByIdRepository
+///     Interface for Command RemoveUserTemporarilyById Repository.
 /// </summary>
 public partial interface IRemoveUserTemporarilyByIdRepository
 {

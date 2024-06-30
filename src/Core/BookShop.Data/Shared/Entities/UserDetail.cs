@@ -44,12 +44,12 @@ public class UserDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporar
 
     public Address Address { get; set; }
 
+    public Cart Cart { get; set; }
+
     // Navigation collections.
     public IEnumerable<RefreshToken> RefreshTokens { get; set; }
 
     public IEnumerable<Review> Reviews { get; set; }
-
-    public IEnumerable<Cart> Carts { get; set; }
 
     public IEnumerable<Order> Orders { get; set; }
 

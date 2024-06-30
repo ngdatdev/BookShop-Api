@@ -4,12 +4,14 @@ using BookShop.Data.Features.Repositories.User.GetProfileUser;
 using BookShop.Data.Features.Repositories.User.RemoveUserPermanentlyById;
 using BookShop.Data.Features.Repositories.User.RemoveUserTemporarilyById;
 using BookShop.Data.Features.Repositories.User.RestoreUserById;
+using BookShop.Data.Features.Repositories.User.UpdateUserById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.User.GetAllUsers;
 using BookShop.PostgresSql.Repositories.User.GetProfileUser;
 using BookShop.PostgresSql.Repositories.User.RemoveUserPermanentlyById;
 using BookShop.PostgresSql.Repositories.User.RemoveUserTemporarilyById;
 using BookShop.PostgresSql.Repositories.User.RestoreUserById;
+using BookShop.PostgresSql.Repositories.User.UpdateUserById;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.PostgresSql.Repositories.User;
@@ -27,6 +29,7 @@ internal class UserFeatureRepository : IUserFeatureRepository
     private IRemoveUserPermanentlyByIdRepository _removeUserPermanentlyByIdRepository;
     private IRemoveUserTemporarilyByIdRepository _removeUserTemporarilyByIdRepository;
     private IRestoreUserByIdRepository _restoreUserByIdRepository;
+    private IUpdateUserByIdRepository _updateUserByIdRepository;
 
     internal UserFeatureRepository(
         BookShopContext context,
@@ -75,6 +78,14 @@ internal class UserFeatureRepository : IUserFeatureRepository
         get
         {
             return _restoreUserByIdRepository ??= new RestoreUserByIdRepository(context: _context);
+        }
+    }
+
+    public IUpdateUserByIdRepository UpdateUserByIdRepository
+    {
+        get
+        {
+            return _updateUserByIdRepository ??= new UpdateUserByIdRepository(context: _context);
         }
     }
 }
