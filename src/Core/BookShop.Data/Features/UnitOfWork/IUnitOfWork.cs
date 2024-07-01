@@ -1,7 +1,7 @@
 using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.User;
-using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 
 namespace BookShop.Data.Features.UnitOfWork;
 
@@ -24,4 +24,9 @@ public interface IUnitOfWork
     ///    Product repository manager.
     /// </summary>
     public IProductFeatureRepository ProductFeature { get; }
+
+    /// <summary>
+    ///    Cart repository manager.
+    /// </summary>
+    public ICartFeatureRepository CartFeature { get; }
 }

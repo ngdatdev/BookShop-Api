@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace BookShop.API.Controllers.Product.GetAllProducts.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for login feature
+///     Mapper for GetAllProducts feature
 /// </summary>
 public class GetAllProductsHttpResponseManager
 {

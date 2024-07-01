@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Features.UnitOfWork;
@@ -21,10 +22,10 @@ public class UnitOfWork : IUnitOfWork
     private readonly RoleManager<Role> _roleManager;
     private readonly UserManager<User> _userManager;
 
-    private IVerifyAccessTokenRepository _verifyAccessTokenRepository;
     private IAuthFeatureRepository _authFeatureRepository;
     private IUserFeatureRepository _userFeatureRepository;
     private IProductFeatureRepository _productFeatureRepository;
+    private ICartFeatureRepository _cartFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -59,5 +60,10 @@ public class UnitOfWork : IUnitOfWork
         {
             return _productFeatureRepository ??= new ProductFeatureRepository(context: _context);
         }
+    }
+
+    public ICartFeatureRepository CartFeature
+    {
+        get { return _cartFeatureRepository ??= new CartFeatureRepository(context: _context); }
     }
 }
