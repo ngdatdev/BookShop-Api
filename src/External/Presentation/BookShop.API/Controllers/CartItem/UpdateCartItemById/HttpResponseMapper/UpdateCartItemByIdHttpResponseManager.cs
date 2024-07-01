@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
-using BookShop.Application.Features.CartItems.AddItemToCart;
+using BookShop.Application.Features.CartItems.UpdateCartItemById;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.API.Controllers.CartItem.AddItemToCart.HttpResponseMapper;
+namespace BookShop.API.Controllers.CartItem.UpdateCartItemById.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for AddItemToCart feature
+///     Mapper for UpdateCartItemById feature
 /// </summary>
-public class AddItemToCartHttpResponseManager
+public class UpdateCartItemByIdHttpResponseManager
 {
     private readonly Dictionary<
-        AddItemToCartResponseStatusCode,
-        Func<AddItemToCartRequest, AddItemToCartResponse, AddItemToCartHttpResponse>
+        UpdateCartItemByIdResponseStatusCode,
+        Func<UpdateCartItemByIdRequest, UpdateCartItemByIdResponse, UpdateCartItemByIdHttpResponse>
     > _dictionary;
 
-    internal AddItemToCartHttpResponseManager()
+    internal UpdateCartItemByIdHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: AddItemToCartResponseStatusCode.OPERATION_SUCCESS,
+            key: UpdateCartItemByIdResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -30,7 +30,7 @@ public class AddItemToCartHttpResponseManager
         );
 
         _dictionary.Add(
-            key: AddItemToCartResponseStatusCode.PRODUCT_IS_NOT_FOUND,
+            key: UpdateCartItemByIdResponseStatusCode.CART_ITEM_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -40,17 +40,7 @@ public class AddItemToCartHttpResponseManager
         );
 
         _dictionary.Add(
-            key: AddItemToCartResponseStatusCode.CART_ID_IS_NOT_FOUND,
-            value: (_, response) =>
-                new()
-                {
-                    HttpCode = StatusCodes.Status404NotFound,
-                    AppCode = response.StatusCode.ToAppCode(),
-                }
-        );
-
-        _dictionary.Add(
-            key: AddItemToCartResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: UpdateCartItemByIdResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -60,7 +50,7 @@ public class AddItemToCartHttpResponseManager
         );
 
         _dictionary.Add(
-            key: AddItemToCartResponseStatusCode.QUANTITY_IS_NOT_ENOUGH,
+            key: UpdateCartItemByIdResponseStatusCode.QUANTITY_IS_NOT_ENOUGH,
             value: (_, response) =>
                 new()
                 {
@@ -70,9 +60,11 @@ public class AddItemToCartHttpResponseManager
         );
     }
 
-    internal Func<AddItemToCartRequest, AddItemToCartResponse, AddItemToCartHttpResponse> Resolve(
-        AddItemToCartResponseStatusCode statusCode
-    )
+    internal Func<
+        UpdateCartItemByIdRequest,
+        UpdateCartItemByIdResponse,
+        UpdateCartItemByIdHttpResponse
+    > Resolve(UpdateCartItemByIdResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

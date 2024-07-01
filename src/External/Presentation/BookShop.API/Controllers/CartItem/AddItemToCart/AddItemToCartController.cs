@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.CartItem.AddItemToCart.HttpResponseMapper;
+using BookShop.API.Controllers.CartItem.AddItemToCart.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.CartItems.AddItemToCart;
 using BookShop.Application.Shared.Features;
@@ -40,6 +41,7 @@ public class AddItemToCartController : ControllerBase
     [HttpPost]
     [ServiceFilter(typeof(AuthorizationFilter))]
     [ServiceFilter(typeof(AddItemToCartRequestValidator))]
+    [ServiceFilter(typeof(AddItemToCartCachingFilter))]
     public async Task<IActionResult> AddItemToCartAsync(
         AddItemToCartRequest getCartByUserIdRequest,
         CancellationToken cancellationToken

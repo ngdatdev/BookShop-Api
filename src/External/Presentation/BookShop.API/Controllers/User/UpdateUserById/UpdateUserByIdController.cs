@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BookShop.API.Controllers.User.UpdateUserById.HttpResponseMapper;
 using BookShop.API.Controllers.User.UpdateUserById.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
+using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Users.UpdateUserById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +44,7 @@ public class UpdateUserByIdController : ControllerBase
     [HttpPatch]
     [ServiceFilter(typeof(UpdateUserByIdCachingFilter), Order = 2)]
     [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(ValidationRequestFilter<UpdateUserByIdRequest>), Order = 1)]
     public async Task<IActionResult> UpdateUserByIdAsync(
         [FromForm] UpdateUserByIdRequest updateUserByIdRequest,
         CancellationToken cancellationToken
