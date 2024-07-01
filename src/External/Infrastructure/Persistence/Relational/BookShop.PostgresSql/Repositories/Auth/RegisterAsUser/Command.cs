@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ internal partial class RegisterAsUserRepository
         string userPassword,
         UserManager<BookShop.Data.Shared.Entities.User> userManager,
         string userRole,
+        Cart newCart,
         CancellationToken cancellationToken
     )
     {
@@ -47,6 +49,10 @@ internal partial class RegisterAsUserRepository
                     {
                         throw new DbUpdateConcurrencyException();
                     }
+
+                    await _carts.AddAsync(entity: newCart);
+
+                    await _context.SaveChangesAsync(cancellationToken: cancellationToken);
 
                     await transaction.CommitAsync(cancellationToken: cancellationToken);
 

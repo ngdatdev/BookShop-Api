@@ -103,6 +103,8 @@ public class RegisterAsUserHandler : IFeatureHandler<RegisterAsUserRequest, Regi
         // Init user information.
         InitFillingUser(newUser: newUser);
 
+        var newCart = InitFillingCart(newUser: newUser);
+
         // Create user and role to database
         var dbResult =
             await _unitOfWork.AuthFeature.RegisterAsUserRepository.CreateUserAndAddUserRoleCommandAsync(
@@ -110,6 +112,7 @@ public class RegisterAsUserHandler : IFeatureHandler<RegisterAsUserRequest, Regi
                 userManager: _userManager,
                 userPassword: request.Password,
                 userRole: "user",
+                newCart: newCart,
                 cancellationToken: cancellationToken
             );
 
@@ -264,7 +267,32 @@ public class RegisterAsUserHandler : IFeatureHandler<RegisterAsUserRequest, Regi
             RemovedAt = CommonConstant.MIN_DATE_TIME,
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             CreatedAt = DateTime.UtcNow,
-            CreatedBy = newUser.Id
+            CreatedBy = newUser.Id,
+        };
+    }
+
+    /// <summary>
+    ///     Finishes filling the cart with default
+    ///     values for the newly created user.
+    /// </summary>
+    /// <param name="newUser">
+    ///     The newly created user.
+    /// </param>
+    /// <param name="userJoiningStatusId">
+    ///     The status of the user's joining.
+    /// </param>
+    private Cart InitFillingCart(User newUser)
+    {
+        return new()
+        {
+            UserId = newUser.Id,
+            Id = Guid.NewGuid(),
+            UpdatedAt = CommonConstant.MIN_DATE_TIME,
+            UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            RemovedAt = CommonConstant.MIN_DATE_TIME,
+            RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            CreatedAt = DateTime.UtcNow,
+            CreatedBy = newUser.Id,
         };
     }
 }

@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
@@ -14,6 +15,7 @@ public partial interface IRegisterAsUserRepository
         string userPassword,
         UserManager<Shared.Entities.User> userManager,
         string userRole,
+        Cart newCart,
         CancellationToken cancellationToken
     );
 }

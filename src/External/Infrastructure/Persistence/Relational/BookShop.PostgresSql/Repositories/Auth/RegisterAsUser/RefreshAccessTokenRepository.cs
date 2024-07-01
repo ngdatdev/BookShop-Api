@@ -15,10 +15,12 @@ internal partial class RegisterAsUserRepository : IRegisterAsUserRepository
 {
     private readonly BookShopContext _context;
     private DbSet<BookShop.Data.Shared.Entities.User> _users;
+    private DbSet<Cart> _carts;
 
     public RegisterAsUserRepository(BookShopContext context)
     {
         _context = context;
         _users = _context.Set<BookShop.Data.Shared.Entities.User>();
+        _carts = _context.Set<Cart>();
     }
 }
