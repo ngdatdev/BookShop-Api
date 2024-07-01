@@ -59,6 +59,16 @@ public class AddItemToCartHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: AddItemToCartResponseStatusCode.QUANTITY_IS_NOT_ENOUGH,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<AddItemToCartRequest, AddItemToCartResponse, AddItemToCartHttpResponse> Resolve(

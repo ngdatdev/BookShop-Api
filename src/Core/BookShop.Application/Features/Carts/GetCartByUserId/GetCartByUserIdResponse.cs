@@ -11,33 +11,35 @@ public class GetCartByUserIdResponse : IFeatureResponse
 {
     public GetCartByUserIdResponseStatusCode StatusCode { get; init; }
 
-    public Body ResponseBody { get; set; }
+    public Body ResponseBody { get; init; }
 
     public sealed class Body
     {
-        public Guid CartId { get; set; }
+        public Guid CartId { get; init; }
 
-        public int NumberOfItems { get; set; }
+        public int NumberOfItems { get; init; }
 
-        public decimal TotalPrice { get; set; }
+        public string TotalPrice { get; init; }
 
-        public decimal FinalPrice { get; set; }
+        public string FinalPrice { get; init; }
 
-        public IEnumerable<CartItem> CartItems { get; set; }
+        public IEnumerable<CartItem> CartItems { get; init; }
 
         public sealed class CartItem
         {
-            public string FullName { get; set; }
+            public string FullName { get; init; }
 
-            public string ImageUrl { get; set; }
+            public string ImageUrl { get; init; }
 
-            public string Size { get; set; }
+            public string Size { get; init; }
 
-            public string RootPrice { get; set; }
+            public string RootPrice { get; init; }
 
-            public string DiscountPrice { get; set; }
+            public string DiscountPrice { get; init; }
 
-            public string Author { get; set; }
+            public string Author { get; init; }
+
+            public int Quantity { get; init; }
         }
     }
 }

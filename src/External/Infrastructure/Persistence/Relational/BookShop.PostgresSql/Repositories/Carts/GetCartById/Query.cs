@@ -32,6 +32,7 @@ internal partial class GetCartByIdRepository
                         Discount = cartItem.Product.Discount,
                         Price = cartItem.Product.Price,
                     },
+                    Quantity = cartItem.Quantity
                 })
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);

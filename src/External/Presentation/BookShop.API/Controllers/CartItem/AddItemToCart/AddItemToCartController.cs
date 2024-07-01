@@ -39,6 +39,7 @@ public class AddItemToCartController : ControllerBase
     /// </remarks>
     [HttpPost]
     [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(AddItemToCartRequestValidator))]
     public async Task<IActionResult> AddItemToCartAsync(
         AddItemToCartRequest getCartByUserIdRequest,
         CancellationToken cancellationToken

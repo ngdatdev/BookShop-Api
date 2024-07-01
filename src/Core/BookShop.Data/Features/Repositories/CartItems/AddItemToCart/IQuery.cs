@@ -10,7 +10,16 @@ namespace BookShop.Data.Features.Repositories.CartItems.AddItemToCart;
 /// </summary>
 public partial interface IAddItemToCartRepository
 {
-    Task<string> FindCartIdByUserIdQueryAsync(Guid userId, CancellationToken cancellationToken);
+    Task<Guid> FindCartIdByUserIdQueryAsync(Guid userId, CancellationToken cancellationToken);
 
-    Task<bool> IsProductFoundByIdQueryAsync(Guid productId, CancellationToken cancellationToken);
+    Task<Shared.Entities.Product> FindProductByIdQueryAsync(
+        Guid productId,
+        CancellationToken cancellationToken
+    );
+
+    Task<CartItem> FindCartItemByProductIdAndCartIdQueryAsync(
+        Guid productId,
+        Guid cartId,
+        CancellationToken cancellationToken
+    );
 }

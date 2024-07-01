@@ -86,13 +86,20 @@ public class GetCartByUserIdHandler
                             cartItem.Product.Price * (1 - (cartItem.Product.Discount / 100.0m))
                         ).ToString("0.000"),
                         Size = cartItem.Product.Size,
+                        Quantity = cartItem.Quantity,
                     }
                 ),
                 NumberOfItems = cart.CartItems.Count(),
-                FinalPrice = cart.CartItems.Sum(cartItem => cartItem.Product.Price),
-                TotalPrice = cart.CartItems.Sum(cartItem =>
-                    cartItem.Product.Price * (1 - (cartItem.Product.Discount / 100.0m))
-                ),
+                FinalPrice = cart
+                    .CartItems.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity)
+                    .ToString("0.000"),
+                TotalPrice = cart
+                    .CartItems.Sum(cartItem =>
+                        cartItem.Product.Price
+                        * (1 - (cartItem.Product.Discount / 100.0m))
+                        * cartItem.Quantity
+                    )
+                    .ToString("0.000"),
             }
         };
     }
