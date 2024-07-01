@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.CartItems.AddItemToCart;
+using BookShop.Data.Features.Repositories.CartItems.RemoveCartItemById;
 using BookShop.Data.Features.Repositories.CartItems.UpdateCartItemById;
 
 namespace BookShop.Data.Features.Repositories.CartItems;
@@ -17,4 +18,9 @@ public interface ICartItemFeatureRepository
     ///     Gets update cart item by id feature repository.
     /// </summary>
     public IUpdateCartItemByIdRepository UpdateCartItemByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets remove cart item by id feature repository.
+    /// </summary>
+    public IRemoveCartItemByIdRepository RemoveCartItemByIdRepository { get; }
 }

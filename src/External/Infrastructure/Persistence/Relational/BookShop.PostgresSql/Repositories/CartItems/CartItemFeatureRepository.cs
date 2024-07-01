@@ -1,8 +1,10 @@
 using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.CartItems.AddItemToCart;
+using BookShop.Data.Features.Repositories.CartItems.RemoveCartItemById;
 using BookShop.Data.Features.Repositories.CartItems.UpdateCartItemById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.CartItems.AddItemToCart;
+using BookShop.PostgresSql.Repositories.CartItems.RemoveCartItemById;
 using BookShop.PostgresSql.Repositories.CartItems.UpdateCartItemById;
 
 namespace BookShop.PostgresSql.Repositories.CartItems;
@@ -15,6 +17,7 @@ internal class CartItemFeatureRepository : ICartItemFeatureRepository
     private readonly BookShopContext _context;
     private IAddItemToCartRepository _addItemToCartRepository;
     private IUpdateCartItemByIdRepository _updateCartItemByIdRepository;
+    private IRemoveCartItemByIdRepository _removeCartItemByIdRepository;
 
     internal CartItemFeatureRepository(BookShopContext context)
     {
@@ -31,6 +34,16 @@ internal class CartItemFeatureRepository : ICartItemFeatureRepository
         get
         {
             return _updateCartItemByIdRepository ??= new UpdateCartItemByIdRepository(
+                context: _context
+            );
+        }
+    }
+
+    public IRemoveCartItemByIdRepository RemoveCartItemByIdRepository
+    {
+        get
+        {
+            return _removeCartItemByIdRepository ??= new RemoveCartItemByIdRepository(
                 context: _context
             );
         }
