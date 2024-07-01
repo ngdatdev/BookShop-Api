@@ -1,12 +1,13 @@
 using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
-using BookShop.Data.Shared.Repositories.VerifyAccessToken;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Auth;
+using BookShop.PostgresSql.Repositories.CartItems;
 using BookShop.PostgresSql.Repositories.Product;
 using BookShop.PostgresSql.Repositories.User;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,7 @@ public class UnitOfWork : IUnitOfWork
     private IUserFeatureRepository _userFeatureRepository;
     private IProductFeatureRepository _productFeatureRepository;
     private ICartFeatureRepository _cartFeatureRepository;
+    private ICartItemFeatureRepository _cartItemFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -65,5 +67,13 @@ public class UnitOfWork : IUnitOfWork
     public ICartFeatureRepository CartFeature
     {
         get { return _cartFeatureRepository ??= new CartFeatureRepository(context: _context); }
+    }
+
+    public ICartItemFeatureRepository CartItemFeature
+    {
+        get
+        {
+            return _cartItemFeatureRepository ??= new CartItemFeatureRepository(context: _context);
+        }
     }
 }

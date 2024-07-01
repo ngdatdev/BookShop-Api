@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.Auth;
+using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.User;
@@ -29,4 +30,9 @@ public interface IUnitOfWork
     ///    Cart repository manager.
     /// </summary>
     public ICartFeatureRepository CartFeature { get; }
+
+    /// <summary>
+    ///    Cart Item repository manager.
+    /// </summary>
+    public ICartItemFeatureRepository CartItemFeature { get; }
 }
