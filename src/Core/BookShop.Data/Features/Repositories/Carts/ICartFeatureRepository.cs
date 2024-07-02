@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.Carts.ClearCart;
 using BookShop.Data.Features.Repositories.Carts.GetCartById;
 
 namespace BookShop.Data.Features.Repositories.Carts;
@@ -11,4 +12,9 @@ public interface ICartFeatureRepository
     ///     Gets get cart by id feature repository.
     /// </summary>
     public IGetCartByIdRepository GetCartByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets clear cart feature repository.
+    /// </summary>
+    public IClearCartRepository ClearCartRepository { get; }
 }

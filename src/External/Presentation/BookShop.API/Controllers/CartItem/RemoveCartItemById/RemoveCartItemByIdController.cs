@@ -19,10 +19,7 @@ public class RemoveCartItemByIdController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public RemoveCartItemByIdController(
-        IMediator mediator,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public RemoveCartItemByIdController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -45,10 +42,9 @@ public class RemoveCartItemByIdController : ControllerBase
     /// </remarks>
     [HttpDelete("{id}")]
     [ServiceFilter(typeof(AuthorizationFilter))]
-    [ServiceFilter(typeof(ValidationRequestFilter<RemoveCartItemByIdRequest>), Order = 1)]
     [ServiceFilter(typeof(RemoveCartItemByIdCachingFilter), Order = 2)]
     public async Task<IActionResult> RemoveCartItemByIdAsync(
-        [FromQuery] Guid id,
+        [FromRoute] Guid id,
         CancellationToken cancellationToken
     )
     {

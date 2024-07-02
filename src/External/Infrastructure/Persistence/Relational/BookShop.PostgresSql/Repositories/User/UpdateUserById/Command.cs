@@ -42,42 +42,42 @@ internal partial class UpdateUserByIdRepository
                     }
                 }
 
-                //var updateUserEntry = _users.Entry(entity: updateUser);
-                //var currentUserEntry = _users.Entry(entity: currentUser);
+                var updateUserEntry = _users.Entry(entity: updateUser);
+                var currentUserEntry = _users.Entry(entity: currentUser);
 
-                //updateUserEntry.State = EntityState.Unchanged;
+                updateUserEntry.State = EntityState.Unchanged;
 
-                //foreach (var property in updateUserEntry.Properties)
-                //{
-                //    if (
-                //        !property.Metadata.IsPrimaryKey()
-                //        && !Equals(
-                //            objA: property.CurrentValue,
-                //            objB: currentUserEntry
-                //                .Property(propertyName: property.Metadata.Name)
-                //                .CurrentValue
-                //        )
-                //    )
-                //    {
-                //        property.IsModified = true;
-                //    }
-                //}
+                foreach (var property in updateUserEntry.Properties)
+                {
+                    if (
+                        !property.Metadata.IsPrimaryKey()
+                        && !Equals(
+                            objA: property.CurrentValue,
+                            objB: currentUserEntry
+                                .Property(propertyName: property.Metadata.Name)
+                                .CurrentValue
+                        )
+                    )
+                    {
+                        property.IsModified = true;
+                    }
+                }
 
                 using var dbTransaction = await _context.Database.BeginTransactionAsync(
                     cancellationToken: cancellationToken
                 );
 
-                //try
-                //{
-                await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-                await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
+                try
+                {
+                    await _context.SaveChangesAsync(cancellationToken: cancellationToken);
+                    await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
 
-                dbTransactionResult = true;
-                //}
-                //catch
-                //{
-                //    dbTransactionResult = false;
-                //}
+                    dbTransactionResult = true;
+                }
+                catch
+                {
+                    dbTransactionResult = false;
+                }
             });
 
         return dbTransactionResult;

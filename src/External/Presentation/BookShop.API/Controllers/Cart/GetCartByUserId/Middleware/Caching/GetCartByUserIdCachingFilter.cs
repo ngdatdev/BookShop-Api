@@ -34,7 +34,7 @@ public class GetCartByUserIdCachingFilter : IAsyncActionFilter
                 claimType: JwtRegisteredClaimNames.Sub
             );
 
-            var cacheKey = $"{nameof(GetCartByUserIdHttpResponse)}_{userId}";
+            var cacheKey = $"GetCartByUserIdHttpResponse_{userId}";
             var cacheModel = await _cacheHandler.GetAsync<GetCartByUserIdHttpResponse>(
                 key: cacheKey,
                 cancellationToken: CancellationToken.None

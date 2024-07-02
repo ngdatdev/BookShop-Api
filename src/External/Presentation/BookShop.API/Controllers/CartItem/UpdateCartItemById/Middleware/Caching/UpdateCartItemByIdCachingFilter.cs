@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookShop.API.Controllers.CartItem.UpdateCartItemById.HttpResponseMapper;
 using BookShop.Application.Features.CartItems.UpdateCartItemById;
 using BookShop.Application.Shared.Caching;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -39,11 +40,7 @@ public class UpdateCartItemByIdCachingFilter : IAsyncActionFilter
             {
                 var httpResponse = (UpdateCartItemByIdHttpResponse)result.Value;
 
-                if (
-                    httpResponse.AppCode.Equals(
-                        UpdateCartItemByIdResponseStatusCode.OPERATION_SUCCESS
-                    )
-                )
+                if (httpResponse.HttpCode.Equals(StatusCodes.Status200OK))
                 {
                     await _cacheHandler.RemoveAsync(
                         key: $"GetCartByUserIdHttpResponse_{userId}",
