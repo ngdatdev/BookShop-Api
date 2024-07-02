@@ -53,15 +53,13 @@ internal partial class AddItemToCartRepository
                             builder.SetProperty(cartItem => cartItem.Quantity, newQuantity)
                         );
 
-                    await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-
                     await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
 
                     dbTransactionResult = true;
                 }
                 catch
                 {
-                    dbTransactionResult = false;
+                    await dbTransaction.RollbackAsync(cancellationToken: cancellationToken);
                 }
             });
 

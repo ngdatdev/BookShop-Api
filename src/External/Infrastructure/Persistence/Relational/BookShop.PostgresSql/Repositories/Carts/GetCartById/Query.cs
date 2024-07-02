@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,8 +20,11 @@ internal partial class GetCartByIdRepository
             .Select(selector: cart => new Cart()
             {
                 Id = cart.Id,
+
                 CartItems = cart.CartItems.Select(cartItem => new CartItem()
                 {
+                    Id = cartItem.Id,
+                    ProductId = cartItem.ProductId,
                     Product = new BookShop.Data.Shared.Entities.Product()
                     {
                         FullName = cartItem.Product.FullName,

@@ -78,6 +78,8 @@ public class GetCartByUserIdHandler
                 CartItems = cart.CartItems.Select(
                     cartItem => new GetCartByUserIdResponse.Body.CartItem()
                     {
+                        CartItemId = cartItem.Id,
+                        ProductId = cartItem.ProductId,
                         FullName = cartItem.Product.FullName,
                         Author = cartItem.Product.Author,
                         ImageUrl = cartItem.Product.ImageUrl,

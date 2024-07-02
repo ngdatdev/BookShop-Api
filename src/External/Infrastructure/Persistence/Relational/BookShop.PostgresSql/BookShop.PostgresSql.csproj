@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Repositories\Address\GetAllAddresses\" />
+    <Folder Include="Repositories\Orders\" />
   </ItemGroup>
 
 </Project>
