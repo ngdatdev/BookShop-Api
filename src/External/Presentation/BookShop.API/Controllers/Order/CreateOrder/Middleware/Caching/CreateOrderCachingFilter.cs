@@ -2,24 +2,22 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.CartItem.UpdateCartItemById.HttpResponseMapper;
 using BookShop.API.Controllers.Order.CreateOrder.HttpResponseMapper;
-using BookShop.Application.Features.CartItems.UpdateCartItemById;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BookShop.API.Controllers.CartItem.UpdateCartItemById.Middleware.Caching;
+namespace BookShop.API.Controllers.Order.CreateOrder.Middleware.Caching;
 
 /// <summary>
-///     Filter pipeline for UpdateCartItemById caching.
+///     Filter pipeline for CreateOrder caching.
 /// </summary>
-public class UpdateCartItemByIdCachingFilter : IAsyncActionFilter
+public class CreateOrderCachingFilter : IAsyncActionFilter
 {
     private readonly ICacheHandler _cacheHandler;
 
-    public UpdateCartItemByIdCachingFilter(ICacheHandler cacheHandler)
+    public CreateOrderCachingFilter(ICacheHandler cacheHandler)
     {
         _cacheHandler = cacheHandler;
     }
@@ -39,7 +37,7 @@ public class UpdateCartItemByIdCachingFilter : IAsyncActionFilter
 
             if (executedContext.Result is ObjectResult result)
             {
-                var httpResponse = (UpdateCartItemByIdHttpResponse)result.Value;
+                var httpResponse = (CreateOrderHttpResponse)result.Value;
 
                 if (httpResponse.HttpCode.Equals(StatusCodes.Status200OK))
                 {

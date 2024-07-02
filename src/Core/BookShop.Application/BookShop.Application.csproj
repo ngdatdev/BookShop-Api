@@ -16,9 +16,5 @@
   <ItemGroup>
 	<ProjectReference Include="..\BookShop.Data\BookShop.Data.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Orders\CreateOrder\" />
-  </ItemGroup>
 	
 </Project>

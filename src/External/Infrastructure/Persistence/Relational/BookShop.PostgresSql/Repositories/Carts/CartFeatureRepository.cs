@@ -5,7 +5,7 @@ using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Carts.ClearCart;
 using BookShop.PostgresSql.Repositories.Carts.GetCartById;
 
-namespace BookShop.PostgresSql.Repositories.Auth;
+namespace BookShop.PostgresSql.Repositories.Carts;
 
 /// <summary>
 ///    Implement of CartFeatureRepository interface.

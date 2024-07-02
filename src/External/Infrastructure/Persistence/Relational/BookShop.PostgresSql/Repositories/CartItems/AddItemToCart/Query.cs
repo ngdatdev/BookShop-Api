@@ -31,7 +31,11 @@ internal partial class AddItemToCartRepository
     {
         return _products
             .AsNoTracking()
-            .Where(predicate: product => product.Id == productId)
+            .Where(predicate: product =>
+                product.Id == productId
+                && product.RemovedAt == CommonConstant.MIN_DATE_TIME
+                && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .Select(product => new BookShop.Data.Shared.Entities.Product()
             {
                 Price = product.Price,

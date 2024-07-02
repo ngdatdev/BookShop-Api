@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;

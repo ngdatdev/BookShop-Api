@@ -1,35 +1,32 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.CartItem.UpdateCartItemById.HttpResponseMapper;
-using BookShop.API.Controllers.CartItem.UpdateCartItemById.Middleware.Caching;
 using BookShop.API.Controllers.Order.CreateOrder.HttpResponseMapper;
 using BookShop.API.Controllers.Order.CreateOrder.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
-using BookShop.Application.Features.CartItems.UpdateCartItemById;
-using BookShop.Application.Features.Users.RestoreUserById;
+using BookShop.Application.Features.CartItems.CreateOrder;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.CartItem.UpdateCartItemById;
+namespace BookShop.API.Controllers.Order.CreateOrder;
 
 [ApiController]
-[Route(template: "api/cart-item/update")]
-[Tags(tags: "CartItem")]
-public class UpdateCartItemByIdController : ControllerBase
+[Route(template: "api/order/create")]
+[Tags(tags: "Order")]
+public class CreateOrderController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public UpdateCartItemByIdController(IMediator mediator)
+    public CreateOrderController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for update quantity cart item.
+    ///     Endpoint for creating order.
     /// </summary>
-    /// <param name="updateCartItemByIdRequest"></param>
+    /// <param name="createOrderRequest"></param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
@@ -39,27 +36,27 @@ public class UpdateCartItemByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/cart-item/add
+    ///     POST api/order/create
     ///
     /// </remarks>
-    [HttpPatch]
+    [HttpPost]
     [ServiceFilter(typeof(AuthorizationFilter))]
-    [ServiceFilter(typeof(ValidationRequestFilter<UpdateCartItemByIdRequest>), Order = 1)]
-    [ServiceFilter(typeof(UpdateCartItemByIdCachingFilter), Order = 2)]
-    public async Task<IActionResult> UpdateCartItemByIdAsync(
-        [FromBody] UpdateCartItemByIdRequest updateCartItemByIdRequest,
+    [ServiceFilter(typeof(ValidationRequestFilter<CreateOrderRequest>), Order = 1)]
+    [ServiceFilter(typeof(CreateOrderCachingFilter), Order = 2)]
+    public async Task<IActionResult> CreateOrderAsync(
+        [FromBody] CreateOrderRequest createOrderRequest,
         CancellationToken cancellationToken
     )
     {
         var featureResponse = await _mediator.SendAsync(
-            request: updateCartItemByIdRequest,
+            request: createOrderRequest,
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = UpdateCartItemByIdHttpResponseMapper
+        var apiResponse = CreateOrderHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
-            .Invoke(arg1: updateCartItemByIdRequest, featureResponse);
+            .Invoke(arg1: createOrderRequest, featureResponse);
 
         return StatusCode(statusCode: apiResponse.HttpCode, value: apiResponse);
     }
