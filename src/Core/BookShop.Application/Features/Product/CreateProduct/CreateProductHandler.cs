@@ -117,7 +117,7 @@ public class CreateProductHandler : IFeatureHandler<CreateProductRequest, Create
             );
 
         // Responds if dbResult is fail.
-        if (dbResult)
+        if (!dbResult)
         {
             try
             {

@@ -11,7 +11,7 @@ using BookShop.Data.Shared.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace BookShop.Application.Features.CartItems.CreateOrder;
+namespace BookShop.Application.Features.Orders.CreateOrder;
 
 /// <summary>
 ///     CreateOrder Handler
@@ -64,7 +64,7 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             return new() { StatusCode = CreateOrderResponseStatusCode.PRODUCTS_IS_NOT_FOUND, };
         }
 
-        // Is one of products was temporarily removed
+        // Is one of products was temporarily removed.
         var isProductsTemporarilyRemove =
             await _unitOfWork.OrderFeature.CreateOrderRepository.IsProductsTemporarilyRemovedQueryAsync(
                 productIds: request.CartItems.Select(e => e.ProductId),
@@ -106,7 +106,7 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
         if (Equals(objA: addressId, objB: Guid.Empty))
         {
             var dbAddressResult =
-                await _unitOfWork.UserFeature.UpdateUserByIdRepository.CreateAddressCommandAsync(
+                await _unitOfWork.OrderFeature.CreateOrderRepository.CreateAddressCommandAsync(
                     address: InitAddress(
                         addressId: Guid.NewGuid(),
                         ward: addressInfo[0],
@@ -143,7 +143,10 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
         );
 
         // Responds if database is fail.
-
+        if (!dbResult)
+        {
+            return new() { StatusCode = CreateOrderResponseStatusCode.DATABASE_OPERATION_FAIL };
+        }
 
         // Response successfully.
         return new CreateOrderResponse()
@@ -171,7 +174,6 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             TotalCost = request.CartItems.Sum(selector: cartItem =>
                 cartItem.FinalPrice * cartItem.Quantity
             ),
-            OrderStatusId = orderStatusId,
             AddressId = addressId,
             UserId = userId,
             CreatedAt = DateTime.UtcNow,
@@ -180,20 +182,23 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             UpdatedAt = CommonConstant.MIN_DATE_TIME,
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-            OrderDetails = request.CartItems.Select(selector: cartItem => new OrderDetail()
-            {
-                Id = Guid.NewGuid(),
-                Quantity = cartItem.Quantity,
-                Cost = cartItem.FinalPrice,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = userId,
-                RemovedAt = CommonConstant.MIN_DATE_TIME,
-                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-                UpdatedAt = CommonConstant.MIN_DATE_TIME,
-                UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-                OrderId = orderId,
-                ProductId = cartItem.ProductId,
-            }),
+            OrderDetails = request
+                .CartItems.Select(selector: cartItem => new OrderDetail()
+                {
+                    Id = Guid.NewGuid(),
+                    Quantity = cartItem.Quantity,
+                    Cost = cartItem.FinalPrice,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = userId,
+                    RemovedAt = CommonConstant.MIN_DATE_TIME,
+                    RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                    UpdatedAt = CommonConstant.MIN_DATE_TIME,
+                    UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                    OrderId = orderId,
+                    OrderStatusId = orderStatusId,
+                    ProductId = cartItem.ProductId,
+                })
+                .ToList(),
         };
     }
 

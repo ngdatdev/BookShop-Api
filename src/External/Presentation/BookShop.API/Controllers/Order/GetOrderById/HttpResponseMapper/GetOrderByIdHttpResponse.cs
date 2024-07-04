@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using BookShop.Application.Features.Orders.CreateOrder;
+using BookShop.Application.Features.Orders.GetOrderById;
 
-namespace BookShop.API.Controllers.Order.CreateOrder.HttpResponseMapper;
+namespace BookShop.API.Controllers.Order.GetOrderById.HttpResponseMapper;
 
 /// <summary>
-///     CreateOrder http response
+///     GetOrderById http response
 /// </summary>
-internal sealed class CreateOrderHttpResponse
+internal sealed class GetOrderByIdHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
     public string AppCode { get; init; } =
-        CreateOrderResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+        GetOrderByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(
@@ -22,7 +22,7 @@ internal sealed class CreateOrderHttpResponse
             destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(id: "SE Asia Standard Time")
         );
 
-    public object Body { get; init; } = new();
+    public GetOrderByIdResponse.Body Body { get; init; } = new();
 
     public IEnumerable<string> ErrorMessages { get; init; } = [];
 }

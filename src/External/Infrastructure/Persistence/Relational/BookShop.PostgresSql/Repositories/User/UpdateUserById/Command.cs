@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,27 @@ internal partial class UpdateUserByIdRepository
             .Database.CreateExecutionStrategy()
             .ExecuteAsync(operation: async () =>
             {
+                //var updateUserEntry = _users.Entry(entity: updateUser);
+                //var currentUserEntry = _users.Entry(entity: currentUser);
+
+                //updateUserEntry.State = EntityState.Unchanged;
+
+                //foreach (var property in updateUserEntry.Properties)
+                //{
+                //    if (
+                //        !property.Metadata.IsPrimaryKey()
+                //        && !Equals(
+                //            objA: property.CurrentValue,
+                //            objB: currentUserEntry
+                //                .Property(propertyName: property.Metadata.Name)
+                //                .CurrentValue
+                //        )
+                //    )
+                //    {
+                //        property.IsModified = true;
+                //    }
+                //}
+
                 var updateUserDetailEntry = _userDetails.Entry(entity: updateUser.UserDetail);
                 var currentUserDetailEntry = _userDetails.Entry(entity: currentUser.UserDetail);
 
@@ -33,27 +55,6 @@ internal partial class UpdateUserByIdRepository
                         && !Equals(
                             objA: property.CurrentValue,
                             objB: currentUserDetailEntry
-                                .Property(propertyName: property.Metadata.Name)
-                                .CurrentValue
-                        )
-                    )
-                    {
-                        property.IsModified = true;
-                    }
-                }
-
-                var updateUserEntry = _users.Entry(entity: updateUser);
-                var currentUserEntry = _users.Entry(entity: currentUser);
-
-                updateUserEntry.State = EntityState.Unchanged;
-
-                foreach (var property in updateUserEntry.Properties)
-                {
-                    if (
-                        !property.Metadata.IsPrimaryKey()
-                        && !Equals(
-                            objA: property.CurrentValue,
-                            objB: currentUserEntry
                                 .Property(propertyName: property.Metadata.Name)
                                 .CurrentValue
                         )

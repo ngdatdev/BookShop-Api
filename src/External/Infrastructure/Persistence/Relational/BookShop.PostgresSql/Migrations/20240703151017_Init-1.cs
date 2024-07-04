@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookShop.PostgresSql.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class Init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,16 +34,23 @@ namespace BookShop.PostgresSql.Migrations
                 comment: "Contain address records.");
 
             migrationBuilder.CreateTable(
-                name: "Categorys",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FullName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    ImageUrl = table.Column<string>(type: "VARCHAR(400)", nullable: false),
+                    ParentCategoryId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categorys", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id");
                 },
                 comment: "Contain Category records.");
 
@@ -59,6 +66,36 @@ namespace BookShop.PostgresSql.Migrations
                     table.PrimaryKey("PK_OrderStatuses", x => x.Id);
                 },
                 comment: "Contain OrderStatus records.");
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    FullName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Price = table.Column<decimal>(type: "MONEY", nullable: false),
+                    Discount = table.Column<int>(type: "integer", nullable: false),
+                    Size = table.Column<string>(type: "text", nullable: false),
+                    NumberOfPage = table.Column<int>(type: "integer", nullable: false),
+                    QuantityCurrent = table.Column<int>(type: "integer", nullable: false),
+                    QuantitySold = table.Column<int>(type: "integer", nullable: false),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    Author = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Publisher = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    Languages = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
+                    RemovedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
+                    RemovedBy = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                },
+                comment: "Contain Product records.");
 
             migrationBuilder.CreateTable(
                 name: "Roles",
@@ -102,34 +139,53 @@ namespace BookShop.PostgresSql.Migrations
                 comment: "Contain user record.");
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Assets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    QuantityCurrent = table.Column<int>(type: "integer", nullable: false),
-                    QuantitySold = table.Column<int>(type: "integer", nullable: false),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    ImageUrl = table.Column<string>(type: "VARCHAR(400)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     RemovedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     RemovedBy = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Assets_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                },
+                comment: "Contain asset records.");
+
+            migrationBuilder.CreateTable(
+                name: "ProductCategory",
+                columns: table => new
+                {
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_ProductCategory", x => new { x.ProductId, x.CategoryId });
                     table.ForeignKey(
-                        name: "FK_Products_Categorys_CategoryId",
+                        name: "FK_ProductCategory_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categorys",
+                        principalTable: "Categories",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProductCategory_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 },
-                comment: "Contain Product records.");
+                comment: "Contain ProductCategory records.");
 
             migrationBuilder.CreateTable(
                 name: "RoleClaims",
@@ -204,7 +260,9 @@ namespace BookShop.PostgresSql.Migrations
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     LastName = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    AvatarUrl = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    AvatarUrl = table.Column<string>(type: "VARCHAR(300)", nullable: false),
+                    Gender = table.Column<string>(type: "VARCHAR(10)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
@@ -326,9 +384,9 @@ namespace BookShop.PostgresSql.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     TotalCost = table.Column<decimal>(type: "MONEY", nullable: false),
-                    ExpectedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ExpectedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
@@ -336,7 +394,6 @@ namespace BookShop.PostgresSql.Migrations
                     RemovedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     RemovedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    OrderStatusId = table.Column<Guid>(type: "uuid", nullable: false),
                     AddressId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -347,12 +404,6 @@ namespace BookShop.PostgresSql.Migrations
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Orders_OrderStatuses_OrderStatusId",
-                        column: x => x.OrderStatusId,
-                        principalTable: "OrderStatuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_UserDetails_UserId",
                         column: x => x.UserId,
@@ -436,12 +487,14 @@ namespace BookShop.PostgresSql.Migrations
                         name: "FK_CartItems_Carts_CartId",
                         column: x => x.CartId,
                         principalTable: "Carts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CartItems_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 },
                 comment: "Contain CartItem records.");
 
@@ -459,16 +512,23 @@ namespace BookShop.PostgresSql.Migrations
                     RemovedAt = table.Column<DateTime>(type: "TIMESTAMPTZ", nullable: false),
                     RemovedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrderStatusId = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_OrderDetails_OrderStatuses_OrderStatusId",
+                        column: x => x.OrderStatusId,
+                        principalTable: "OrderStatuses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Products_ProductId",
                         column: x => x.ProductId,
@@ -476,6 +536,11 @@ namespace BookShop.PostgresSql.Migrations
                         principalColumn: "Id");
                 },
                 comment: "Contain OrderDetail records.");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assets_ProductId",
+                table: "Assets",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",
@@ -490,12 +555,23 @@ namespace BookShop.PostgresSql.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_UserId",
                 table: "Carts",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_ParentCategoryId",
+                table: "Categories",
+                column: "ParentCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
                 table: "OrderDetails",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderStatusId",
+                table: "OrderDetails",
+                column: "OrderStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_ProductId",
@@ -508,18 +584,13 @@ namespace BookShop.PostgresSql.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderStatusId",
-                table: "Orders",
-                column: "OrderStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
+                name: "IX_ProductCategory_CategoryId",
+                table: "ProductCategory",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
@@ -584,10 +655,16 @@ namespace BookShop.PostgresSql.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Assets");
+
+            migrationBuilder.DropTable(
                 name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "ProductCategory");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
@@ -617,7 +694,13 @@ namespace BookShop.PostgresSql.Migrations
                 name: "Carts");
 
             migrationBuilder.DropTable(
+                name: "OrderStatuses");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Products");
@@ -626,13 +709,7 @@ namespace BookShop.PostgresSql.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "OrderStatuses");
-
-            migrationBuilder.DropTable(
                 name: "UserDetails");
-
-            migrationBuilder.DropTable(
-                name: "Categorys");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

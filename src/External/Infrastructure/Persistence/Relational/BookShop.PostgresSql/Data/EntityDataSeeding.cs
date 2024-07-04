@@ -284,6 +284,14 @@ public static class EntityDataSeeding
         {
             new Category
             {
+                Id = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                FullName = "Default",
+                Description = "Default.",
+                ImageUrl = "Default",
+                ParentCategoryId = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            },
+            new Category
+            {
                 Id = Guid.NewGuid(),
                 FullName = "Truyện tranh",
                 Description = "Sách chứa các câu chuyện được kể bằng hình ảnh và lời thoại.",

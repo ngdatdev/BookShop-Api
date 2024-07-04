@@ -245,9 +245,6 @@ namespace BookShop.PostgresSql.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("OrderStatusId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("RemovedAt")
                         .HasColumnType("TIMESTAMPTZ");
 
@@ -269,8 +266,6 @@ namespace BookShop.PostgresSql.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("UserId");
 
@@ -298,6 +293,9 @@ namespace BookShop.PostgresSql.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("OrderStatusId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
@@ -319,6 +317,8 @@ namespace BookShop.PostgresSql.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("ProductId");
 
@@ -902,12 +902,6 @@ namespace BookShop.PostgresSql.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BookShop.Data.Shared.Entities.OrderStatus", "OrderStatus")
-                        .WithMany("Orders")
-                        .HasForeignKey("OrderStatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("BookShop.Data.Shared.Entities.UserDetail", "UserDetail")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
@@ -915,8 +909,6 @@ namespace BookShop.PostgresSql.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
-
-                    b.Navigation("OrderStatus");
 
                     b.Navigation("UserDetail");
                 });
@@ -929,6 +921,12 @@ namespace BookShop.PostgresSql.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BookShop.Data.Shared.Entities.OrderStatus", "OrderStatus")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("BookShop.Data.Shared.Entities.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
@@ -936,6 +934,8 @@ namespace BookShop.PostgresSql.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("OrderStatus");
 
                     b.Navigation("Product");
                 });
@@ -1102,7 +1102,7 @@ namespace BookShop.PostgresSql.Migrations
 
             modelBuilder.Entity("BookShop.Data.Shared.Entities.OrderStatus", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("BookShop.Data.Shared.Entities.Product", b =>

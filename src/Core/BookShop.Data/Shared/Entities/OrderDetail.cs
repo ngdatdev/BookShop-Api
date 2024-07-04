@@ -31,10 +31,14 @@ public class OrderDetail : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempora
     // Foreign keys.
     public Guid OrderId { get; set; }
 
+    public Guid OrderStatusId { get; set; }
+
     public Guid ProductId { get; set; }
 
     // Navigation properties.
     public Order Order { get; set; }
+
+    public OrderStatus OrderStatus { get; set; }
 
     public Product Product { get; set; }
 

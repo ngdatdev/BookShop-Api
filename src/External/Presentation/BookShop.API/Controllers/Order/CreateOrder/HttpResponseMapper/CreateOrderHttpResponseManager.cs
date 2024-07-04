@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BookShop.Application.Features.CartItems.CreateOrder;
+using BookShop.Application.Features.Orders.CreateOrder;
 using Microsoft.AspNetCore.Http;
 
 namespace BookShop.API.Controllers.Order.CreateOrder.HttpResponseMapper;

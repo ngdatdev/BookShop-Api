@@ -1,7 +1,7 @@
 using BookShop.Application.Shared.Features;
 using FluentValidation;
 
-namespace BookShop.Application.Features.CartItems.CreateOrder;
+namespace BookShop.Application.Features.Orders.CreateOrder;
 
 /// <summary>
 ///    CreateOrder Request Validator

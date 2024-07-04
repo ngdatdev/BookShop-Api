@@ -17,7 +17,7 @@ public class OrderStatus : IBaseEntity
     public string FullName { get; set; }
 
     // Navigation collections.
-    public IEnumerable<Order> Orders { get; set; }
+    public IEnumerable<OrderDetail> OrderDetails { get; set; }
 
     public static class MetaData
     {

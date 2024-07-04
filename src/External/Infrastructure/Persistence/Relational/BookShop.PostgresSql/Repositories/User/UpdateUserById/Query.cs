@@ -22,7 +22,7 @@ internal partial class UpdateUserByIdRepository
             .Where(predicate: user => user.Id == userId)
             .Select(selector: user => new BookShop.Data.Shared.Entities.User()
             {
-                Id = userId,
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,

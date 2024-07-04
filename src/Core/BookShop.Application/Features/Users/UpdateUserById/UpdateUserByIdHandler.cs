@@ -113,10 +113,11 @@ public class UpdateUserByIdHandler : IFeatureHandler<UpdateUserByIdRequest, Upda
         // Create address if it is not exist in database.
         if (Equals(objA: addressId, objB: Guid.Empty))
         {
+            addressId = Guid.NewGuid();
             var dbAddressResult =
                 await _unitOfWork.UserFeature.UpdateUserByIdRepository.CreateAddressCommandAsync(
                     address: MapperToAddress(
-                        addressId: Guid.NewGuid(),
+                        addressId: addressId,
                         ward: addressInfo[0],
                         district: addressInfo[1],
                         province: addressInfo[2],

@@ -19,12 +19,12 @@ namespace BookShop.Data.Shared.Enum
             string
         >
         {
-            { OrderStatus.InTransit, "017f8cb6-46c3-448b-9132-81ca2edc9d4e" },
-            { OrderStatus.Confirmed, "206f3705-dd63-4ca2-9fbd-cadb786e5e57" },
-            { OrderStatus.Cancelled, "3de6bc7b-cc8b-47f6-81eb-3d651c701e61" },
-            { OrderStatus.Returned, "710f0649-4fb2-4b7d-b4de-3647b69a5604" },
-            { OrderStatus.Delivered, "8585180d-99ae-4839-8780-555e83a2c097" },
-            { OrderStatus.PendingConfirmation, "f6c70fa3-042a-4dad-88cd-037c2c248a1b" }
+            { OrderStatus.InTransit, "2c677976-ea9d-4195-9f95-2455c3e59bbc" },
+            { OrderStatus.Confirmed, "8859e5fe-3f41-4b37-b72e-ad742ec77ab4" },
+            { OrderStatus.Cancelled, "c5455c5c-e8aa-466d-96a2-dcb6cbe5db4a" },
+            { OrderStatus.Returned, "27d64fac-fbfe-4d90-9b97-d294a0fcb4ba" },
+            { OrderStatus.Delivered, "5d37a2cb-f0a4-4d2e-8b59-f3952a8992f1" },
+            { OrderStatus.PendingConfirmation, "ee8c3514-43ba-4f82-b212-214f328938c6" }
         };
 
         public static string Get(OrderStatus status)

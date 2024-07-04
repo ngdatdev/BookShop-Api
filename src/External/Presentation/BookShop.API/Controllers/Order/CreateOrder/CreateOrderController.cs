@@ -4,7 +4,7 @@ using BookShop.API.Controllers.Order.CreateOrder.HttpResponseMapper;
 using BookShop.API.Controllers.Order.CreateOrder.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
-using BookShop.Application.Features.CartItems.CreateOrder;
+using BookShop.Application.Features.Orders.CreateOrder;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

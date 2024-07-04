@@ -34,14 +34,10 @@ public class Order : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyRe
     // Foreign key.
     public Guid UserId { get; set; }
 
-    public Guid OrderStatusId { get; set; }
-
     public Guid AddressId { get; set; }
 
     // Navigation properties.
     public UserDetail UserDetail { get; set; }
-
-    public OrderStatus OrderStatus { get; set; }
 
     public Address Address { get; set; }
 
