@@ -50,6 +50,8 @@ public class GetAllOrdersHandler : IFeatureHandler<GetAllOrdersRequest, GetAllOr
 
         // Get order by orderId
         var orders = await _unitOfWork.OrderFeature.GetAllOrdersRepository.FindAllOrdersQueryAsync(
+            pageIndex: request.PageIndex,
+            pageSize: request.PageSize,
             cancellationToken: cancellationToken
         );
 

@@ -3,11 +3,13 @@ using BookShop.Data.Features.Repositories.Orders.CreateOrder;
 using BookShop.Data.Features.Repositories.Orders.GetAllOrders;
 using BookShop.Data.Features.Repositories.Orders.GetOrderById;
 using BookShop.Data.Features.Repositories.Orders.GetOrdersByUserId;
+using BookShop.Data.Features.Repositories.Orders.RemoveOrderTemporarilyById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Orders.CreateOrder;
 using BookShop.PostgresSql.Repositories.Orders.GetAllOrders;
 using BookShop.PostgresSql.Repositories.Orders.GetOrderById;
 using BookShop.PostgresSql.Repositories.Orders.GetOrdersByUserId;
+using BookShop.PostgresSql.Repositories.Orders.RemoveOrderTemporarilyById;
 
 namespace BookShop.PostgresSql.Repositories.Orders;
 
@@ -21,6 +23,7 @@ internal class OrderFeatureRepository : IOrderFeatureRepository
     private IGetOrderByIdRepository _getOrderByIdRepository;
     private IGetOrdersByUserIdRepository _getOrdersByUserIdRepository;
     private IGetAllOrdersRepository _getAllOrdersRepository;
+    private IRemoveOrderTemporarilyByIdRepository _removeOrderTemporarilyByIdRepository;
 
     internal OrderFeatureRepository(BookShopContext context)
     {
@@ -50,5 +53,14 @@ internal class OrderFeatureRepository : IOrderFeatureRepository
     public IGetAllOrdersRepository GetAllOrdersRepository
     {
         get { return _getAllOrdersRepository ??= new GetAllOrdersRepository(context: _context); }
+    }
+
+    public IRemoveOrderTemporarilyByIdRepository RemoveOrderTemporarilyByIdRepository
+    {
+        get
+        {
+            return _removeOrderTemporarilyByIdRepository ??=
+                new RemoveOrderTemporarilyByIdRepository(context: _context);
+        }
     }
 }
