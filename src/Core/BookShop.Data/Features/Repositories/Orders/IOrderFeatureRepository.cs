@@ -1,7 +1,9 @@
 using BookShop.Data.Features.Repositories.Orders.CreateOrder;
 using BookShop.Data.Features.Repositories.Orders.GetAllOrders;
+using BookShop.Data.Features.Repositories.Orders.GetAllTemporarilyRemovedOrder;
 using BookShop.Data.Features.Repositories.Orders.GetOrderById;
 using BookShop.Data.Features.Repositories.Orders.GetOrdersByUserId;
+using BookShop.Data.Features.Repositories.Orders.RemoveOrderPermanentlyById;
 using BookShop.Data.Features.Repositories.Orders.RemoveOrderTemporarilyById;
 using BookShop.Data.Features.Repositories.Orders.RestoreOrderById;
 
@@ -41,4 +43,14 @@ public interface IOrderFeatureRepository
     ///     Gets restore order by id feature repository.
     /// </summary>
     public IRestoreOrderByIdRepository RestoreOrderByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets get all temporarily removed order feature repository.
+    /// </summary>
+    public IGetAllTemporarilyRemovedOrderRepository GetAllTemporarilyRemovedOrderRepository { get; }
+
+    /// <summary>
+    ///     Gets remove order permanently by id feature repository.
+    /// </summary>
+    public IRemoveOrderPermanentlyByIdRepository RemoveOrderPermanentlyByIdRepository { get; }
 }
