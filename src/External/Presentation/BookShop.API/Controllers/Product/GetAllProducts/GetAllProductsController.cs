@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Product.GetAllProducts.HttpResponseMapper;
+using BookShop.API.Controllers.Product.GetAllProducts.Middleware.Authorization;
 using BookShop.API.Controllers.Product.GetAllProducts.Middleware.Caching;
 using BookShop.Application.Features.Product.GetAllProducts;
 using BookShop.Application.Shared.Features;
@@ -41,6 +42,7 @@ public class GetAllProductsController : ControllerBase
     /// </remarks>
     [HttpGet]
     [ServiceFilter(typeof(GetAllProductsCachingFilter))]
+    [ServiceFilter(typeof(GetAllProductsAuthorizationFilter))]
     public async Task<IActionResult> GetAllProductsAsync(
         [FromQuery] GetAllProductsRequest getAllProductsRequest,
         CancellationToken cancellationToken

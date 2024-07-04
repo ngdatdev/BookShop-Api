@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Order.GetOrderById.HttpResponseMapper;
+using BookShop.API.Controllers.Order.GetOrderById.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Orders.GetOrderById;
 using BookShop.Application.Shared.Features;
@@ -41,6 +42,7 @@ public class GetOrderByIdController : ControllerBase
     /// </remarks>
     [HttpGet("{order-id}")]
     [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(GetOrderByIdCachingFilter))]
     public async Task<IActionResult> GetOrderByIdAsync(
         [FromRoute(Name = "order-id")] [Required] Guid orderId,
         CancellationToken cancellationToken

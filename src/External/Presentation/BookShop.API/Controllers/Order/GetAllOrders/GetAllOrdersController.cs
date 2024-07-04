@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Order.GetAllOrders.HttpResponseMapper;
-using BookShop.API.Shared.Filter.AuthorizationFilter;
+using BookShop.API.Controllers.Order.GetAllOrders.Middleware.Authorization;
 using BookShop.Application.Features.Orders.GetAllOrders;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +38,7 @@ public class GetAllOrdersController : ControllerBase
     ///
     /// </remarks>
     [HttpGet]
-    [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(GetAllOrdersAuthorizationFilter))]
     public async Task<IActionResult> GetAllOrdersAsync(
         GetAllOrdersRequest request,
         CancellationToken cancellationToken

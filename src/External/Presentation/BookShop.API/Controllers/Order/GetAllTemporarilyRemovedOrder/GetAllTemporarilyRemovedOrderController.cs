@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Order.GetAllTemporarilyRemovedOrder.HttpResponseMapper;
-using BookShop.API.Shared.Filter.AuthorizationFilter;
+using BookShop.API.Controllers.Product.GetAllTemporarilyRemovedProducts.Middleware.Authorization;
 using BookShop.Application.Features.Orders.GetAllTemporarilyRemovedOrder;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -34,11 +34,11 @@ public class GetAllTemporarilyRemovedOrderController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/order/get/all/removed
+    ///     GET api/order/all/removed
     ///
     /// </remarks>
     [HttpGet]
-    [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(GetAllTemporarilyRemovedProductsAuthorizationFilter))]
     public async Task<IActionResult> GetAllTemporarilyRemovedOrderAsync(
         GetAllTemporarilyRemovedOrderRequest request,
         CancellationToken cancellationToken
