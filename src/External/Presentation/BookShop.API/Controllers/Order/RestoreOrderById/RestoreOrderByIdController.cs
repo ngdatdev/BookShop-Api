@@ -37,7 +37,7 @@ public class RestoreOrderByIdController : ControllerBase
     ///     PATCH api/order/restore/{order-id}
     ///
     /// </remarks>
-    [HttpDelete("{order-id}")]
+    [HttpPatch("{order-id}")]
     [ServiceFilter(typeof(RestoreOrderByIdAuthorizationFilter))]
     public async Task<IActionResult> RestoreOrderByIdAsync(
         RestoreOrderByIdRequest request,
