@@ -1,9 +1,13 @@
 using BookShop.Data.Features.Repositories.Orders;
 using BookShop.Data.Features.Repositories.Orders.CreateOrder;
+using BookShop.Data.Features.Repositories.Orders.GetAllOrders;
 using BookShop.Data.Features.Repositories.Orders.GetOrderById;
+using BookShop.Data.Features.Repositories.Orders.GetOrdersByUserId;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Orders.CreateOrder;
+using BookShop.PostgresSql.Repositories.Orders.GetAllOrders;
 using BookShop.PostgresSql.Repositories.Orders.GetOrderById;
+using BookShop.PostgresSql.Repositories.Orders.GetOrdersByUserId;
 
 namespace BookShop.PostgresSql.Repositories.Orders;
 
@@ -13,8 +17,10 @@ namespace BookShop.PostgresSql.Repositories.Orders;
 internal class OrderFeatureRepository : IOrderFeatureRepository
 {
     private readonly BookShopContext _context;
-    ICreateOrderRepository _createOrderRepository;
-    IGetOrderByIdRepository _getOrderByIdRepository;
+    private ICreateOrderRepository _createOrderRepository;
+    private IGetOrderByIdRepository _getOrderByIdRepository;
+    private IGetOrdersByUserIdRepository _getOrdersByUserIdRepository;
+    private IGetAllOrdersRepository _getAllOrdersRepository;
 
     internal OrderFeatureRepository(BookShopContext context)
     {
@@ -29,5 +35,20 @@ internal class OrderFeatureRepository : IOrderFeatureRepository
     public IGetOrderByIdRepository GetOrderByIdRepository
     {
         get { return _getOrderByIdRepository ??= new GetOrderByIdRepository(context: _context); }
+    }
+
+    public IGetOrdersByUserIdRepository GetOrdersByUserIdRepository
+    {
+        get
+        {
+            return _getOrdersByUserIdRepository ??= new GetOrdersByUserIdRepository(
+                context: _context
+            );
+        }
+    }
+
+    public IGetAllOrdersRepository GetAllOrdersRepository
+    {
+        get { return _getAllOrdersRepository ??= new GetAllOrdersRepository(context: _context); }
     }
 }
