@@ -3,6 +3,7 @@ using BookShop.Data.Features.Repositories.Orders.GetAllOrders;
 using BookShop.Data.Features.Repositories.Orders.GetOrderById;
 using BookShop.Data.Features.Repositories.Orders.GetOrdersByUserId;
 using BookShop.Data.Features.Repositories.Orders.RemoveOrderTemporarilyById;
+using BookShop.Data.Features.Repositories.Orders.RestoreOrderById;
 
 namespace BookShop.Data.Features.Repositories.Orders;
 
@@ -35,4 +36,9 @@ public interface IOrderFeatureRepository
     ///     Gets remove order temporarily by id feature repository.
     /// </summary>
     public IRemoveOrderTemporarilyByIdRepository RemoveOrderTemporarilyByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets restore order by id feature repository.
+    /// </summary>
+    public IRestoreOrderByIdRepository RestoreOrderByIdRepository { get; }
 }

@@ -20,12 +20,4 @@ internal partial class RemoveOrderTemporarilyByIdRepository : IRemoveOrderTempor
         _context = context;
         _orders = _context.Set<BookShop.Data.Shared.Entities.Order>();
     }
-
-    public Task<bool> RemoveOrderTemporarilyByIdCommandAsync(
-        Guid orderId,
-        CancellationToken cancellationToken
-    )
-    {
-        throw new NotImplementedException();
-    }
 }
