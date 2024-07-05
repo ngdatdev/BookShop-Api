@@ -2,34 +2,32 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Order.GetOrderById.HttpResponseMapper;
-using BookShop.API.Controllers.Order.GetOrderById.Middleware.Caching;
 using BookShop.API.Controllers.OrderDetail.GetOrderDetailById.HttpResponseMapper;
 using BookShop.API.Controllers.OrderDetail.GetOrderDetailById.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
-using BookShop.Application.Features.Orders.GetOrderById;
+using BookShop.Application.Features.OrderDetails.GetOrderDetailById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Order.GetOrderById;
+namespace BookShop.API.Controllers.OrderDetail.GetOrderDetailById;
 
 [ApiController]
-[Route(template: "api/order")]
-[Tags(tags: "Order")]
-public class GetOrderByIdController : ControllerBase
+[Route(template: "api/order-detail")]
+[Tags(tags: "OrderDetail")]
+public class GetOrderDetailByIdController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetOrderByIdController(IMediator mediator)
+    public GetOrderDetailByIdController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for get order information by id.
+    ///     Endpoint for getting order detail by user id and order detail id.
     /// </summary>
-    /// <param name="orderId"></param>
+    /// <param name="orderDetailId"></param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
@@ -39,25 +37,25 @@ public class GetOrderByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/order/{order-id}
+    ///     GET api/order-detail/{order-detail-id}
     ///
     /// </remarks>
-    [HttpGet("{order-id}")]
+    [HttpGet("{order-detail-id}")]
     [ServiceFilter(typeof(AuthorizationFilter))]
-    [ServiceFilter(typeof(GetOrderByIdCachingFilter))]
-    public async Task<IActionResult> GetOrderByIdAsync(
-        [FromRoute(Name = "order-id")] [Required] Guid orderId,
+    [ServiceFilter(typeof(GetOrderDetailByIdCachingFilter))]
+    public async Task<IActionResult> GetOrderDetailByIdAsync(
+        [FromRoute(Name = "order-detail-id")] [Required] Guid orderDetailId,
         CancellationToken cancellationToken
     )
     {
-        GetOrderByIdRequest request = new() { OrderId = orderId };
+        GetOrderDetailByIdRequest request = new() { OrderDetailId = orderDetailId };
 
         var featureResponse = await _mediator.SendAsync(
             request: request,
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = GetOrderByIdHttpResponseMapper
+        var apiResponse = GetOrderDetailByIdHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
             .Invoke(arg1: request, featureResponse);

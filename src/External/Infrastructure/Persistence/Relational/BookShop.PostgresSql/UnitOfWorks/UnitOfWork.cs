@@ -1,6 +1,7 @@
 using BookShop.Data.Features.Repositories.Auth;
 using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
+using BookShop.Data.Features.Repositories.OrderDetails;
 using BookShop.Data.Features.Repositories.Orders;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.Roles;
@@ -11,6 +12,7 @@ using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Auth;
 using BookShop.PostgresSql.Repositories.CartItems;
 using BookShop.PostgresSql.Repositories.Carts;
+using BookShop.PostgresSql.Repositories.OrderDetails;
 using BookShop.PostgresSql.Repositories.Orders;
 using BookShop.PostgresSql.Repositories.Product;
 using BookShop.PostgresSql.Repositories.Roles;
@@ -35,6 +37,7 @@ public class UnitOfWork : IUnitOfWork
     private ICartItemFeatureRepository _cartItemFeatureRepository;
     private IOrderFeatureRepository _orderFeatureRepository;
     private IRoleFeatureRepository _roleFeatureRepository;
+    private IOrderDetailFeatureRepository _orderDetailFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -92,5 +95,15 @@ public class UnitOfWork : IUnitOfWork
     public IRoleFeatureRepository RoleFeature
     {
         get { return _roleFeatureRepository ??= new RoleFeatureRepository(context: _context); }
+    }
+
+    public IOrderDetailFeatureRepository OrderDetailFeature
+    {
+        get
+        {
+            return _orderDetailFeatureRepository ??= new OrderDetailFeatureRepository(
+                context: _context
+            );
+        }
     }
 }

@@ -25,6 +25,9 @@ internal partial class GetAllOrdersRepository
                 order.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
                 && order.RemovedAt == CommonConstant.MIN_DATE_TIME
             )
+            .OrderBy(order => order.CreatedAt)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
             .Select(order => new Order()
             {
                 OrderDate = order.OrderDate,
@@ -56,9 +59,6 @@ internal partial class GetAllOrdersRepository
                     }
                 })
             })
-            .OrderBy(order => order.CreatedAt)
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 }

@@ -1,6 +1,7 @@
 using BookShop.Data.Features.Repositories.Auth;
 using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
+using BookShop.Data.Features.Repositories.OrderDetails;
 using BookShop.Data.Features.Repositories.Orders;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.Roles;
@@ -47,4 +48,9 @@ public interface IUnitOfWork
     ///    Role repository manager.
     /// </summary>
     public IRoleFeatureRepository RoleFeature { get; }
+
+    /// <summary>
+    ///    Order Detail repository manager.
+    /// </summary>
+    public IOrderDetailFeatureRepository OrderDetailFeature { get; }
 }
