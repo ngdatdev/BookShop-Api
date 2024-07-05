@@ -1,6 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Data.Shared.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.PostgresSql.Repositories.Roles.CreateRole;
 
@@ -11,19 +13,34 @@ internal partial class CreateRoleRepository
 {
     public async Task<bool> CreateRoleCommandAsync(
         Role newRole,
+        RoleManager<Role> roleManager,
         CancellationToken cancellationToken
     )
     {
-        try
-        {
-            await _roles.AddAsync(entity: newRole);
+        var executedTransactionResult = false;
 
-            await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-        }
-        catch
-        {
-            return false;
-        }
-        return true;
+        await _context
+            .Database.CreateExecutionStrategy()
+            .ExecuteAsync(operation: async () =>
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync(
+                    cancellationToken: cancellationToken
+                );
+
+                try
+                {
+                    await roleManager.CreateAsync(role: newRole);
+
+                    await transaction.CommitAsync(cancellationToken: cancellationToken);
+
+                    executedTransactionResult = true;
+                }
+                catch
+                {
+                    await transaction.RollbackAsync(cancellationToken: cancellationToken);
+                }
+            });
+
+        return executedTransactionResult;
     }
 }
