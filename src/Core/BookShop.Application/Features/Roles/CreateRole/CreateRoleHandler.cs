@@ -7,6 +7,7 @@ using BookShop.Application.Shared.Features;
 using BookShop.Data.Features.UnitOfWork;
 using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.Features.Roles.CreateRole;
@@ -18,11 +19,17 @@ public class CreateRoleHandler : IFeatureHandler<CreateRoleRequest, CreateRoleRe
 {
     private readonly IUnitOfWork _unitOfWork;
     private IHttpContextAccessor _httpContextAccessor;
+    private RoleManager<Role> _roleManager;
 
-    public CreateRoleHandler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+    public CreateRoleHandler(
+        IUnitOfWork unitOfWork,
+        IHttpContextAccessor httpContextAccessor,
+        RoleManager<Role> roleManager
+    )
     {
         _unitOfWork = unitOfWork;
         _httpContextAccessor = httpContextAccessor;
+        _roleManager = roleManager;
     }
 
     /// <summary>
@@ -81,6 +88,7 @@ public class CreateRoleHandler : IFeatureHandler<CreateRoleRequest, CreateRoleRe
         // Create role command.
         var dbResult = await _unitOfWork.RoleFeature.CreateRoleRepository.CreateRoleCommandAsync(
             newRole: newRole,
+            roleManager: _roleManager,
             cancellationToken: cancellationToken
         );
 

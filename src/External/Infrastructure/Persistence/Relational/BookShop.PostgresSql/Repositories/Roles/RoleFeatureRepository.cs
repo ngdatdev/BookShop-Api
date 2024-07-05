@@ -3,11 +3,13 @@ using BookShop.Data.Features.Repositories.Roles.CreateRole;
 using BookShop.Data.Features.Repositories.Roles.GetAllRoles;
 using BookShop.Data.Features.Repositories.Roles.GetAllRolesTemporarilyRemoved;
 using BookShop.Data.Features.Repositories.Roles.RemoveRoleTemporarilyById;
+using BookShop.Data.Features.Repositories.Roles.RestoreRoleById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Roles.CreateRole;
 using BookShop.PostgresSql.Repositories.Roles.GetAllRoles;
 using BookShop.PostgresSql.Repositories.Roles.GetAllRolesTemporarilyRemoved;
 using BookShop.PostgresSql.Repositories.Roles.RemoveRoleTemporarilyById;
+using BookShop.PostgresSql.Repositories.Roles.RestoreRoleById;
 
 namespace BookShop.PostgresSql.Repositories.Roles;
 
@@ -21,6 +23,7 @@ internal class RoleFeatureRepository : IRoleFeatureRepository
     private IGetAllRolesRepository _getAllRolesRepository;
     private IRemoveRoleTemporarilyByIdRepository _removeRoleTemporarilyByIdRepository;
     private IGetAllRolesTemporarilyRemovedRepository _getAllRolesTemporarilyRemovedRepository;
+    private IRestoreRoleByIdRepository _restoreRoleByIdRepository;
 
     internal RoleFeatureRepository(BookShopContext context)
     {
@@ -53,6 +56,14 @@ internal class RoleFeatureRepository : IRoleFeatureRepository
         {
             return _getAllRolesTemporarilyRemovedRepository ??=
                 new GetAllRolesTemporarilyRemovedRepository(context: _context);
+        }
+    }
+
+    public IRestoreRoleByIdRepository RestoreRoleByIdRepository
+    {
+        get
+        {
+            return _restoreRoleByIdRepository ??= new RestoreRoleByIdRepository(context: _context);
         }
     }
 }

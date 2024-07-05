@@ -2,6 +2,7 @@ using BookShop.Data.Features.Repositories.Roles.CreateRole;
 using BookShop.Data.Features.Repositories.Roles.GetAllRoles;
 using BookShop.Data.Features.Repositories.Roles.GetAllRolesTemporarilyRemoved;
 using BookShop.Data.Features.Repositories.Roles.RemoveRoleTemporarilyById;
+using BookShop.Data.Features.Repositories.Roles.RestoreRoleById;
 
 namespace BookShop.Data.Features.Repositories.Roles;
 
@@ -29,4 +30,9 @@ public interface IRoleFeatureRepository
     ///     Gets get all roles temporarily removed by id feature repository.
     /// </summary>
     public IGetAllRolesTemporarilyRemovedRepository GetAllRolesTemporarilyRemovedRepository { get; }
+
+    /// <summary>
+    ///     Gets restore role by id feature repository.
+    /// </summary>
+    public IRestoreRoleByIdRepository RestoreRoleByIdRepository { get; }
 }
