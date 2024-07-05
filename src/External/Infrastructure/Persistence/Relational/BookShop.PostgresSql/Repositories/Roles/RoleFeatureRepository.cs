@@ -1,7 +1,9 @@
 using BookShop.Data.Features.Repositories.Roles;
 using BookShop.Data.Features.Repositories.Roles.CreateRole;
+using BookShop.Data.Features.Repositories.Roles.GetAllRoles;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Roles.CreateRole;
+using BookShop.PostgresSql.Repositories.Roles.GetAllRoles;
 
 namespace BookShop.PostgresSql.Repositories.Roles;
 
@@ -12,6 +14,7 @@ internal class RoleFeatureRepository : IRoleFeatureRepository
 {
     private readonly BookShopContext _context;
     private ICreateRoleRepository _createRoleRepository;
+    private IGetAllRolesRepository _getAllRolesRepository;
 
     internal RoleFeatureRepository(BookShopContext context)
     {
@@ -21,5 +24,10 @@ internal class RoleFeatureRepository : IRoleFeatureRepository
     public ICreateRoleRepository CreateRoleRepository
     {
         get { return _createRoleRepository ??= new CreateRoleRepository(context: _context); }
+    }
+
+    public IGetAllRolesRepository GetAllRolesRepository
+    {
+        get { return _getAllRolesRepository ??= new GetAllRolesRepository(context: _context); }
     }
 }
