@@ -7,28 +7,14 @@ using BookShop.Application.Shared.Common;
 using BookShop.Data.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
+namespace BookShop.PostgresSql.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 
 /// <summary>
-///    Implement of query IGetOrderDetailsByOrderStatusId repository.
+///    Implement of query IGetAllOrderDetailsByUserId repository.
 /// </summary>
-internal partial class GetOrderDetailsByOrderStatusIdRepository
+internal partial class GetAllOrderDetailsByUserIdRepository
 {
-    public Task<bool> IsOrderStatusFoundById(
-        Guid orderStatusId,
-        CancellationToken cancellationToken
-    )
-    {
-        return _orderStatus
-            .AsNoTracking()
-            .AnyAsync(
-                predicate: orderStatus => orderStatus.Id == orderStatusId,
-                cancellationToken: cancellationToken
-            );
-    }
-
-    public async Task<IEnumerable<OrderDetail>> FindOrderDetailsByStatusIdAndUserIdQueryAsync(
-        Guid orderStatusId,
+    public async Task<IEnumerable<OrderDetail>> FindOrderDetailsByUserIdQueryAsync(
         Guid userId,
         CancellationToken cancellationToken
     )
@@ -36,10 +22,9 @@ internal partial class GetOrderDetailsByOrderStatusIdRepository
         return await _orderDetail
             .AsNoTracking()
             .Where(predicate: orderDetail =>
-                orderDetail.OrderStatusId == orderStatusId
-                && orderDetail.Order.UserDetail.UserId == userId
-                && orderDetail.RemovedAt == CommonConstant.MIN_DATE_TIME
+                orderDetail.Order.UserDetail.UserId == userId
                 && orderDetail.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && orderDetail.RemovedAt == CommonConstant.MIN_DATE_TIME
             )
             .Select(selector: orderDetail => new OrderDetail()
             {

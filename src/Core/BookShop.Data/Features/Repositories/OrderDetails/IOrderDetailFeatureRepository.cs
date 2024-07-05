@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 
@@ -17,4 +18,9 @@ public interface IOrderDetailFeatureRepository
     ///     Gets get order details by order status id feature repository.
     /// </summary>
     public IGetOrderDetailsByOrderStatusIdRepository GetOrderDetailsByOrderStatusIdRepository { get; }
+
+    /// <summary>
+    ///     Gets get all order details by user id feature repository.
+    /// </summary>
+    public IGetAllOrderDetailsByUserIdRepository GetAllOrderDetailsByUserIdRepository { get; }
 }

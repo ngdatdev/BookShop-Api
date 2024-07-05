@@ -1,7 +1,9 @@
 using BookShop.Data.Features.Repositories.OrderDetails;
+using BookShop.Data.Features.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 using BookShop.PostgresSql.Data;
+using BookShop.PostgresSql.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 
@@ -13,8 +15,9 @@ namespace BookShop.PostgresSql.Repositories.OrderDetails;
 internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
 {
     private readonly BookShopContext _context;
-    private IGetOrderDetailByIdRepository _orderDetailByIdRepository;
-    private IGetOrderDetailsByOrderStatusIdRepository _orderDetailsByOrderStatusIdRepository;
+    private IGetOrderDetailByIdRepository _getOrderDetailByIdRepository;
+    private IGetOrderDetailsByOrderStatusIdRepository _getOrderDetailsByOrderStatusIdRepository;
+    private IGetAllOrderDetailsByUserIdRepository _getAllOrderDetailsByUserIdRepository;
 
     internal OrderDetailFeatureRepository(BookShopContext context)
     {
@@ -25,7 +28,7 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
     {
         get
         {
-            return _orderDetailByIdRepository ??= new GetOrderDetailByIdRepository(
+            return _getOrderDetailByIdRepository ??= new GetOrderDetailByIdRepository(
                 context: _context
             );
         }
@@ -35,8 +38,17 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
     {
         get
         {
-            return _orderDetailsByOrderStatusIdRepository ??=
+            return _getOrderDetailsByOrderStatusIdRepository ??=
                 new GetOrderDetailsByOrderStatusIdRepository(context: _context);
+        }
+    }
+
+    public IGetAllOrderDetailsByUserIdRepository GetAllOrderDetailsByUserIdRepository
+    {
+        get
+        {
+            return _getAllOrderDetailsByUserIdRepository ??=
+                new GetAllOrderDetailsByUserIdRepository(context: _context);
         }
     }
 }
