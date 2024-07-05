@@ -1,5 +1,6 @@
 using BookShop.Data.Features.Repositories.Roles.CreateRole;
 using BookShop.Data.Features.Repositories.Roles.GetAllRoles;
+using BookShop.Data.Features.Repositories.Roles.RemoveRoleTemporarilyById;
 
 namespace BookShop.Data.Features.Repositories.Roles;
 
@@ -17,4 +18,9 @@ public interface IRoleFeatureRepository
     ///     Gets get all roles feature repository.
     /// </summary>
     public IGetAllRolesRepository GetAllRolesRepository { get; }
+
+    /// <summary>
+    ///     Gets remove role temporarily by id feature repository.
+    /// </summary>
+    public IRemoveRoleTemporarilyByIdRepository RemoveRoleTemporarilyByIdRepository { get; }
 }
