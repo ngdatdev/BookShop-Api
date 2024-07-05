@@ -1,7 +1,9 @@
 using BookShop.Data.Features.Repositories.OrderDetails;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailById;
+using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailById;
+using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 
 namespace BookShop.PostgresSql.Repositories.OrderDetails;
 
@@ -12,6 +14,7 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
 {
     private readonly BookShopContext _context;
     private IGetOrderDetailByIdRepository _orderDetailByIdRepository;
+    private IGetOrderDetailsByOrderStatusIdRepository _orderDetailsByOrderStatusIdRepository;
 
     internal OrderDetailFeatureRepository(BookShopContext context)
     {
@@ -25,6 +28,15 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
             return _orderDetailByIdRepository ??= new GetOrderDetailByIdRepository(
                 context: _context
             );
+        }
+    }
+
+    public IGetOrderDetailsByOrderStatusIdRepository GetOrderDetailsByOrderStatusIdRepository
+    {
+        get
+        {
+            return _orderDetailsByOrderStatusIdRepository ??=
+                new GetOrderDetailsByOrderStatusIdRepository(context: _context);
         }
     }
 }

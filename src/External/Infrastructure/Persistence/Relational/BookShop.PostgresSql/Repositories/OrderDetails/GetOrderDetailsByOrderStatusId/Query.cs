@@ -1,31 +1,46 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Application.Shared.Common;
 using BookShop.Data.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailById;
+namespace BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 
 /// <summary>
-///    Implement of query IGetOrderDetailById repository.
+///    Implement of query IGetOrderDetailsByOrderStatusId repository.
 /// </summary>
-internal partial class GetOrderDetailByIdRepository
+internal partial class GetOrderDetailsByOrderStatusIdRepository
 {
-    public Task<OrderDetail> FindOrderDetailByIdQueryAsync(
-        Guid orderDetailId,
+    public Task<bool> IsOrderStatusFoundById(
+        Guid orderStatusId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _orderStatus
+            .AsNoTracking()
+            .AnyAsync(
+                predicate: orderStatus => orderStatus.Id == orderStatusId,
+                cancellationToken: cancellationToken
+            );
+    }
+
+    public async Task<IEnumerable<OrderDetail>> FindOrderDetailsByStatusIdAndUserIdQueryAsync(
+        Guid orderStatusId,
         Guid userId,
         CancellationToken cancellationToken
     )
     {
-        return _orderDetail
+        return await _orderDetail
             .AsNoTracking()
             .Where(predicate: orderDetail =>
-                orderDetail.Id == orderDetailId && orderDetail.Order.UserDetail.UserId == userId
+                orderDetail.OrderStatusId == orderStatusId
+                && orderDetail.Order.UserDetail.UserId == userId
             )
             .Select(selector: orderDetail => new OrderDetail()
             {
+                Id = orderDetail.Id,
                 Cost = orderDetail.Cost,
                 OrderStatus = orderDetail.OrderStatus,
                 Product = new()
@@ -53,38 +68,6 @@ internal partial class GetOrderDetailByIdRepository
                     OrderDate = orderDetail.Order.OrderDate,
                 }
             })
-            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-    }
-
-    public Task<bool> IsOrderDetailFoundByUserIdAndOrderDetailIdQueryAsync(
-        Guid userId,
-        Guid orderDetailId,
-        CancellationToken cancellationToken
-    )
-    {
-        return _orderDetail
-            .AsNoTracking()
-            .AnyAsync(
-                predicate: orderDetail =>
-                    orderDetail.Id == orderDetailId
-                    && orderDetail.Order.UserDetail.UserId == userId,
-                cancellationToken: cancellationToken
-            );
-    }
-
-    public Task<bool> IsOrderDetailTemporarilyRemovedById(
-        Guid orderDetailId,
-        CancellationToken cancellationToken
-    )
-    {
-        return _orderDetail
-            .AsNoTracking()
-            .AnyAsync(
-                predicate: orderDetail =>
-                    orderDetail.Id == orderDetailId
-                    && orderDetail.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-                    && orderDetail.RemovedAt != CommonConstant.MIN_DATE_TIME,
-                cancellationToken: cancellationToken
-            );
+            .ToListAsync(cancellationToken: cancellationToken);
     }
 }

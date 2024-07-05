@@ -106,7 +106,7 @@ public class GetOrderDetailByIdHandler
                 OrderDate = foundOrder.Order.OrderDate,
                 OrderDetailInformation = new GetOrderDetailByIdResponse.Body.OrderDetail()
                 {
-                    Id = foundOrder.Id,
+                    Id = request.OrderDetailId,
                     Price = foundOrder.Product.Price.ToString("0.000"),
                     Quantity = foundOrder.Quantity,
                     Cost = (foundOrder.Product.Price * foundOrder.Quantity).ToString("0.000"),
