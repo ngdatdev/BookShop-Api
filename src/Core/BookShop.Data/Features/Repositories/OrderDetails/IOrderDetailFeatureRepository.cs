@@ -2,6 +2,7 @@ using BookShop.Data.Features.Repositories.OrderDetails.GetAllOrderDetailsByUserI
 using BookShop.Data.Features.Repositories.OrderDetails.GetAllTemporarilyRemovedOrderDetails;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
+using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 
 namespace BookShop.Data.Features.Repositories.OrderDetails;
 
@@ -29,4 +30,9 @@ public interface IOrderDetailFeatureRepository
     ///     Gets get all temporarily removed order details feature repository.
     /// </summary>
     public IGetAllTemporarilyRemovedOrderDetailsRepository GetAllTemporarilyRemovedOrderDetailsRepository { get; }
+
+    /// <summary>
+    ///     Gets remove order detail temporarily by id all feature repository.
+    /// </summary>
+    public IRemoveOrderDetailTemporarilyByIdRepository RemoveOrderDetailTemporarilyByIdRepository { get; }
 }

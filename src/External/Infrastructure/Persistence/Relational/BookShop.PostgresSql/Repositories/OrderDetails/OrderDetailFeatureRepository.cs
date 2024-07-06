@@ -3,11 +3,13 @@ using BookShop.Data.Features.Repositories.OrderDetails.GetAllOrderDetailsByUserI
 using BookShop.Data.Features.Repositories.OrderDetails.GetAllTemporarilyRemovedOrderDetails;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
+using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetAllTemporarilyRemovedOrderDetails;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
+using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 
 namespace BookShop.PostgresSql.Repositories.OrderDetails;
 
@@ -21,6 +23,7 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
     private IGetOrderDetailsByOrderStatusIdRepository _getOrderDetailsByOrderStatusIdRepository;
     private IGetAllOrderDetailsByUserIdRepository _getAllOrderDetailsByUserIdRepository;
     private IGetAllTemporarilyRemovedOrderDetailsRepository _getAllTemporarilyRemovedOrderDetailsRepository;
+    private IRemoveOrderDetailTemporarilyByIdRepository _removeOrderDetailTemporarilyByIdRepository;
 
     internal OrderDetailFeatureRepository(BookShopContext context)
     {
@@ -61,6 +64,15 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
         {
             return _getAllTemporarilyRemovedOrderDetailsRepository ??=
                 new GetAllTemporarilyRemovedOrderDetailsRepository(context: _context);
+        }
+    }
+
+    public IRemoveOrderDetailTemporarilyByIdRepository RemoveOrderDetailTemporarilyByIdRepository
+    {
+        get
+        {
+            return _removeOrderDetailTemporarilyByIdRepository ??=
+                new RemoveOrderDetailTemporarilyByIdRepository(context: _context);
         }
     }
 }
