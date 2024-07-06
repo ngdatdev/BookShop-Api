@@ -19,15 +19,10 @@ public class RemoveOrderDetailPermanentlyByIdHandler
     >
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public RemoveOrderDetailPermanentlyByIdHandler(
-        IUnitOfWork unitOfWork,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public RemoveOrderDetailPermanentlyByIdHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>

@@ -1,0 +1,61 @@
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace BookShop.PostgresSql.Repositories.OrderDetails.RestoreOrderDetailById;
+
+/// <summary>
+///    Implement of command IRestoreOrderDetailByIdRepository.
+/// </summary>
+internal partial class RestoreOrderDetailByIdRepository
+{
+    public async Task<bool> RestoreOrderDetailByIdCommandAsync(
+        Guid ordetDetailId,
+        CancellationToken cancellationToken
+    )
+    {
+        var dbTransactionResult = false;
+
+        await _context
+            .Database.CreateExecutionStrategy()
+            .ExecuteAsync(operation: async () =>
+            {
+                using var dbTransaction = await _context.Database.BeginTransactionAsync(
+                    cancellationToken: cancellationToken
+                );
+
+                try
+                {
+                    _orderDetails
+                        .Where(predicate: order => order.Id == ordetDetailId)
+                        .ExecuteUpdate(setPropertyCalls: builder =>
+                            builder
+                                .SetProperty(
+                                    order => order.RemovedAt,
+                                    Application.Shared.Common.CommonConstant.MIN_DATE_TIME
+                                )
+                                .SetProperty(
+                                    order => order.RemovedBy,
+                                    Application
+                                        .Shared
+                                        .Common
+                                        .CommonConstant
+                                        .DEFAULT_ENTITY_ID_AS_GUID
+                                )
+                        );
+
+                    await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
+
+                    dbTransactionResult = true;
+                }
+                catch
+                {
+                    await dbTransaction.RollbackAsync(cancellationToken: cancellationToken);
+                }
+            });
+
+        return dbTransactionResult;
+    }
+}

@@ -30,7 +30,7 @@ internal partial class RemoveOrderDetailTemporarilyByIdRepository
 
                 try
                 {
-                    _orders
+                    _orderDetails
                         .Where(predicate: order => order.Id == orderId)
                         .ExecuteUpdate(setPropertyCalls: builder =>
                             builder

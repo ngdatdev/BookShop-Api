@@ -5,6 +5,7 @@ using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
+using BookShop.Data.Features.Repositories.OrderDetails.RestoreOrderDetailById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetAllTemporarilyRemovedOrderDetails;
@@ -12,6 +13,7 @@ using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailById;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
+using BookShop.PostgresSql.Repositories.OrderDetails.RestoreOrderDetailById;
 
 namespace BookShop.PostgresSql.Repositories.OrderDetails;
 
@@ -27,6 +29,7 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
     private IGetAllTemporarilyRemovedOrderDetailsRepository _getAllTemporarilyRemovedOrderDetailsRepository;
     private IRemoveOrderDetailTemporarilyByIdRepository _removeOrderDetailTemporarilyByIdRepository;
     private IRemoveOrderDetailPermanentlyByIdRepository _removeOrderDetailPermanentlyByIdRepository;
+    private IRestoreOrderDetailByIdRepository _restoreOrderDetailByIdRepository;
 
     internal OrderDetailFeatureRepository(BookShopContext context)
     {
@@ -85,6 +88,16 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
         {
             return _removeOrderDetailPermanentlyByIdRepository ??=
                 new RemoveOrderDetailPermanentlyByIdRepository(context: _context);
+        }
+    }
+
+    public IRestoreOrderDetailByIdRepository RestoreOrderDetailByIdRepository
+    {
+        get
+        {
+            return _restoreOrderDetailByIdRepository ??= new RestoreOrderDetailByIdRepository(
+                context: _context
+            );
         }
     }
 }

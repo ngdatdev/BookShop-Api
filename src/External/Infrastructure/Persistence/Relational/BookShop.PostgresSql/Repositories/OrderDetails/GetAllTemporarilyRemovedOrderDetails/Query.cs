@@ -20,8 +20,8 @@ internal partial class GetAllTemporarilyRemovedOrderDetailsRepository
         return await _orderDetail
             .AsNoTracking()
             .Where(predicate: orderDetail =>
-                orderDetail.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-                && orderDetail.RemovedAt == CommonConstant.MIN_DATE_TIME
+                orderDetail.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && orderDetail.RemovedAt != CommonConstant.MIN_DATE_TIME
             )
             .Select(selector: orderDetail => new OrderDetail()
             {
