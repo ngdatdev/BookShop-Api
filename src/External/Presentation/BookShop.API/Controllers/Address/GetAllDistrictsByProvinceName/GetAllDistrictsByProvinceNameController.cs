@@ -1,33 +1,30 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Address.GetAddressesByWard.HttpResponseMapper;
-using BookShop.Application.Features.Addresses.GetAddressesByWard;
+using BookShop.API.Controllers.Address.GetAllDistrictsByProvinceName.HttpResponseMapper;
+using BookShop.Application.Features.Addresses.GetAllDistrictsByProvinceName;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Auth.GetAddressesByWard;
+namespace BookShop.API.Controllers.Auth.GetAllDistrictsByProvinceName;
 
 [ApiController]
-[Route(template: "api/address")]
+[Route(template: "api/address/districts")]
 [Tags(tags: "Address")]
-public class GetAddressesByWardController : ControllerBase
+public class GetAllDistrictsByProvinceNameController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetAddressesByWardController(
-        IMediator mediator,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public GetAllDistrictsByProvinceNameController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for getting all adresses by ward name.
+    ///     Endpoint for getting all districts by province name.
     /// </summary>
-    /// <param name="ward"></param>
+    /// <param name="province"></param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
@@ -37,23 +34,23 @@ public class GetAddressesByWardController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/address/all/{ward}
+    ///     GET api/address/districts/{ward}
     ///
     /// </remarks>
-    [HttpGet("{ward}")]
-    public async Task<IActionResult> GetAddressesByWardAsync(
-        [FromRoute] [Required] string ward,
+    [HttpGet("{province}")]
+    public async Task<IActionResult> GetAllDistrictsByProvinceNameAsync(
+        [FromRoute] [Required] string province,
         CancellationToken cancellationToken
     )
     {
-        GetAddressesByWardRequest request = new() { Ward = ward, };
+        GetAllDistrictsByProvinceNameRequest request = new() { Province = province, };
 
         var featureResponse = await _mediator.SendAsync(
             request: request,
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = GetAddressesByWardHttpResponseMapper
+        var apiResponse = GetAllDistrictsByProvinceNameHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
             .Invoke(arg1: request, featureResponse);
