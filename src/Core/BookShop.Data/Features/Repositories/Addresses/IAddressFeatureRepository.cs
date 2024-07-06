@@ -1,6 +1,7 @@
 ﻿using BookShop.Data.Features.Repositories.Addresses.GetAddressesByWard;
 using BookShop.Data.Features.Repositories.Addresses.GetAllDistrictsByProvinceName;
 using BookShop.Data.Features.Repositories.Addresses.GetAllWardsByDistrictName;
+using BookShop.Data.Features.Repositories.Addresses.UpdateAddressById;
 
 namespace BookShop.Data.Features.Repositories.Address;
 
@@ -23,4 +24,9 @@ public interface IAddressFeatureRepository
     ///     Gets get all wards by district name repository.
     /// </summary>
     public IGetAllWardsByDistrictNameRepository GetAllWardsByDistrictNameRepository { get; }
+
+    /// <summary>
+    ///     Gets update address by id repository.
+    /// </summary>
+    public IUpdateAddressByIdRepository UpdateAddressByIdRepository { get; }
 }
