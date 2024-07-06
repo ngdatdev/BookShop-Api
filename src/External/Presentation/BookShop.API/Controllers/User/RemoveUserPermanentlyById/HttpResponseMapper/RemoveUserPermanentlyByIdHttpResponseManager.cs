@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BookShop.Application.Features.Address.GetAllAddresses;
 using BookShop.Application.Features.Users.RemoveUserPermanentlyById;
 using Microsoft.AspNetCore.Http;
 

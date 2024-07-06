@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.Address;
 using BookShop.Data.Features.Repositories.Auth;
 using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
@@ -38,6 +39,7 @@ public class UnitOfWork : IUnitOfWork
     private IOrderFeatureRepository _orderFeatureRepository;
     private IRoleFeatureRepository _roleFeatureRepository;
     private IOrderDetailFeatureRepository _orderDetailFeatureRepository;
+    private IAddressFeatureRepository _addressFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -104,6 +106,14 @@ public class UnitOfWork : IUnitOfWork
             return _orderDetailFeatureRepository ??= new OrderDetailFeatureRepository(
                 context: _context
             );
+        }
+    }
+
+    public IAddressFeatureRepository AddressFeature
+    {
+        get
+        {
+            return _addressFeatureRepository ??= new AddressFeatureRepository(context: _context);
         }
     }
 }

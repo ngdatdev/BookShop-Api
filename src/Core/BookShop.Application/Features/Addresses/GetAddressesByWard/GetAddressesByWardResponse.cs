@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using BookShop.Application.Shared.Features;
 
-namespace BookShop.Application.Features.Address.GetAllAddresses;
+namespace BookShop.Application.Features.Addresses.GetAddressesByWard;
 
 /// <summary>
-///     GetAllAddresses Response
+///     GetAddressesByWard Response
 /// </summary>
-public class GetAllAddressesResponse : IFeatureResponse
+public class GetAddressesByWardResponse : IFeatureResponse
 {
-    public GetAllAddressesResponseStatusCode StatusCode { get; init; }
+    public GetAddressesByWardResponseStatusCode StatusCode { get; init; }
 
     public Body ResponseBody { get; init; }
 

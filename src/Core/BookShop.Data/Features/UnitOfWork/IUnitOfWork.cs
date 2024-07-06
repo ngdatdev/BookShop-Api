@@ -1,3 +1,4 @@
+using BookShop.Data.Features.Repositories.Address;
 using BookShop.Data.Features.Repositories.Auth;
 using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
@@ -53,4 +54,9 @@ public interface IUnitOfWork
     ///    Order Detail repository manager.
     /// </summary>
     public IOrderDetailFeatureRepository OrderDetailFeature { get; }
+
+    /// <summary>
+    ///    Address repository manager.
+    /// </summary>
+    public IAddressFeatureRepository AddressFeature { get; }
 }

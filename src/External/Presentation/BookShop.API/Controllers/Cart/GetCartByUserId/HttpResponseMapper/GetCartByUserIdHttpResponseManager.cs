@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BookShop.Application.Features.Address.GetAllAddresses;
 using BookShop.Application.Features.Carts.GetCartByUserId;
 using Microsoft.AspNetCore.Http;
 
