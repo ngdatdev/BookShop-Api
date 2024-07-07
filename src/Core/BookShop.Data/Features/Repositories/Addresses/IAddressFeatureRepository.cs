@@ -1,7 +1,9 @@
 ﻿using BookShop.Data.Features.Repositories.Addresses.GetAddressesByWard;
 using BookShop.Data.Features.Repositories.Addresses.GetAllDistrictsByProvinceName;
 using BookShop.Data.Features.Repositories.Addresses.GetAllWardsByDistrictName;
+using BookShop.Data.Features.Repositories.Addresses.RemoveAddressPermanentlyRemovedById;
 using BookShop.Data.Features.Repositories.Addresses.RemoveAddressTemporarilyRemovedById;
+using BookShop.Data.Features.Repositories.Addresses.RestoreAddressById;
 using BookShop.Data.Features.Repositories.Addresses.UpdateAddressById;
 
 namespace BookShop.Data.Features.Repositories.Address;
@@ -35,4 +37,14 @@ public interface IAddressFeatureRepository
     ///     Remove address temporarily removed by id repository.
     /// </summary>
     public IRemoveAddressTemporarilyRemovedByIdRepository RemoveAddressTemporarilyRemovedByIdRepository { get; }
+
+    /// <summary>
+    ///     Remove address temporarily removed by id repository.
+    /// </summary>
+    public IRemoveAddressPermanentlyRemovedByIdRepository RemoveAddressPermanentlyRemovedByIdRepository { get; }
+
+    /// <summary>
+    ///     Remove restore address by id repository.
+    /// </summary>
+    public IRestoreAddressByIdRepository RestoreAddressByIdRepository { get; }
 }

@@ -1,27 +1,27 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Address.RemoveAddressTemporarilyRemovedById.HttpResponseMapper;
-using BookShop.Application.Features.Addresses.RemoveAddressTemporarilyRemovedById;
+using BookShop.API.Controllers.Address.RestoreAddressById.HttpResponseMapper;
+using BookShop.Application.Features.Addresses.RestoreAddressById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Address.RemoveAddressTemporarilyRemovedById;
+namespace BookShop.API.Controllers.Address.RestoreAddressById;
 
 [ApiController]
-[Route(template: "api/address/temporarily")]
+[Route(template: "api/address/restore")]
 [Tags(tags: "Address")]
-public class RemoveAddressTemporarilyRemovedByIdController : ControllerBase
+public class RestoreAddressByIdController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public RemoveAddressTemporarilyRemovedByIdController(IMediator mediator)
+    public RestoreAddressByIdController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for removing address temporarily by id.
+    ///     Endpoint for restoring address by id.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken">
@@ -33,12 +33,12 @@ public class RemoveAddressTemporarilyRemovedByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/address/temporarily/{address-id}
+    ///     PATCH api/address/restore/{address-id}
     ///
     /// </remarks>
-    [HttpDelete("{address-id}")]
-    public async Task<IActionResult> RemoveAddressTemporarilyRemovedByIdAsync(
-        [FromRoute] RemoveAddressTemporarilyRemovedByIdRequest request,
+    [HttpPatch("{address-id}")]
+    public async Task<IActionResult> RestoreAddressByIdAsync(
+        [FromRoute] RestoreAddressByIdRequest request,
         CancellationToken cancellationToken
     )
     {
@@ -47,7 +47,7 @@ public class RemoveAddressTemporarilyRemovedByIdController : ControllerBase
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = RemoveAddressTemporarilyRemovedByIdHttpResponseMapper
+        var apiResponse = RestoreAddressByIdHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
             .Invoke(arg1: request, featureResponse);
