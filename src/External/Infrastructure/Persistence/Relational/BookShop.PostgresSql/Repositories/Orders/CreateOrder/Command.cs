@@ -44,26 +44,26 @@ internal partial class CreateOrderRepository
                 using var dbTransaction = await _context.Database.BeginTransactionAsync(
                     cancellationToken: cancellationToken
                 );
-                //try
-                //{
-                await _orders.AddAsync(entity: order, cancellationToken: cancellationToken);
+                try
+                {
+                    await _orders.AddAsync(entity: order, cancellationToken: cancellationToken);
 
-                await _cartItems
-                    .Where(predicate: cartItem =>
-                        order
-                            .OrderDetails.Select(orderDetail => orderDetail.ProductId)
-                            .Contains(cartItem.ProductId)
-                    )
-                    .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+                    await _cartItems
+                        .Where(predicate: cartItem =>
+                            order
+                                .OrderDetails.Select(orderDetail => orderDetail.ProductId)
+                                .Contains(cartItem.ProductId)
+                        )
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
-                await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-                await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
-                dbTransactionResult = true;
-                //}
-                //catch
-                //{
-                //    await dbTransaction.RollbackAsync(cancellationToken: cancellationToken);
-                //}
+                    await _context.SaveChangesAsync(cancellationToken: cancellationToken);
+                    await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
+                    dbTransactionResult = true;
+                }
+                catch
+                {
+                    await dbTransaction.RollbackAsync(cancellationToken: cancellationToken);
+                }
             });
 
         return dbTransactionResult;

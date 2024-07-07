@@ -2,11 +2,13 @@ using BookShop.Data.Features.Repositories.Address;
 using BookShop.Data.Features.Repositories.Addresses.GetAddressesByWard;
 using BookShop.Data.Features.Repositories.Addresses.GetAllDistrictsByProvinceName;
 using BookShop.Data.Features.Repositories.Addresses.GetAllWardsByDistrictName;
+using BookShop.Data.Features.Repositories.Addresses.RemoveAddressTemporarilyRemovedById;
 using BookShop.Data.Features.Repositories.Addresses.UpdateAddressById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Addresses.GetAddressesByWard;
 using BookShop.PostgresSql.Repositories.Addresses.GetAllDistrictsByProvinceName;
 using BookShop.PostgresSql.Repositories.Addresses.GetAllWardsByDistrictName;
+using BookShop.PostgresSql.Repositories.Addresses.RemoveAddressTemporarilyRemovedById;
 using BookShop.PostgresSql.Repositories.Addresses.UpdateAddressById;
 
 namespace BookShop.PostgresSql.Repositories.Carts;
@@ -21,6 +23,7 @@ internal class AddressFeatureRepository : IAddressFeatureRepository
     private IGetAllDistrictsByProvinceNameRepository _getAllDistrictByIdRepository;
     private IGetAllWardsByDistrictNameRepository _getAllWardsByDistrictNameRepository;
     private IUpdateAddressByIdRepository _updateAddressByIdRepository;
+    private IRemoveAddressTemporarilyRemovedByIdRepository _removeAddressTemporarilyRemovedByIdRepository;
 
     internal AddressFeatureRepository(BookShopContext context)
     {
@@ -62,6 +65,15 @@ internal class AddressFeatureRepository : IAddressFeatureRepository
             return _updateAddressByIdRepository ??= new UpdateAddressByIdRepository(
                 context: _context
             );
+        }
+    }
+
+    public IRemoveAddressTemporarilyRemovedByIdRepository RemoveAddressTemporarilyRemovedByIdRepository
+    {
+        get
+        {
+            return _removeAddressTemporarilyRemovedByIdRepository ??=
+                new RemoveAddressTemporarilyRemovedByIdRepository(context: _context);
         }
     }
 }
