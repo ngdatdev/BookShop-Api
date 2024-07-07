@@ -1,6 +1,7 @@
 using BookShop.Data.Features.Repositories.Address;
 using BookShop.Data.Features.Repositories.Addresses.GetAddressesByWard;
 using BookShop.Data.Features.Repositories.Addresses.GetAllDistrictsByProvinceName;
+using BookShop.Data.Features.Repositories.Addresses.GetAllTemporarilyAddresses;
 using BookShop.Data.Features.Repositories.Addresses.GetAllWardsByDistrictName;
 using BookShop.Data.Features.Repositories.Addresses.RemoveAddressPermanentlyRemovedById;
 using BookShop.Data.Features.Repositories.Addresses.RemoveAddressTemporarilyRemovedById;
@@ -9,6 +10,7 @@ using BookShop.Data.Features.Repositories.Addresses.UpdateAddressById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Addresses.GetAddressesByWard;
 using BookShop.PostgresSql.Repositories.Addresses.GetAllDistrictsByProvinceName;
+using BookShop.PostgresSql.Repositories.Addresses.GetAllTemporarilyAddresses;
 using BookShop.PostgresSql.Repositories.Addresses.GetAllWardsByDistrictName;
 using BookShop.PostgresSql.Repositories.Addresses.RemoveAddressPermanentlyRemovedById;
 using BookShop.PostgresSql.Repositories.Addresses.RemoveAddressTemporarilyRemovedById;
@@ -30,6 +32,7 @@ internal class AddressFeatureRepository : IAddressFeatureRepository
     private IRemoveAddressTemporarilyRemovedByIdRepository _removeAddressTemporarilyRemovedByIdRepository;
     private IRemoveAddressPermanentlyRemovedByIdRepository _removeAddressPermanentlyRemovedByIdRepository;
     private IRestoreAddressByIdRepository _restoreAddressByIdRepository;
+    private IGetAllTemporarilyAddressesRepository _getAllTemporarilyAddressesRepository;
 
     internal AddressFeatureRepository(BookShopContext context)
     {
@@ -99,6 +102,15 @@ internal class AddressFeatureRepository : IAddressFeatureRepository
             return _restoreAddressByIdRepository ??= new RestoreAddressByIdRepository(
                 context: _context
             );
+        }
+    }
+
+    public IGetAllTemporarilyAddressesRepository GetAllTemporarilyAddressesRepository
+    {
+        get
+        {
+            return _getAllTemporarilyAddressesRepository ??=
+                new GetAllTemporarilyAddressesRepository(context: _context);
         }
     }
 }

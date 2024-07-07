@@ -1,33 +1,29 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.Address.GetAddressesByWard.HttpResponseMapper;
-using BookShop.Application.Features.Addresses.GetAddressesByWard;
+using BookShop.API.Controllers.Address.GetAllTemporarilyAddresses.HttpResponseMapper;
+using BookShop.Application.Features.Addresses.GetAllTemporarilyAddresses;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Address.GetAddressesByWard;
+namespace BookShop.API.Controllers.Address.GetAllTemporarilyAddresses;
 
 [ApiController]
-[Route(template: "api/address/all")]
+[Route(template: "api/address/all/removed")]
 [Tags(tags: "Address")]
-public class GetAddressesByWardController : ControllerBase
+public class GetAllTemporarilyAddressesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetAddressesByWardController(
-        IMediator mediator,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public GetAllTemporarilyAddressesController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     /// <summary>
-    ///     Endpoint for getting all adresses by ward name.
+    ///     Endpoint for get all temporarily adresses.
     /// </summary>
-    /// <param name="ward"></param>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
     /// </param>
@@ -37,23 +33,22 @@ public class GetAddressesByWardController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/address/all/{ward}
+    ///     GET api/address/all/removed
     ///
     /// </remarks>
-    [HttpGet("{ward}")]
-    public async Task<IActionResult> GetAddressesByWardAsync(
-        [FromRoute] [Required] string ward,
+    [HttpGet]
+    public async Task<IActionResult> GetAllTemporarilyAddressesAsync(
         CancellationToken cancellationToken
     )
     {
-        GetAddressesByWardRequest request = new() { Ward = ward, };
+        GetAllTemporarilyAddressesRequest request = new() { };
 
         var featureResponse = await _mediator.SendAsync(
             request: request,
             cancellationToken: cancellationToken
         );
 
-        var apiResponse = GetAddressesByWardHttpResponseMapper
+        var apiResponse = GetAllTemporarilyAddressesHttpResponseMapper
             .Get()
             .Resolve(featureResponse.StatusCode)
             .Invoke(arg1: request, featureResponse);
