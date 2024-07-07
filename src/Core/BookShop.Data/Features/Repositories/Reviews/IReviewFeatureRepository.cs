@@ -1,4 +1,6 @@
 using BookShop.Data.Features.Repositories.Reviews.AddReviewWithUserAndProductId;
+using BookShop.Data.Features.Repositories.Reviews.GetReviewsByProductId;
+using BookShop.Data.Features.Repositories.Reviews.GetReviewsByUserId;
 using BookShop.Data.Features.Repositories.Reviews.RemoveReviewById;
 using BookShop.Data.Features.Repositories.Reviews.UpdateReviewById;
 
@@ -20,7 +22,17 @@ public interface IReviewFeatureRepository
     public IRemoveReviewByIdRepository RemoveReviewByIdRepository { get; }
 
     /// <summary>
-    ///     Gets update review by id and feature repository.
+    ///     Gets update review by id feature repository.
     /// </summary>
     public IUpdateReviewByIdRepository UpdateReviewByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets get all reviews by product id feature repository.
+    /// </summary>
+    public IGetReviewsByProductIdRepository GetReviewsByProductIdRepository { get; }
+
+    /// <summary>
+    ///     Gets get all reviews by user id feature repository.
+    /// </summary>
+    public IGetReviewsByUserIdRepository GetReviewsByUserIdRepository { get; }
 }
