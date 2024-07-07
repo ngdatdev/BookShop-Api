@@ -5,6 +5,7 @@ using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.OrderDetails;
 using BookShop.Data.Features.Repositories.Orders;
 using BookShop.Data.Features.Repositories.Product;
+using BookShop.Data.Features.Repositories.Reviews;
 using BookShop.Data.Features.Repositories.Roles;
 using BookShop.Data.Features.Repositories.User;
 using BookShop.Data.Features.UnitOfWork;
@@ -16,6 +17,7 @@ using BookShop.PostgresSql.Repositories.Carts;
 using BookShop.PostgresSql.Repositories.OrderDetails;
 using BookShop.PostgresSql.Repositories.Orders;
 using BookShop.PostgresSql.Repositories.Product;
+using BookShop.PostgresSql.Repositories.Reviews;
 using BookShop.PostgresSql.Repositories.Roles;
 using BookShop.PostgresSql.Repositories.User;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +42,7 @@ public class UnitOfWork : IUnitOfWork
     private IRoleFeatureRepository _roleFeatureRepository;
     private IOrderDetailFeatureRepository _orderDetailFeatureRepository;
     private IAddressFeatureRepository _addressFeatureRepository;
+    private IReviewFeatureRepository _reviewFeatureRepository;
 
     public UnitOfWork(
         BookShopContext context,
@@ -115,5 +118,10 @@ public class UnitOfWork : IUnitOfWork
         {
             return _addressFeatureRepository ??= new AddressFeatureRepository(context: _context);
         }
+    }
+
+    public IReviewFeatureRepository ReviewFeature
+    {
+        get { return _reviewFeatureRepository ??= new ReviewFeatureRepository(context: _context); }
     }
 }

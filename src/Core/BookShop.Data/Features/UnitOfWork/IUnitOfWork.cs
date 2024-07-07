@@ -5,6 +5,7 @@ using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.OrderDetails;
 using BookShop.Data.Features.Repositories.Orders;
 using BookShop.Data.Features.Repositories.Product;
+using BookShop.Data.Features.Repositories.Reviews;
 using BookShop.Data.Features.Repositories.Roles;
 using BookShop.Data.Features.Repositories.User;
 
@@ -59,4 +60,9 @@ public interface IUnitOfWork
     ///    Address repository manager.
     /// </summary>
     public IAddressFeatureRepository AddressFeature { get; }
+
+    /// <summary>
+    ///    Review repository manager.
+    /// </summary>
+    public IReviewFeatureRepository ReviewFeature { get; }
 }
