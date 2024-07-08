@@ -19,4 +19,6 @@ internal partial class GetAllProductsRepository : IGetAllProductsRepository
         _context = context;
         _products = _context.Set<BookShop.Data.Shared.Entities.Product>();
     }
+
+  
 }

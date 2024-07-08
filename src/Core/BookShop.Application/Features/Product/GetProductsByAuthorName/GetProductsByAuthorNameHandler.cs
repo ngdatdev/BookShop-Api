@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,6 +55,12 @@ public class GetProductsByAuthorNameHandler
                 cancellationToken: cancellationToken
             );
 
+        // Get total number products.
+        var countProduct =
+            await _unitOfWork.ProductFeature.GetAllProductsRepository.GetTotalNumberOfProducts(
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetProductsByAuthorNameResponse()
         {
@@ -74,7 +81,10 @@ public class GetProductsByAuthorNameHandler
                                 product.Price * (1 - (product.Discount / 100.0m))
                             ).ToString("0.000"),
                         }
-                    )
+                    ),
+                    PageIndex = request.PageIndex,
+                    PageSize = request.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)countProduct / request.PageSize)
                 }
             }
         };

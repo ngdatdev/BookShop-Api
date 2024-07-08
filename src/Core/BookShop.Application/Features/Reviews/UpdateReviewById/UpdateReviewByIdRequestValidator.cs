@@ -1,5 +1,3 @@
-using System.IO;
-using System.Linq;
 using BookShop.Application.Shared.Features;
 using FluentValidation;
 
@@ -13,11 +11,11 @@ public sealed class UpdateReviewByIdRequestValidator
 {
     public UpdateReviewByIdRequestValidator()
     {
+        RuleFor(expression: request => request.ReviewId).NotEmpty();
+
         RuleFor(expression: request => request.Comment)
             .NotEmpty()
             .MinimumLength(minimumLength: Data.Shared.Entities.Review.MetaData.Comment.MinLength)
             .MaximumLength(maximumLength: Data.Shared.Entities.Review.MetaData.Comment.MaxLength);
-
-        RuleFor(expression: request => request.ReviewId).NotEmpty();
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Data.Shared.Entities;
 
 namespace BookShop.Data.Features.Repositories.Product.GetAllProducts;
 
@@ -16,4 +15,6 @@ public partial interface IGetAllProductsRepository
         int PageSize,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
 }

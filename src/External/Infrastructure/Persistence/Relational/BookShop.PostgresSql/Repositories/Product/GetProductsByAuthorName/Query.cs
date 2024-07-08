@@ -53,4 +53,9 @@ internal partial class GetProductsByAuthorNameRepository
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }
+
+    public Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken)
+    {
+        return _products.CountAsync(cancellationToken: cancellationToken);
+    }
 }

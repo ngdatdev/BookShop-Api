@@ -39,4 +39,9 @@ internal partial class GetAllTemporarilyRemovedProductsRepository
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }
+
+    public Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken)
+    {
+        return _products.CountAsync(cancellationToken: cancellationToken);
+    }
 }

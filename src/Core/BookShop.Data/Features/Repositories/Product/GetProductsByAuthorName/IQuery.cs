@@ -17,4 +17,6 @@ public partial interface IGetProductsByAuthorNameRepository
         FilterParameterQuery filterParameterQuery,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
 }

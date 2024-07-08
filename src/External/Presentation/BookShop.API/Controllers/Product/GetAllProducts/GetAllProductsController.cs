@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Product.GetAllProducts;
 
 [ApiController]
-[Route(template: "api/product/get-all")]
+[Route(template: "api/product/all")]
 [Tags(tags: "Product")]
 public class GetAllProductsController : ControllerBase
 {
@@ -41,7 +41,6 @@ public class GetAllProductsController : ControllerBase
     ///
     /// </remarks>
     [HttpGet]
-    [ServiceFilter(typeof(GetAllProductsCachingFilter))]
     [ServiceFilter(typeof(GetAllProductsAuthorizationFilter))]
     public async Task<IActionResult> GetAllProductsAsync(
         [FromQuery] GetAllProductsRequest getAllProductsRequest,

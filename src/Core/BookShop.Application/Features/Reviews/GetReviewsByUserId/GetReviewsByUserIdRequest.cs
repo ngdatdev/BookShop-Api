@@ -12,7 +12,9 @@ public class GetReviewsByUserIdRequest : IFeatureRequest<GetReviewsByUserIdRespo
     [FromRoute(Name = "user-id")]
     public Guid UserId { get; init; }
 
+    [FromQuery]
     public int Pageindex { get; init; } = 1;
 
+    [FromQuery]
     public int PageSize { get; init; } = 10;
 }

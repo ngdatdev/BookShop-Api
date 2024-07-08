@@ -19,4 +19,6 @@ public partial interface IGetProductsByCategoryIdRepository
         FilterParameterQuery filterParameterQuery,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
 }

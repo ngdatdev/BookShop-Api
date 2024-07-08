@@ -1,4 +1,5 @@
 using BookShop.Application.Shared.Features;
+using BookShop.Data.Shared.Entities;
 using FluentValidation;
 
 namespace BookShop.Application.Features.CartItems.UpdateCartItemById;
@@ -13,6 +14,8 @@ public sealed class UpdateCartItemByIdRequestValidator
     {
         RuleFor(request => request.CartItemId).NotEmpty();
 
-        RuleFor(request => request.Quantity).NotEmpty().GreaterThanOrEqualTo(0);
+        RuleFor(request => request.Quantity)
+            .NotEmpty()
+            .GreaterThanOrEqualTo(CartItem.MetaData.Quantity.MinValue);
     }
 }

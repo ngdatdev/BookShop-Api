@@ -16,4 +16,6 @@ public partial interface IGetAllTemporarilyRemovedProductsRepository
         int PageSize,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
 }

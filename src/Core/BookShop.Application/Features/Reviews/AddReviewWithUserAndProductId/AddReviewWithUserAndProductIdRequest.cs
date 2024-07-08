@@ -11,6 +11,6 @@ namespace BookShop.Application.Features.Reviews.AddReviewWithUserAndProductId;
 public class AddReviewWithUserAndProductIdRequest
     : IFeatureRequest<AddReviewWithUserAndProductIdResponse>
 {
-    public Guid ProductId { get; init; }
+    public Guid ProductId { get; set; }
     public string Comment { get; init; }
 }

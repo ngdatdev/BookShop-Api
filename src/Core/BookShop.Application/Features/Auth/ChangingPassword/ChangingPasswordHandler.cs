@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Features;
@@ -55,7 +54,7 @@ public class ChangingPasswordHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if reset password token is not found by its value.
+        // Respond if reset password token is not found by its value.
         if (!isResetPasswordTokenFound)
         {
             return new()
@@ -81,7 +80,7 @@ public class ChangingPasswordHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if user is temporarily removed.
+        // Respond if user is temporarily removed.
         if (!isUserNotTemporarilyRemoved)
         {
             return new()
@@ -96,7 +95,7 @@ public class ChangingPasswordHandler
             newPassword: request.NewPassword
         );
 
-        // Responds if is not valid.
+        // Respond if is not valid.
         if (!isPasswordValid)
         {
             return new()
