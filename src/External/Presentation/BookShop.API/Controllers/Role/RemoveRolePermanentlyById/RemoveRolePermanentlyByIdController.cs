@@ -23,7 +23,7 @@ public class RemoveRolePermanentlyByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for permanently removing role by id.
+    ///     Endpoint for removing permanently role by id.
     /// </summary>
     /// <param name="roleId"></param>
     /// <param name="cancellationToken">

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Role.CreateRole;
 
 [ApiController]
-[Route(template: "api/role/create")]
+[Route(template: "api/role")]
 [Tags(tags: "Role")]
 public class CreateRoleController : ControllerBase
 {
@@ -37,7 +37,7 @@ public class CreateRoleController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST api/role/create
+    ///     POST api/role
     ///
     /// </remarks>
     [HttpPost]

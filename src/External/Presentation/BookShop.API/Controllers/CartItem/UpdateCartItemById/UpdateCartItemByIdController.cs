@@ -2,12 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.CartItem.UpdateCartItemById.HttpResponseMapper;
 using BookShop.API.Controllers.CartItem.UpdateCartItemById.Middleware.Caching;
-using BookShop.API.Controllers.Order.CreateOrder.HttpResponseMapper;
-using BookShop.API.Controllers.Order.CreateOrder.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.CartItems.UpdateCartItemById;
-using BookShop.Application.Features.Users.RestoreUserById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.CartItem.UpdateCartItemById;
 
 [ApiController]
-[Route(template: "api/cart-item/update")]
+[Route(template: "api/cart-item")]
 [Tags(tags: "CartItem")]
 public class UpdateCartItemByIdController : ControllerBase
 {
@@ -27,7 +24,7 @@ public class UpdateCartItemByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for update quantity cart item.
+    ///     Endpoint for updating quantity cart item.
     /// </summary>
     /// <param name="updateCartItemByIdRequest"></param>
     /// <param name="cancellationToken">
@@ -39,7 +36,7 @@ public class UpdateCartItemByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/cart-item/add
+    ///     PATCH api/cart-item
     ///
     /// </remarks>
     [HttpPatch]

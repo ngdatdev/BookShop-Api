@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Review.GetReviewsByUserId.HttpResponseMapper;
+using BookShop.API.Controllers.Review.GetReviewsByUserId.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Reviews.GetReviewsByUserId;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Review.GetReviewsByUserId;
 
 [ApiController]
-[Route(template: "api/review/user")]
+[Route(template: "api/review")]
 [Tags(tags: "Review")]
 public class GetReviewsByUserIdController : ControllerBase
 {
@@ -37,12 +38,13 @@ public class GetReviewsByUserIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/review/user{user-id}
+    ///     GET api/review/{user-id}
     ///
     /// </remarks>
     [HttpGet("{user-id}")]
     [ServiceFilter(typeof(AuthorizationFilter))]
     [ServiceFilter(typeof(ValidationRequestFilter<GetReviewsByUserIdRequest>))]
+    [ServiceFilter(typeof(GetReviewsByUserIdCachingFilter))]
     public async Task<IActionResult> GetReviewsByUserIdAsync(
         GetReviewsByUserIdRequest request,
         CancellationToken cancellationToken

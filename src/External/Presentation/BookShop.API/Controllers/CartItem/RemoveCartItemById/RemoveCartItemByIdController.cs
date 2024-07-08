@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using BookShop.API.Controllers.CartItem.RemoveCartItemById.HttpResponseMapper;
 using BookShop.API.Controllers.CartItem.RemoveCartItemById.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
-using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.CartItems.RemoveCartItemById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.CartItem.RemoveCartItemById;
 
 [ApiController]
-[Route(template: "api/cart-item/remove")]
+[Route(template: "api/cart-item")]
 [Tags(tags: "CartItem")]
 public class RemoveCartItemByIdController : ControllerBase
 {
@@ -37,7 +36,7 @@ public class RemoveCartItemByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/cart-item/remove/{id}
+    ///     DELETE api/cart-item/{id}
     ///
     /// </remarks>
     [HttpDelete("{id}")]

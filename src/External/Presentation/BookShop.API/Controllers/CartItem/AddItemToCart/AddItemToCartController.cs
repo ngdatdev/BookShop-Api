@@ -36,7 +36,7 @@ public class AddItemToCartController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST api/cart-item/add
+    ///     POST api/cart-item/
     ///
     /// </remarks>
     [HttpPost]

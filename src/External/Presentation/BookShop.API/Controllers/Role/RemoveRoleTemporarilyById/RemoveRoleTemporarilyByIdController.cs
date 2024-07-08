@@ -23,7 +23,7 @@ public class RemoveRoleTemporarilyByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for temporarily removing role by id.
+    ///     Endpoint for removing temporarily role by id.
     /// </summary>
     /// <param name="roleId"></param>
     /// <param name="cancellationToken">

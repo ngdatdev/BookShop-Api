@@ -23,7 +23,7 @@ public class RestoreRoleByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for temporarily removing role by id.
+    ///     Endpoint for restoring role by id.
     /// </summary>
     /// <param name="roleId"></param>
     /// <param name="cancellationToken">

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Review.RemoveReviewById.HttpResponseMapper;
+using BookShop.API.Controllers.Review.RemoveReviewById.Middleware.Caching;
 using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Reviews.RemoveReviewById;
@@ -43,6 +44,7 @@ public class RemoveReviewByIdController : ControllerBase
     [HttpDelete("{review-id}")]
     [ServiceFilter(typeof(AuthorizationFilter))]
     [ServiceFilter(typeof(ValidationRequestFilter<RemoveReviewByIdRequest>))]
+    [ServiceFilter(typeof(RemoveReviewByIdCachingFilter))]
     public async Task<IActionResult> RemoveReviewByIdAsync(
         [FromRoute(Name = "review-id")] Guid reviewId,
         CancellationToken cancellationToken

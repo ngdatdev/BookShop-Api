@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Order.RemoveOrderPermanentlyById;
 
 [ApiController]
-[Route(template: "api/order/remove/permanently")]
+[Route(template: "api/order/permanently")]
 [Tags(tags: "Order")]
 public class RemoveOrderPermanentlyByIdController : ControllerBase
 {
@@ -34,7 +34,7 @@ public class RemoveOrderPermanentlyByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/order/remove/permanently
+    ///     DELETE api/order/permanently
     ///
     /// </remarks>
     [HttpDelete("{order-id}")]

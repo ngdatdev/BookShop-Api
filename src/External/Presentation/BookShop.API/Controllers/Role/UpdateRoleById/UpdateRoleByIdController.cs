@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Role.UpdateRoleById;
 
 [ApiController]
-[Route(template: "api/role/update")]
+[Route(template: "api/role")]
 [Tags(tags: "Role")]
 public class UpdateRoleByIdController : ControllerBase
 {
@@ -24,7 +24,7 @@ public class UpdateRoleByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for temporarily removing role by id.
+    ///     Endpoint for updating role.
     /// </summary>
     /// <param name="createRoleRequest"></param>
     /// <param name="cancellationToken">
@@ -36,7 +36,7 @@ public class UpdateRoleByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/role/update
+    ///     PATCH api/role
     ///
     /// </remarks>
     [HttpPatch]

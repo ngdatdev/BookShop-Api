@@ -23,7 +23,7 @@ public class RemoveUserTemporarilyByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for remove user temporarily by id.
+    ///     Endpoint for removing user temporarily by id.
     /// </summary>
     /// <param name="removeUserTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">

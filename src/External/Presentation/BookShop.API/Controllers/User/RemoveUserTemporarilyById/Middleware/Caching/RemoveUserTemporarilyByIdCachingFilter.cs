@@ -1,23 +1,23 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.User.UpdateUserById.HttpResponseMapper;
+using BookShop.API.Controllers.User.RemoveUserTemporarilyById.HttpResponseMapper;
 using BookShop.Application.Features.Users.UpdateUserById;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace BookShop.API.Controllers.User.UpdateUserById.Middleware.Caching;
+namespace BookShop.API.Controllers.User.RemoveUserTemporarilyById.Middleware.Caching;
 
 /// <summary>
-///     Filter pipeline for UpdateUserById caching.
+///     Filter pipeline for RemoveUserTemporarilyById caching.
 /// </summary>
-public class UpdateUserByIdCachingFilter : IAsyncActionFilter
+public class RemoveUserTemporarilyByIdCachingFilter : IAsyncActionFilter
 {
     private readonly ICacheHandler _cacheHandler;
 
-    public UpdateUserByIdCachingFilter(ICacheHandler cacheHandler)
+    public RemoveUserTemporarilyByIdCachingFilter(ICacheHandler cacheHandler)
     {
         _cacheHandler = cacheHandler;
     }
@@ -33,21 +33,25 @@ public class UpdateUserByIdCachingFilter : IAsyncActionFilter
                 claimType: JwtRegisteredClaimNames.Sub
             );
 
+            var cacheKey1 = $"GetAllUsersHttpResponse";
+
+            var cacheKey2 = $"GetProfileUserHttpResponse_{userId}";
+
             var executedContext = await next();
 
             if (executedContext.Result is ObjectResult result)
             {
-                var httpResponse = (UpdateUserByIdHttpResponse)result.Value;
+                var httpResponse = (RemoveUserTemporarilyByIdHttpResponse)result.Value;
 
                 if (httpResponse.AppCode.Equals(UpdateUserByIdResponseStatusCode.OPERATION_SUCCESS))
                 {
                     await _cacheHandler.RemoveAsync(
-                        key: $"GetAllUsersHttpResponse",
+                        key: cacheKey1,
                         cancellationToken: CancellationToken.None
                     );
 
                     await _cacheHandler.RemoveAsync(
-                        key: $"GetProfileUserHttpResponse_{userId}",
+                        key: cacheKey2,
                         cancellationToken: CancellationToken.None
                     );
                 }

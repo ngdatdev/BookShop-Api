@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Auth.RemoveUserPermanentlyById;
 
 [ApiController]
-[Route(template: "api/user/permanently/")]
+[Route(template: "api/user/permanently")]
 [Tags(tags: "User")]
 public class RemoveUserPermanentlyByIdController : ControllerBase
 {
@@ -34,7 +34,7 @@ public class RemoveUserPermanentlyByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/user/permanently/{user-id}
+    ///     DELETE api/user/permanently/{user-id}
     ///
     /// </remarks>
     [HttpDelete("{user-id}")]

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Role.GetAllRolesTemporarilyRemoved;
 
 [ApiController]
-[Route(template: "api/role/all/removed")]
+[Route(template: "api/role/removing/all")]
 [Tags(tags: "Role")]
 public class GetAllRolesTemporarilyRemovedController : ControllerBase
 {
@@ -36,7 +36,7 @@ public class GetAllRolesTemporarilyRemovedController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/role/all/removed
+    ///     GET api/role/removing/all
     ///
     /// </remarks>
     [HttpGet]

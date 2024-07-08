@@ -23,7 +23,7 @@ public class GetAllUsersController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get all users.
+    ///     Endpoint for getting all users.
     /// </summary>
     /// <param name="getAllUsersRequest"></param>
     /// <param name="cancellationToken">

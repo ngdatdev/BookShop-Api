@@ -1,23 +1,23 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.API.Controllers.User.UpdateUserById.HttpResponseMapper;
+using BookShop.API.Controllers.OrderDetail.RemoveOrderDetailTemporarilyById.HttpResponseMapper;
 using BookShop.Application.Features.Users.UpdateUserById;
 using BookShop.Application.Shared.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace BookShop.API.Controllers.User.UpdateUserById.Middleware.Caching;
+namespace BookShop.API.Controllers.OrderDetail.RemoveOrderDetailTemporarilyById.Middleware.Caching;
 
 /// <summary>
-///     Filter pipeline for UpdateUserById caching.
+///     Filter pipeline for RemoveOrderDetailTemporarilyById caching.
 /// </summary>
-public class UpdateUserByIdCachingFilter : IAsyncActionFilter
+public class RemoveOrderDetailTemporarilyByIdCachingFilter : IAsyncActionFilter
 {
     private readonly ICacheHandler _cacheHandler;
 
-    public UpdateUserByIdCachingFilter(ICacheHandler cacheHandler)
+    public RemoveOrderDetailTemporarilyByIdCachingFilter(ICacheHandler cacheHandler)
     {
         _cacheHandler = cacheHandler;
     }
@@ -29,25 +29,38 @@ public class UpdateUserByIdCachingFilter : IAsyncActionFilter
     {
         if (!context.HttpContext.Response.HasStarted)
         {
+            var request = context.HttpContext.Request;
+
             var userId = context.HttpContext.User.FindFirstValue(
                 claimType: JwtRegisteredClaimNames.Sub
             );
+
+            var cacheKey1 = $"GetAllOrderDetailsByUserId_param_{userId}";
+
+            var cacheKey2 = $"GetOrderDetailById_{request.RouteValues["order-detail-id"]}_{userId}";
+
+            var cacheKey3 =
+                $"GetOrderDetailsByOrderStatusId_param_{request.RouteValues["order-status-id"]}_{userId}";
 
             var executedContext = await next();
 
             if (executedContext.Result is ObjectResult result)
             {
-                var httpResponse = (UpdateUserByIdHttpResponse)result.Value;
+                var httpResponse = (RemoveOrderDetailTemporarilyByIdHttpResponse)result.Value;
 
                 if (httpResponse.AppCode.Equals(UpdateUserByIdResponseStatusCode.OPERATION_SUCCESS))
                 {
                     await _cacheHandler.RemoveAsync(
-                        key: $"GetAllUsersHttpResponse",
+                        key: cacheKey1,
                         cancellationToken: CancellationToken.None
                     );
 
                     await _cacheHandler.RemoveAsync(
-                        key: $"GetProfileUserHttpResponse_{userId}",
+                        key: cacheKey2,
+                        cancellationToken: CancellationToken.None
+                    );
+                    await _cacheHandler.RemoveAsync(
+                        key: cacheKey3,
                         cancellationToken: CancellationToken.None
                     );
                 }

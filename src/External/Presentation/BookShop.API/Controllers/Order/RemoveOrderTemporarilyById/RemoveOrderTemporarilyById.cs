@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Order.RemoveOrderTemporarilyById.HttpResponseMapper;
 using BookShop.API.Controllers.Order.RemoveOrderTemporarilyById.Middleware.Authorization;
-using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Orders.RemoveOrderTemporarilyById;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Order.RemoveOrderTemporarilyById;
 
 [ApiController]
-[Route(template: "api/order/remove/temporarily")]
+[Route(template: "api/order/temporarily")]
 [Tags(tags: "Order")]
 public class RemoveOrderTemporarilyByIdController : ControllerBase
 {
@@ -35,7 +34,7 @@ public class RemoveOrderTemporarilyByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE api/order/remove/temporarily
+    ///     DELETE api/order/temporarily
     ///
     /// </remarks>
     [HttpDelete("{order-id}")]

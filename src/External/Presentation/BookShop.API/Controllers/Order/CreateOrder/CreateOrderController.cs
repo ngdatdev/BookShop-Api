@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Order.CreateOrder;
 
 [ApiController]
-[Route(template: "api/order/create")]
+[Route(template: "api/order")]
 [Tags(tags: "Order")]
 public class CreateOrderController : ControllerBase
 {
@@ -36,7 +36,7 @@ public class CreateOrderController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST api/order/create
+    ///     POST api/order
     ///
     /// </remarks>
     [HttpPost]

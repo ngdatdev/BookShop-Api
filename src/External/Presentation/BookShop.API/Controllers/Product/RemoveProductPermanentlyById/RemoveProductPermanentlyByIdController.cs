@@ -41,7 +41,6 @@ public class RemoveProductPermanentlyByIdController : ControllerBase
     /// </remarks>
     [HttpDelete("{product-id}")]
     [ServiceFilter(typeof(ValidationRequestFilter<RemoveProductPermanentlyByIdRequest>), Order = 1)]
-    [ServiceFilter(typeof(RemoveProductPermanentlyByIdCachingFilter), Order = 2)]
     [ServiceFilter(typeof(RemoveProductPermanentlyByIdAuthorizationFilter), Order = 3)]
     public async Task<IActionResult> RemoveProductPermanentlyByIdAsync(
         RemoveProductPermanentlyByIdRequest removeProductTemporarilyByIdRequest,

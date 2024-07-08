@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Order.GetAllTemporarilyRemovedOrder;
 
 [ApiController]
-[Route(template: "api/order/get/all/removed")]
+[Route(template: "api/order/removed/all")]
 [Tags(tags: "Order")]
 public class GetAllTemporarilyRemovedOrderController : ControllerBase
 {
@@ -34,7 +34,7 @@ public class GetAllTemporarilyRemovedOrderController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/order/all/removed
+    ///     GET api/order/removed/all
     ///
     /// </remarks>
     [HttpGet]

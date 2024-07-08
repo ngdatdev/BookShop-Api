@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Cart.ClearCart;
 
 [ApiController]
-[Route(template: "api/cart/clear")]
+[Route(template: "api/cart/clearing")]
 [Tags(tags: "Cart")]
 public class ClearCartController : ControllerBase
 {

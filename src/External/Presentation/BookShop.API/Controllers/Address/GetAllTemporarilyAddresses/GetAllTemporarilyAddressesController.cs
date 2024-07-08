@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Address.GetAllTemporarilyAddresses;
 
 [ApiController]
-[Route(template: "api/address/all/removed")]
+[Route(template: "api/address/removing/all")]
 [Tags(tags: "Address")]
 public class GetAllTemporarilyAddressesController : ControllerBase
 {
@@ -33,7 +33,7 @@ public class GetAllTemporarilyAddressesController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     GET api/address/all/removed
+    ///     GET api/address/removing/all
     ///
     /// </remarks>
     [HttpGet]

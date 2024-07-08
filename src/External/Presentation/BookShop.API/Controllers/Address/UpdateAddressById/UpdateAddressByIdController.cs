@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Auth.UpdateAddressById;
 
 [ApiController]
-[Route(template: "api/address/update")]
+[Route(template: "api/address/")]
 [Tags(tags: "Address")]
 public class UpdateAddressByIdController : ControllerBase
 {
@@ -34,7 +34,7 @@ public class UpdateAddressByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/address/update
+    ///     PATCH api/address/
     ///
     /// </remarks>
     [HttpPatch]

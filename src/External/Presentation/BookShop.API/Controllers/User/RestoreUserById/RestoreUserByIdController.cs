@@ -23,7 +23,7 @@ public class RestoreUserByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for resotre user temporarily by id.
+    ///     Endpoint for restoring user temporarily by id.
     /// </summary>
     /// <param name="removeUserTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">
@@ -35,7 +35,7 @@ public class RestoreUserByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/user/{user-id}
+    ///     PATCH api/user/restore/{user-id}
     ///
     /// </remarks>
     [HttpPatch("{user-id}")]

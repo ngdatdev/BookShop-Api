@@ -16,10 +16,7 @@ public class GetAddressesByWardController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetAddressesByWardController(
-        IMediator mediator,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public GetAddressesByWardController(IMediator mediator)
     {
         _mediator = mediator;
     }

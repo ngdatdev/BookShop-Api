@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookShop.API.Controllers.Auth.UpdateUserById;
 
 [ApiController]
-[Route(template: "api/user/update")]
+[Route(template: "api/user")]
 [Tags(tags: "User")]
 public class UpdateUserByIdController : ControllerBase
 {
@@ -24,7 +24,7 @@ public class UpdateUserByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for update user profile.
+    ///     Endpoint for updating user profile.
     /// </summary>
     /// <param name="updateUserByIdRequest">
     ///     Class contains user information.
@@ -38,7 +38,7 @@ public class UpdateUserByIdController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH api/user/update
+    ///     PATCH api/user
     ///
     /// </remarks>
     [HttpPatch]
