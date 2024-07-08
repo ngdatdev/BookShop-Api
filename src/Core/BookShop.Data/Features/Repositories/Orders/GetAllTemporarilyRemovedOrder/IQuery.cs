@@ -16,4 +16,6 @@ public partial interface IGetAllTemporarilyRemovedOrderRepository
         int pageSize,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfOrders(CancellationToken cancellationToken);
 }

@@ -23,7 +23,7 @@ public class RemoveProductTemporarilyByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for remove products temporarily by id.
+    ///     Endpoint for removing products temporarily by id.
     /// </summary>
     /// <param name="removeProductTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">

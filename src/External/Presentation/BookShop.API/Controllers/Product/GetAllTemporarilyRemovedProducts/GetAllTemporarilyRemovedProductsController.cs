@@ -21,7 +21,7 @@ public class GetAllTemporarilyRemovedProductsController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get all temporarily products information.
+    ///     Endpoint for getting all temporarily products information.
     /// </summary>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.

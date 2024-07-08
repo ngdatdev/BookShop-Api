@@ -27,7 +27,7 @@ public class GetOrderByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get order information by id.
+    ///     Endpoint for getting order information by id.
     /// </summary>
     /// <param name="orderId"></param>
     /// <param name="cancellationToken">

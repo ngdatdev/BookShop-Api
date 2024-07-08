@@ -24,7 +24,7 @@ public class GetCartByUserIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get cart by user id information.
+    ///     Endpoint for getting cart by user id information.
     /// </summary>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.

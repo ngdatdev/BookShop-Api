@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Address.GetAllTemporarilyAddresses.HttpResponseMapper;
@@ -22,7 +21,7 @@ public class GetAllTemporarilyAddressesController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get all temporarily adresses.
+    ///     Endpoint for getting all temporarily adresses.
     /// </summary>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.

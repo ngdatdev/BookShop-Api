@@ -24,7 +24,7 @@ public class GetProductsByCategoryIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get products by categoryId information.
+    ///     Endpoint for getting products by categoryId information.
     /// </summary>
     /// <param name="getProductsByCategoryIdRequest"></param>
     /// <param name="cancellationToken">

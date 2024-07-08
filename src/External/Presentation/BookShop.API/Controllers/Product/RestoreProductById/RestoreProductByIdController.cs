@@ -23,7 +23,7 @@ public class RestoreProductByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for resotre products temporarily by id.
+    ///     Endpoint for restoring products temporarily by id.
     /// </summary>
     /// <param name="removeProductTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">

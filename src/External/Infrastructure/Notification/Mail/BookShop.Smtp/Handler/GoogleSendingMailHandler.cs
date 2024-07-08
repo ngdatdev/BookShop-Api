@@ -61,6 +61,7 @@ internal sealed class GoogleSendingMailHandler : ISendingMailHandler
                 oldValue: "{verify-link}",
                 newValue: _googleGmailSendingOption.WebUrl + mainVerifyLink
             )
+            .Replace(oldValue: "{username}", newValue: "!")
             .ToString();
 
         return new()

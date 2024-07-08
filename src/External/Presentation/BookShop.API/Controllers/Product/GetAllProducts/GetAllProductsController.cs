@@ -23,7 +23,7 @@ public class GetAllProductsController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get all product information.
+    ///     Endpoint for getting all product information.
     /// </summary>
     /// <param name="getAllProductsRequest">
     ///     Param query information.

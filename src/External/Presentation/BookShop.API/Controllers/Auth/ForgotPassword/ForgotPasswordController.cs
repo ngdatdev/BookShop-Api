@@ -22,7 +22,7 @@ public class ForgotPasswordController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for forgot password.
+    ///     Endpoint for forgoting password.
     /// </summary>
     /// <param name="forgotPasswordRequest">
     ///     Class contains user credentials.

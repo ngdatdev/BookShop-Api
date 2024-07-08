@@ -23,7 +23,7 @@ public class ConfirmUserRegistrationEmailController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for confirm user registration confirmed email.
+    ///     Endpoint for confirming user registration confirmed email.
     /// </summary>
     /// <param name="base64UserRegistrationConfirmedEmailToken">
     ///     A token value that will be used for user registration

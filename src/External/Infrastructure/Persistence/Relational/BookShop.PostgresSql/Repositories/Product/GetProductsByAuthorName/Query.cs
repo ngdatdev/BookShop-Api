@@ -54,8 +54,13 @@ internal partial class GetProductsByAuthorNameRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken)
+    public Task<int> GetTotalNumberOfProducts(
+        string authorName,
+        CancellationToken cancellationToken
+    )
     {
-        return _products.CountAsync(cancellationToken: cancellationToken);
+        return _products
+            .Where(predicate: entity => entity.Author.Equals(authorName))
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

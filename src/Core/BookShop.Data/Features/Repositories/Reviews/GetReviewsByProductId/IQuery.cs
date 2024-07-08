@@ -17,4 +17,6 @@ public partial interface IGetReviewsByProductIdRepository
         int pageSize,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfReview(string authorName, CancellationToken cancellationToken);
 }

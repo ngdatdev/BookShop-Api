@@ -55,6 +55,12 @@ public class GetAllOrdersHandler : IFeatureHandler<GetAllOrdersRequest, GetAllOr
             cancellationToken: cancellationToken
         );
 
+        // Get total number orders.
+        var countOrder =
+            await _unitOfWork.OrderFeature.GetAllOrdersRepository.GetTotalNumberOfOrders(
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetAllOrdersResponse()
         {
@@ -88,6 +94,7 @@ public class GetAllOrdersHandler : IFeatureHandler<GetAllOrdersRequest, GetAllOr
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)countOrder / request.PageSize)
                 }
             }
         };

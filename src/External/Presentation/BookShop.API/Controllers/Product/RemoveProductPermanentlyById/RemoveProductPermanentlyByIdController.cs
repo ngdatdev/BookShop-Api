@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.HttpResponseMapper;
 using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Middleware.Authorization;
-using BookShop.API.Controllers.Product.RemoveProductPermanentlyById.Middleware.Caching;
 using BookShop.API.Shared.Filter.ValidationRequestFilter;
 using BookShop.Application.Features.Product.RemoveProductPermanentlyById;
 using BookShop.Application.Shared.Features;
@@ -24,7 +23,7 @@ public class RemoveProductPermanentlyByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for remove products permanently by id.
+    ///     Endpoint for removing products permanently by id.
     /// </summary>
     /// <param name="removeProductTemporarilyByIdRequest"></param>
     /// <param name="cancellationToken">

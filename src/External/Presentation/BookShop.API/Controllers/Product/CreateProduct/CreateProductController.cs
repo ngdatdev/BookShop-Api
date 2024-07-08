@@ -23,7 +23,7 @@ public class CreateProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for create product.
+    ///     Endpoint for creating product.
     /// </summary>
     /// <param name="createProductRequest">
     ///     Class contains adding product information.

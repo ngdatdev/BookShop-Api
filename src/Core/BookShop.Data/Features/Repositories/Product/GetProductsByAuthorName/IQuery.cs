@@ -18,5 +18,5 @@ public partial interface IGetProductsByAuthorNameRepository
         CancellationToken cancellationToken
     );
 
-    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
+    Task<int> GetTotalNumberOfProducts(string authorName, CancellationToken cancellationToken);
 }

@@ -61,4 +61,9 @@ internal partial class GetAllOrdersRepository
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }
+
+    public Task<int> GetTotalNumberOfOrders(CancellationToken cancellationToken)
+    {
+        return _orders.CountAsync(cancellationToken: cancellationToken);
+    }
 }

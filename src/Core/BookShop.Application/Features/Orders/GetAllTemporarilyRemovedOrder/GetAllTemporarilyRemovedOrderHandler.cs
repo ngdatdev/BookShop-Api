@@ -60,6 +60,12 @@ public class GetAllTemporarilyRemovedOrderHandler
                 cancellationToken: cancellationToken
             );
 
+        // Get total number orders.
+        var countOrder =
+            await _unitOfWork.OrderFeature.GetAllOrdersRepository.GetTotalNumberOfOrders(
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetAllTemporarilyRemovedOrderResponse()
         {
@@ -97,6 +103,7 @@ public class GetAllTemporarilyRemovedOrderHandler
                         ),
                         PageIndex = request.PageIndex,
                         PageSize = request.PageSize,
+                        TotalPages = (int)Math.Ceiling((double)countOrder / request.PageSize)
                     }
             }
         };

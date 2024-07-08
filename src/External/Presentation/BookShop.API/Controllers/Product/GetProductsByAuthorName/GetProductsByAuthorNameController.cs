@@ -24,7 +24,7 @@ public class GetProductsByAuthorNameController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get products by author name information.
+    ///     Endpoint for getting products by author name information.
     /// </summary>
     /// <param name="getProductsByAuthorNameRequest"></param>
     /// <param name="cancellationToken">

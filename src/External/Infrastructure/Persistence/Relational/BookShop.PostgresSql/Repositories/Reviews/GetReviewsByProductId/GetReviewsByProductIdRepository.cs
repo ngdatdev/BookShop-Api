@@ -21,4 +21,9 @@ internal partial class GetReviewsByProductIdRepository : IGetReviewsByProductIdR
         _context = context;
         _reviews = _context.Set<Review>();
     }
+
+    public Task<int> GetTotalNumberOfReview(string authorName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

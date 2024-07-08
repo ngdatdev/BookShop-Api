@@ -22,7 +22,7 @@ public class RegisterAsUsertController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for register as user.
+    ///     Endpoint for registering as user.
     /// </summary>
     /// <param name="registerAsUserRequest">
     ///      Class contains user register information.

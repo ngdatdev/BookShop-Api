@@ -22,7 +22,7 @@ public class ResendUserRegistrationConfirmedEmailtController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for resend user register confirmed email.
+    ///     Endpoint for resending user register confirmed email.
     /// </summary>
     /// <param name="resendUserRegistrationConfirmedEmailRequest">
     ///      Class contains user register information.

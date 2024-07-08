@@ -22,7 +22,7 @@ public class GetProductByIdController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for get product by id information.
+    ///     Endpoint for getting product by id information.
     /// </summary>
     /// <param name="getProductByIdRequest"></param>
     /// <param name="cancellationToken">

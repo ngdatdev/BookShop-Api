@@ -23,7 +23,7 @@ public class RefreshAccessTokentController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for refresh access token.
+    ///     Endpoint for refreshing access token.
     /// </summary>
     /// <param name="refreshAccessTokenRequest">
     ///      Class contains refresh access token.

@@ -23,7 +23,7 @@ public class ClearCartController : ControllerBase
     }
 
     /// <summary>
-    ///     Endpoint for clear all item in cart.
+    ///     Endpoint for clearing all item in cart.
     /// </summary>
     /// <param name="cancellationToken">
     ///     Automatic initialized token for aborting current operation.
