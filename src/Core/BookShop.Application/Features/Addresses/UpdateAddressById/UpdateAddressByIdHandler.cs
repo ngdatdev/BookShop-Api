@@ -111,6 +111,21 @@ public class UpdateAddressByIdHandler
         };
     }
 
+    /// <summary>
+    ///     Initializes the address entity with updated information.
+    /// </summary>
+    /// <param name="request">
+    ///     The request containing the update details for the address.
+    /// </param>
+    /// <param name="currentAddress">
+    ///     The current address entity.
+    /// </param>
+    /// <param name="userId">
+    ///     The ID of the user making the update.
+    /// </param>
+    /// <returns>
+    ///     The address entity.
+    /// </returns>
     private Address InitAddress(
         UpdateAddressByIdRequest request,
         Address currentAddress,

@@ -1,10 +1,7 @@
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Features;
 using BookShop.Data.Features.UnitOfWork;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.Features.Addresses.RemoveAddressPermanentlyRemovedById;
 
@@ -18,15 +15,10 @@ public class RemoveAddressPermanentlyRemovedByIdHandler
     >
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public RemoveAddressPermanentlyRemovedByIdHandler(
-        IUnitOfWork unitOfWork,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public RemoveAddressPermanentlyRemovedByIdHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -79,11 +71,6 @@ public class RemoveAddressPermanentlyRemovedByIdHandler
                     RemoveAddressPermanentlyRemovedByIdResponseStatusCode.ADDRESS_IS_NOT_TEMPORARILY_REMOVED
             };
         }
-
-        // Find userId in claim jwt.
-        var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(
-            claimType: JwtRegisteredClaimNames.Sub
-        );
 
         // Remove address temporarily command.
         var dbResult =

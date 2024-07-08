@@ -19,10 +19,17 @@ public sealed class UpdateAddressByIdRequestValidator
 
         RuleFor(request => request.Ward)
             .NotEmpty()
-            .MaximumLength(maximumLength: Address.MetaData.Ward.MaxLength);
-
-        RuleFor(request => request.Ward)
-            .NotEmpty()
+            .MaximumLength(maximumLength: Address.MetaData.Ward.MaxLength)
             .MinimumLength(minimumLength: Address.MetaData.Ward.MinLength);
+
+        RuleFor(request => request.District)
+            .NotEmpty()
+            .MinimumLength(minimumLength: Address.MetaData.District.MinLength)
+            .MaximumLength(maximumLength: Address.MetaData.District.MaxLength);
+
+        RuleFor(request => request.Province)
+            .NotEmpty()
+            .MinimumLength(minimumLength: Address.MetaData.Province.MinLength)
+            .MaximumLength(maximumLength: Address.MetaData.Province.MinLength);
     }
 }

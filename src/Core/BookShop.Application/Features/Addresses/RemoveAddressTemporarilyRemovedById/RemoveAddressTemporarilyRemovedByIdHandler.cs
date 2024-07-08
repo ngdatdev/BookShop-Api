@@ -55,7 +55,7 @@ public class RemoveAddressTemporarilyRemovedByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if address is not found.
+        // Respond if address is not found.
         if (!isOrderIdFound)
         {
             return new()
@@ -71,7 +71,7 @@ public class RemoveAddressTemporarilyRemovedByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if addresss is temporarily removed.
+        // Respond if addresss is temporarily removed.
         if (isOrderTemporarilyRemoved)
         {
             return new()

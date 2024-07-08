@@ -214,7 +214,7 @@ public class UpdateUserByIdHandler : IFeatureHandler<UpdateUserByIdRequest, Upda
         };
     }
 
-    private Data.Shared.Entities.Address MapperToAddress(
+    private static Data.Shared.Entities.Address MapperToAddress(
         Guid addressId,
         string ward,
         string district,

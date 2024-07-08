@@ -1,11 +1,7 @@
-using System;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Application.Shared.Features;
 using BookShop.Data.Features.UnitOfWork;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.Features.Addresses.RestoreAddressById;
 
@@ -16,15 +12,10 @@ public class RestoreAddressByIdHandler
     : IFeatureHandler<RestoreAddressByIdRequest, RestoreAddressByIdResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public RestoreAddressByIdHandler(
-        IUnitOfWork unitOfWork,
-        IHttpContextAccessor httpContextAccessor
-    )
+    public RestoreAddressByIdHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -52,7 +43,7 @@ public class RestoreAddressByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if address is not found.
+        // Respond if address is not found.
         if (!isOrderIdFound)
         {
             return new()
@@ -67,7 +58,7 @@ public class RestoreAddressByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if addresss is temporarily removed.
+        // Respond if addresss is temporarily removed.
         if (!isOrderTemporarilyRemoved)
         {
             return new()
@@ -76,11 +67,6 @@ public class RestoreAddressByIdHandler
             };
         }
 
-        // Find userId in claim jwt.
-        var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(
-            claimType: JwtRegisteredClaimNames.Sub
-        );
-
         // Remove address temporarily command.
         var dbResult =
             await _unitOfWork.AddressFeature.RestoreAddressByIdRepository.RestoreAddressByIdCommandAsync(
@@ -88,7 +74,7 @@ public class RestoreAddressByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if database transaction fasle.
+        // Respond if database transaction fasle.
         if (!dbResult)
         {
             return new()

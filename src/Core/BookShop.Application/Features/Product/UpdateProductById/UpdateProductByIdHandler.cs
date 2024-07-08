@@ -64,7 +64,7 @@ public class UpdateProductByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if categories id is not found.
+        // Respond if categories id is not found.
         if (!categoryResult)
         {
             return new()
@@ -80,7 +80,7 @@ public class UpdateProductByIdHandler
                 cancellationToken: cancellationToken
             );
 
-        // Responds if product id is not found.
+        // Respond if product id is not found.
         if (Equals(objA: foundProduct, objB: default))
         {
             return new()
@@ -97,7 +97,7 @@ public class UpdateProductByIdHandler
                 formFile: request.MainUrl,
                 cancellationToken: cancellationToken
             );
-            // Responds if upload result of main url is fail.
+            // Respond if upload result of main url is fail.
             if (string.IsNullOrEmpty(uploadMainUrl))
             {
                 return new()
@@ -181,6 +181,25 @@ public class UpdateProductByIdHandler
         };
     }
 
+    /// <summary>
+    ///     Maps the update request to the product entity.
+    /// </summary>
+    /// <param name="updateProductByIdRequest">
+    ///     The request containing the update details.
+    ///     </param>
+    /// <param name="mainUrl">
+    ///     The URL of the main image.</param>
+    /// <param name="subUrls">A collection of sub-image URLs.
+    ///     </param>
+    /// <param name="userId">
+    ///     The ID of the user making the update.
+    /// </param>
+    /// <param name="product">
+    ///     The current product entity.
+    /// </param>
+    /// <returns>
+    ///     The updated product entity.
+    /// </returns>
     private Data.Shared.Entities.Product MapperToProduct(
         UpdateProductByIdRequest updateProductByIdRequest,
         string mainUrl,
