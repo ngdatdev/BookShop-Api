@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -54,5 +55,18 @@ internal partial class GetAllTemporarilyRemovedOrderDetailsRepository
                 }
             })
             .ToListAsync(cancellationToken: cancellationToken);
+    }
+
+    public Task<int> CountNumberOfTemporarilyRemovedOrderDetailsQueryAsync(
+        CancellationToken cancellationToken
+    )
+    {
+        return _orderDetail
+            .AsNoTracking()
+            .Where(predicate: orderDetail =>
+                orderDetail.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && orderDetail.RemovedAt != CommonConstant.MIN_DATE_TIME
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

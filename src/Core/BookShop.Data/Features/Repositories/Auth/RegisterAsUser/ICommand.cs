@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 namespace BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
 
 /// <summary>
-///     Interface for Command RegisterAsUserRepository Repository
+///     Interface for Command RegisterAsUser Repository
 /// </summary>
 public partial interface IRegisterAsUserRepository
 {

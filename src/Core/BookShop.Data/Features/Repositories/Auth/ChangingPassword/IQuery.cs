@@ -6,7 +6,7 @@ using BookShop.Data.Shared.Entities;
 namespace BookShop.Data.Features.Repositories.Auth.ChangingPassword;
 
 /// <summary>
-///     Interface for Query ChangingPasswordRepository Repository
+///     Interface for Query ChangingPassword Repository
 /// </summary>
 public partial interface IChangingPasswordRepository
 {

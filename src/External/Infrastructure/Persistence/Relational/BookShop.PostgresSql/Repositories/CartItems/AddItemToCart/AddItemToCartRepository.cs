@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.CartItems.AddItemToCart;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
@@ -9,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.CartItems.AddItemToCart;
 
 /// <summary>
-///    Implement of IAddItemToCartRepository repository.
+///    Implement of IAddItemToCart repository.
 /// </summary>
 internal partial class AddItemToCartRepository : IAddItemToCartRepository
 {

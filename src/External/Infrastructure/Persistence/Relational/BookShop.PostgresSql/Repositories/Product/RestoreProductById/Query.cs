@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.RestoreProductById;
 
 /// <summary>
-///    Implement of query IRestoreProductByIdRepository repository.
+///    Implement of query IRestoreProductById repository.
 /// </summary>
 internal partial class RestoreProductByIdRepository
 {
@@ -16,10 +16,12 @@ internal partial class RestoreProductByIdRepository
         CancellationToken cancellationToken
     )
     {
-        return _products.AnyAsync(
-            predicate: product => product.Id == productId,
-            cancellationToken: cancellationToken
-        );
+        return _products
+            .AsNoTracking()
+            .AnyAsync(
+                predicate: product => product.Id == productId,
+                cancellationToken: cancellationToken
+            );
     }
 
     public Task<bool> IsProductTemporarilyRemovedByIdQueryAsync(

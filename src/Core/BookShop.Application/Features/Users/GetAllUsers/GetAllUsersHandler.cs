@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,6 +46,11 @@ public class GetAllUsersHandler : IFeatureHandler<GetAllUsersRequest, GetAllUser
                 cancellationToken: cancellationToken
             );
 
+        // Count all the users.
+        var countUser = await _unitOfWork.UserFeature.GetAllUsersRepository.CountAllUserQueryAsync(
+            cancellationToken: cancellationToken
+        );
+
         // Response successfully.
         return new GetAllUsersResponse()
         {
@@ -61,7 +67,10 @@ public class GetAllUsersHandler : IFeatureHandler<GetAllUsersRequest, GetAllUser
                         Email = user.User.Email,
                         Gender = user.Gender,
                         Username = user.User.UserName
-                    })
+                    }),
+                    PageIndex = request.PageIndex,
+                    PageSize = request.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize)
                 }
             }
         };

@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Product.GetProductById;
 using BookShop.PostgresSql.Data;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetProductById;
 
 /// <summary>
-///    Implement of IGetProductByIdRepository repository.
+///    Implement of IGetProductById repository.
 /// </summary>
 internal partial class GetProductByIdRepository : IGetProductByIdRepository
 {

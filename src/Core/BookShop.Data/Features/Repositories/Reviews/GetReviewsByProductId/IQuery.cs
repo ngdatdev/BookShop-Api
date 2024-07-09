@@ -18,5 +18,8 @@ public partial interface IGetReviewsByProductIdRepository
         CancellationToken cancellationToken
     );
 
-    Task<int> GetTotalNumberOfReview(string authorName, CancellationToken cancellationToken);
+    Task<int> GetTotalNumberOfReviewByProductIdQueryAsync(
+        Guid productId,
+        CancellationToken cancellationToken
+    );
 }

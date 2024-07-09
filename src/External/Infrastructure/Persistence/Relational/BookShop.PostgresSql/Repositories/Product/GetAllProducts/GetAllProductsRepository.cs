@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Product.GetAllProducts;
 using BookShop.PostgresSql.Data;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetAllProducts;
 
 /// <summary>
-///    Implement of IGetAllProductsRepository repository.
+///    Implement of IGetAllProducts repository.
 /// </summary>
 internal partial class GetAllProductsRepository : IGetAllProductsRepository
 {
@@ -19,6 +17,4 @@ internal partial class GetAllProductsRepository : IGetAllProductsRepository
         _context = context;
         _products = _context.Set<BookShop.Data.Shared.Entities.Product>();
     }
-
-  
 }

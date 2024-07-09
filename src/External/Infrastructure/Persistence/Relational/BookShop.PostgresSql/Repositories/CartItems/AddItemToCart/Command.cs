@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.CartItems.AddItemToCart;
 
 /// <summary>
-///    Implement of command IAddItemToCartRepository.
+///    Implement of command IAddItemToCart repository.
 /// </summary>
 internal partial class AddItemToCartRepository
 {

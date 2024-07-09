@@ -8,7 +8,7 @@ using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Auth.GetProfileUser;
+namespace BookShop.API.Controllers.User.GetProfileUser;
 
 [ApiController]
 [Route(template: "api/user/profile")]

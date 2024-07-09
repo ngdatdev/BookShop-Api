@@ -62,8 +62,8 @@ internal partial class GetAllOrdersRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public Task<int> GetTotalNumberOfOrders(CancellationToken cancellationToken)
+    public Task<int> CountTotalNumberOfOrders(CancellationToken cancellationToken)
     {
-        return _orders.CountAsync(cancellationToken: cancellationToken);
+        return _orders.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 }

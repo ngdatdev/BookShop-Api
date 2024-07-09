@@ -1,15 +1,12 @@
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.PostgresSql.Repositories.Auth.RegisterAsUser;
 
 /// <summary>
-///    Implement of RegisterAsUser repository.
+///    Implement of IRegisterAsUser repository.
 /// </summary>
 internal partial class RegisterAsUserRepository : IRegisterAsUserRepository
 {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetAllTemporarilyRemovedProducts;
 
 /// <summary>
-///    Implement of query IGetAllTemporarilyRemovedProductsRepository repository.
+///    Implement of query IGetAllTemporarilyRemovedProductsrepository.
 /// </summary>
 internal partial class GetAllTemporarilyRemovedProductsRepository
 {
@@ -40,8 +40,16 @@ internal partial class GetAllTemporarilyRemovedProductsRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken)
+    public Task<int> GetTotalNumberOfTemporarilyRemovedProductsQueryAsync(
+        CancellationToken cancellationToken
+    )
     {
-        return _products.CountAsync(cancellationToken: cancellationToken);
+        return _products
+            .AsNoTracking()
+            .Where(predicate: product =>
+                product.RemovedAt != CommonConstant.MIN_DATE_TIME
+                && product.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

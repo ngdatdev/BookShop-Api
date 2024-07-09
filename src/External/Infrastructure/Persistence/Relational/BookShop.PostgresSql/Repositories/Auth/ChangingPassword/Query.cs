@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.ChangingPassword;
 
 /// <summary>
-///    Implement of query ChangingPassword Repository.
+///    Implement of query ChangingPassword repository.
 /// </summary>
 internal partial class ChangingPasswordRepository
 {

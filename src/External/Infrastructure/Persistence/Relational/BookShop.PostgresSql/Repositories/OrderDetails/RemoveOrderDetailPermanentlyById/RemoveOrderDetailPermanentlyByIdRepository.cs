@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 
 /// <summary>
-///    Implement of IRemoveOrderDetailPermanentlyByIdRepository repository.
+///    Implement of IRemoveOrderDetailPermanentlyById repository.
 /// </summary>
 internal partial class RemoveOrderDetailPermanentlyByIdRepository
     : IRemoveOrderDetailPermanentlyByIdRepository

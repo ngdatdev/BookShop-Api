@@ -56,8 +56,9 @@ public class GetProductsByAuthorNameHandler
             );
 
         // Get total number products.
-        var countProduct =
-            await _unitOfWork.ProductFeature.GetAllProductsRepository.GetTotalNumberOfProducts(
+        var countingProduct =
+            await _unitOfWork.ProductFeature.GetProductsByAuthorNameRepository.GetTotalNumberOfProductsByAuthorNameQueryAsync(
+                authorName: request.AuthorName.Trim(),
                 cancellationToken: cancellationToken
             );
 
@@ -84,7 +85,7 @@ public class GetProductsByAuthorNameHandler
                     ),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countProduct / request.PageSize)
+                    TotalPages = (int)Math.Ceiling((double)countingProduct / request.PageSize)
                 }
             }
         };

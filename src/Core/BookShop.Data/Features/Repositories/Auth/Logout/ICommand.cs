@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.Auth.Logout;
 
 /// <summary>
-///     Interface for Command LogoutRepository Repository
+///     Interface for Command Logout Repository
 /// </summary>
 public partial interface ILogoutRepository
 {

@@ -7,7 +7,7 @@ using BookShop.Data.Shared.Entities;
 namespace BookShop.Data.Features.Repositories.Product.RemoveProductTemporarilyById;
 
 /// <summary>
-///     Interface for Command RemoveProductTemporarilyByIdRepository
+///     Interface for Command RemoveProductTemporarilyById Repository
 /// </summary>
 public partial interface IRemoveProductTemporarilyByIdRepository
 {

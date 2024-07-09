@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.Addresses.GetAllWardsByDistrictName;
 
 /// <summary>
-///     Interface for Query GetAllWardsByDistrictNameRepository Repository
+///     Interface for Query GetAllWardsByDistrictName Repository
 /// </summary>
 public partial interface IGetAllWardsByDistrictNameRepository
 {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.GetProfileUser;
 
 /// <summary>
-///    Implement of IGetProfileUserRepository repository.
+///    Implement of IGetProfileUser repository.
 /// </summary>
 internal partial class GetProfileUserRepository : IGetProfileUserRepository
 {

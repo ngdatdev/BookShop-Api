@@ -22,6 +22,7 @@ internal partial class GetReviewsByUserIdRepository
     )
     {
         return await _reviews
+            .AsNoTracking()
             .Where(predicate: review =>
                 review.ProductId == userId
                 && review.RemovedAt == CommonConstant.MIN_DATE_TIME
@@ -36,5 +37,20 @@ internal partial class GetReviewsByUserIdRepository
                 Comment = review.Comment,
             })
             .ToListAsync(cancellationToken: cancellationToken);
+    }
+
+    public Task<int> GetTotalNumberOfReviewByUserIdQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _reviews
+            .AsNoTracking()
+            .Where(predicate: review =>
+                review.UserId == userId
+                && review.RemovedAt == CommonConstant.MIN_DATE_TIME
+                && review.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

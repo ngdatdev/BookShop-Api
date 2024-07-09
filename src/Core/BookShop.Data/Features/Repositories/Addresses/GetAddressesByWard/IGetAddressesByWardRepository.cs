@@ -1,6 +1,6 @@
 namespace BookShop.Data.Features.Repositories.Addresses.GetAddressesByWard;
 
 /// <summary>
-///     Interface for GetAddressesByWardRepository Repository
+///     Interface for GetAddressesByWard Repository
 /// </summary>
 public partial interface IGetAddressesByWardRepository { }

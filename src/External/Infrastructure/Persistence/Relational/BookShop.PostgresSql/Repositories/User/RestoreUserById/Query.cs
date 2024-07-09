@@ -13,10 +13,9 @@ internal partial class RestoreUserByIdRepository
 {
     public Task<bool> IsUserFoundByIdQueryAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return _users.AnyAsync(
-            predicate: user => user.Id == userId,
-            cancellationToken: cancellationToken
-        );
+        return _users
+            .AsNoTracking()
+            .AnyAsync(predicate: user => user.Id == userId, cancellationToken: cancellationToken);
     }
 
     public Task<bool> IsUserTemporarilyRemovedByIdQueryAsync(

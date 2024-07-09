@@ -18,10 +18,12 @@ internal partial class RemoveProductTemporarilyByIdRepository
         CancellationToken cancellationToken
     )
     {
-        return _products.AnyAsync(
-            predicate: product => product.Id == productId,
-            cancellationToken: cancellationToken
-        );
+        return _products
+            .AsNoTracking()
+            .AnyAsync(
+                predicate: product => product.Id == productId,
+                cancellationToken: cancellationToken
+            );
     }
 
     public Task<bool> IsProductTemporarilyRemovedByIdQueryAsync(

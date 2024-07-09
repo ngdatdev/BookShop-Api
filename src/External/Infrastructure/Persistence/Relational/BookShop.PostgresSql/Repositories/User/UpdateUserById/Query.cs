@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.UpdateUserById;
 
 /// <summary>
-///    Implement of query IUpdateUserByIdRepository repository.
+///    Implement of query IUpdateUserById repository.
 /// </summary>
 internal partial class UpdateUserByIdRepository
 {
@@ -54,6 +54,7 @@ internal partial class UpdateUserByIdRepository
     )
     {
         return _addresses
+            .AsNoTracking()
             .Where(predicate: address =>
                 EF.Functions.Collate(
                         address.Ward,

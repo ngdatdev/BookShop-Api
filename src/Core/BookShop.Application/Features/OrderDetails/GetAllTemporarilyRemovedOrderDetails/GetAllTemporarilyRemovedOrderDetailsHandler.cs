@@ -61,6 +61,12 @@ public class GetAllTemporarilyRemovedOrderDetailsHandler
                 cancellationToken: cancellationToken
             );
 
+        // Get counting number of order details.
+        var countOrderDetails =
+            await _unitOfWork.OrderDetailFeature.GetAllTemporarilyRemovedOrderDetailsRepository.CountNumberOfTemporarilyRemovedOrderDetailsQueryAsync(
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetAllTemporarilyRemovedOrderDetailsResponse()
         {
@@ -87,6 +93,7 @@ public class GetAllTemporarilyRemovedOrderDetailsHandler
                         ),
                         PageIndex = request.PageIndex,
                         PageSize = request.PageSize,
+                        TotalPages = (int)Math.Ceiling((double)countOrderDetails / request.PageSize)
                     }
             }
         };

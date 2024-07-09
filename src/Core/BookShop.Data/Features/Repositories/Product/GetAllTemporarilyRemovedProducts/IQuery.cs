@@ -7,7 +7,7 @@ using BookShop.Data.Shared.Entities;
 namespace BookShop.Data.Features.Repositories.Product.GetAllTemporarilyRemovedProducts;
 
 /// <summary>
-///     Interface for Query GetAllTemporarilyRemovedProductsRepository.
+///     Interface for Query GetAllTemporarilyRemovedProducts Repository.
 /// </summary>
 public partial interface IGetAllTemporarilyRemovedProductsRepository
 {
@@ -17,5 +17,7 @@ public partial interface IGetAllTemporarilyRemovedProductsRepository
         CancellationToken cancellationToken
     );
 
-    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
+    Task<int> GetTotalNumberOfTemporarilyRemovedProductsQueryAsync(
+        CancellationToken cancellationToken
+    );
 }

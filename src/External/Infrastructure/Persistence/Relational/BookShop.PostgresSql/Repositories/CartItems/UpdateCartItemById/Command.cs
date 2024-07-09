@@ -2,13 +2,12 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Data.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.PostgresSql.Repositories.CartItems.UpdateCartItemById;
 
 /// <summary>
-///    Implement of command IUpdateCartItemByIdRepository.
+///    Implement of command IUpdateCartItemById repository.
 /// </summary>
 internal partial class UpdateCartItemByIdRepository
 {

@@ -62,8 +62,14 @@ internal partial class GetAllTemporarilyRemovedOrderRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public Task<int> GetTotalNumberOfOrders(CancellationToken cancellationToken)
+    public Task<int> CountTotalNumberOfTemporarilyRemovedOrders(CancellationToken cancellationToken)
     {
-        return _orders.CountAsync(cancellationToken: cancellationToken);
+        return _orders
+            .AsNoTracking()
+            .Where(predicate: order =>
+                order.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && order.RemovedAt == CommonConstant.MIN_DATE_TIME
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

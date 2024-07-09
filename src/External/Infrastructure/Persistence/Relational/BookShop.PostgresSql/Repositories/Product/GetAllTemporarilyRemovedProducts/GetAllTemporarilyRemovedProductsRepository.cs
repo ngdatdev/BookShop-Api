@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Product.GetAllTemporarilyRemovedProducts;
 using BookShop.PostgresSql.Data;
 using Microsoft.EntityFrameworkCore;
@@ -5,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetAllTemporarilyRemovedProducts;
 
 /// <summary>
-///    Implement of IGetAllTemporarilyRemovedProductsRepository repository.
+///    Implement of IGetAllTemporarilyRemovedProducts repository.
 /// </summary>
 internal partial class GetAllTemporarilyRemovedProductsRepository
     : IGetAllTemporarilyRemovedProductsRepository

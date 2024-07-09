@@ -20,5 +20,8 @@ public partial interface IGetProductsByCategoryIdRepository
         CancellationToken cancellationToken
     );
 
-    Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken);
+    Task<int> GetTotalNumberOfProductsByCategoryIdQueryAsync(
+        Guid categoryId,
+        CancellationToken cancellationToken
+    );
 }

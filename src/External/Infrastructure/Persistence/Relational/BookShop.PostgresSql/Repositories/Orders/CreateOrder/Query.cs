@@ -21,6 +21,7 @@ internal partial class CreateOrderRepository
     )
     {
         return _addresses
+            .AsNoTracking()
             .Where(predicate: address =>
                 EF.Functions.Collate(
                         address.Ward,
@@ -48,6 +49,7 @@ internal partial class CreateOrderRepository
     )
     {
         var matchingProductCount = await _products
+            .AsNoTracking()
             .Where(product => productIds.Contains(product.Id))
             .CountAsync(cancellationToken);
 
@@ -60,6 +62,7 @@ internal partial class CreateOrderRepository
     )
     {
         var matchingProductCount = await _products
+            .AsNoTracking()
             .Where(product =>
                 productIds.Contains(product.Id)
                 && product.RemovedAt != CommonConstant.MIN_DATE_TIME

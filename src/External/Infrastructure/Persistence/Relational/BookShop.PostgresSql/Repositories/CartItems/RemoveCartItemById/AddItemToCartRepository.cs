@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.CartItems.RemoveCartItemById;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
@@ -9,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.CartItems.RemoveCartItemById;
 
 /// <summary>
-///    Implement of IRemoveCartItemByIdRepository repository.
+///    Implement of IRemoveCartItemById repository.
 /// </summary>
 internal partial class RemoveCartItemByIdRepository : IRemoveCartItemByIdRepository
 {

@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace BookShop.PostgresSql.Repositories.Product.UpdateProductById;
 
 /// <summary>
-///    Implement of command IUpdateProductByIdRepository.
+///    Implement of command IUpdateProductById repository.
 /// </summary>
 internal partial class UpdateProductByIdRepository
 {

@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Data.Shared.Entities;
 
 namespace BookShop.Data.Features.Repositories.Product.UpdateProductById;
 
 /// <summary>
-///     Interface for Query UpdateProductByIdRepository Repository
+///     Interface for Query UpdateProductById Repository
 /// </summary>
 public partial interface IUpdateProductByIdRepository
 {

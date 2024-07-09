@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetProductById;
 
 /// <summary>
-///    Implement of query IGetProductByIdRepository repository.
+///    Implement of query IGetProductById repository.
 /// </summary>
 internal partial class GetProductByIdRepository
 {
@@ -58,11 +57,13 @@ internal partial class GetProductByIdRepository
         CancellationToken cancellationToken
     )
     {
-        return _products.AnyAsync(
-            predicate: product =>
-                product.RemovedAt != CommonConstant.MIN_DATE_TIME
-                && product.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-            cancellationToken: cancellationToken
-        );
+        return _products
+            .AsNoTracking()
+            .AnyAsync(
+                predicate: product =>
+                    product.RemovedAt != CommonConstant.MIN_DATE_TIME
+                    && product.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                cancellationToken: cancellationToken
+            );
     }
 }

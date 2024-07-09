@@ -73,7 +73,8 @@ public class GetProductsByCategoryIdHandler
 
         // Get total number products.
         var countProduct =
-            await _unitOfWork.ProductFeature.GetAllProductsRepository.GetTotalNumberOfProducts(
+            await _unitOfWork.ProductFeature.GetProductsByCategoryIdRepository.GetTotalNumberOfProductsByCategoryIdQueryAsync(
+                categoryId: request.CategoryId,
                 cancellationToken: cancellationToken
             );
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.GetProfileUser;
 
 /// <summary>
-///    Implement of query IGetProfileUserRepository repository.
+///    Implement of query IGetProfileUser repository.
 /// </summary>
 internal partial class GetProfileUserRepository
 {

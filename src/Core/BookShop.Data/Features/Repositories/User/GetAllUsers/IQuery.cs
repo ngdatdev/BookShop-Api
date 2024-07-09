@@ -16,4 +16,6 @@ public partial interface IGetAllUsersRepository
         int pageSize,
         CancellationToken cancellationToken
     );
+
+    Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken);
 }

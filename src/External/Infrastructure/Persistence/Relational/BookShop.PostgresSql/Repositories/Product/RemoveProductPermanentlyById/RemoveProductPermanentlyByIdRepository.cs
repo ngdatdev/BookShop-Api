@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById;
 
 /// <summary>
-///    Implement of IRemoveProductPermanentlyByIdRepository repository.
+///    Implement of IRemoveProductPermanentlyById repository.
 /// </summary>
 internal partial class RemoveProductPermanentlyByIdRepository
     : IRemoveProductPermanentlyByIdRepository

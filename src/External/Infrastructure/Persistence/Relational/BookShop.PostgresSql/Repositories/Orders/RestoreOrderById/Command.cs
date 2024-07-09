@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Orders.RestoreOrderById;
 
 /// <summary>
-///    Implement of command IRestoreOrderByIdRepository.
+///    Implement of command IRestoreOrderById repository.
 /// </summary>
 internal partial class RestoreOrderByIdRepository
 {

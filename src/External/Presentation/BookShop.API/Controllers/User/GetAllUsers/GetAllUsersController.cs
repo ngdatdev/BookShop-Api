@@ -1,14 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.API.Controllers.User.GetAllUsers.HttpResponseMapper;
+using BookShop.API.Controllers.User.GetAllUsers.Middleware.Authorization;
 using BookShop.API.Controllers.User.GetAllUsers.Middleware.Caching;
-using BookShop.API.Shared.Filter.AuthorizationFilter;
 using BookShop.Application.Features.Users.GetAllUsers;
 using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Auth.GetAllUsers;
+namespace BookShop.API.Controllers.User.GetAllUsers;
 
 [ApiController]
 [Route(template: "api/user/all")]
@@ -17,7 +17,7 @@ public class GetAllUsersController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GetAllUsersController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+    public GetAllUsersController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -39,8 +39,8 @@ public class GetAllUsersController : ControllerBase
     ///
     /// </remarks>
     [HttpGet]
-    [ServiceFilter(typeof(GetAllUsersCachingFilter), Order = 2)]
-    [ServiceFilter(typeof(AuthorizationFilter))]
+    [ServiceFilter(typeof(GetAllUsersCachingFilter))]
+    [ServiceFilter(typeof(GetAllUsersAuthorizationFilter))]
     public async Task<IActionResult> GetAllUsersAsync(
         [FromQuery] GetAllUsersRequest getAllUsersRequest,
         CancellationToken cancellationToken

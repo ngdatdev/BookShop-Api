@@ -6,7 +6,7 @@ using BookShop.Data.Shared.Entities;
 namespace BookShop.Data.Features.Repositories.Auth.RefreshAccessToken;
 
 /// <summary>
-///     Interface for Query RefreshTokenRepository Repository
+///     Interface for Query RefreshToken Repository
 /// </summary>
 public partial interface IRefreshAccessTokenRepository
 {

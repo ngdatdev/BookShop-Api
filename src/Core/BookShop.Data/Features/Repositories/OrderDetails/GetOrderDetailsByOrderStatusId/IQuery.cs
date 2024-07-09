@@ -18,4 +18,9 @@ public partial interface IGetOrderDetailsByOrderStatusIdRepository
         Guid userId,
         CancellationToken cancellationToken
     );
+
+    Task<int> CountNumberOfOrderDetailsByOrderStatusIdQueryAsync(
+        Guid orderStatusId,
+        CancellationToken cancellationToken
+    );
 }

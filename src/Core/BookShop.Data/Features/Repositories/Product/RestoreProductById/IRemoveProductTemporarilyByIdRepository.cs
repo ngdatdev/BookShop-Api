@@ -1,6 +1,6 @@
 namespace BookShop.Data.Features.Repositories.Product.RestoreProductById;
 
 /// <summary>
-///     Interface for RestoreProductByIdRepository Repository
+///     Interface for RestoreProductById Repository
 /// </summary>
 public partial interface IRestoreProductByIdRepository { }

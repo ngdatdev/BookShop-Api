@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 
 /// <summary>
-///    Implement of query IGetProductsByCategoryIdRepository repository.
+///    Implement of query IGetProductsByCategoryId repository.
 /// </summary>
 internal partial class GetProductsByCategoryIdRepository
 {
@@ -22,7 +22,6 @@ internal partial class GetProductsByCategoryIdRepository
     )
     {
         return _categories
-            .AsNoTracking()
             .Where(predicate: category => category.Id == categoryId)
             .Select(selector: category => new Category()
             {
@@ -70,8 +69,19 @@ internal partial class GetProductsByCategoryIdRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken)
+    public Task<int> GetTotalNumberOfProductsByCategoryIdQueryAsync(
+        Guid categoryId,
+        CancellationToken cancellationToken
+    )
     {
-        return _products.CountAsync(cancellationToken: cancellationToken);
+        return _products
+            .Where(predicate: product =>
+                product.ProductCategories.Any(productCategory =>
+                    productCategory.CategoryId == categoryId
+                )
+                && product.RemovedAt == CommonConstant.MIN_DATE_TIME
+                && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

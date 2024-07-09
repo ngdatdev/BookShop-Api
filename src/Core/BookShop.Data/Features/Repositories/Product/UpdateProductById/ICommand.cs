@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.Product.UpdateProductById;
 
 /// <summary>
-///     Interface for Command UpdateProductByIdRepository
+///     Interface for Command UpdateProductById Repository
 /// </summary>
 public partial interface IUpdateProductByIdRepository
 {

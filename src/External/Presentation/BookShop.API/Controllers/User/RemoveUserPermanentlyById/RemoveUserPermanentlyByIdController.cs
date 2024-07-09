@@ -7,7 +7,7 @@ using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Auth.RemoveUserPermanentlyById;
+namespace BookShop.API.Controllers.User.RemoveUserPermanentlyById;
 
 [ApiController]
 [Route(template: "api/user/permanently")]

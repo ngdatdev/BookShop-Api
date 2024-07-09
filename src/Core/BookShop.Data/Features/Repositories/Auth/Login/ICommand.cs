@@ -5,7 +5,7 @@ using BookShop.Data.Shared.Entities;
 namespace BookShop.Data.Features.Repositories.Auth.Login;
 
 /// <summary>
-///     Interface for Command LoginRepository Repository
+///     Interface for Command Login Repository
 /// </summary>
 public partial interface ILoginRepository
 {

@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Data.Shared.Entities;
 
 namespace BookShop.Data.Features.Repositories.Product.CreateProduct;
 
 /// <summary>
-///     Interface for Command CreateProductRepository
+///     Interface for Command CreateProduct Repository
 /// </summary>
 public partial interface ICreateProductRepository
 {

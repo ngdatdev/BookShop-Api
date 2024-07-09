@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,17 +57,30 @@ public class GetReviewsByUserIdHandler
                 cancellationToken: cancellationToken
             );
 
+        // Count all the number of reviews by user id.
+        var countReview =
+            await _unitOfWork.ReviewFeature.GetReviewsByUserIdRepository.GetTotalNumberOfReviewByUserIdQueryAsync(
+                userId: request.UserId,
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetReviewsByUserIdResponse()
         {
             StatusCode = GetReviewsByUserIdResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-                Reviews = reviews.Select(review => new GetReviewsByUserIdResponse.Body.Review()
+                Reviews = new()
                 {
-                    Comment = review.Comment,
-                    ReviewId = review.Id,
-                })
+                    Contents = reviews.Select(review => new GetReviewsByUserIdResponse.Body.Review()
+                    {
+                        Comment = review.Comment,
+                        ReviewId = review.Id,
+                    }),
+                    PageIndex = request.Pageindex,
+                    PageSize = request.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)countReview / request.PageSize)
+                }
             }
         };
     }

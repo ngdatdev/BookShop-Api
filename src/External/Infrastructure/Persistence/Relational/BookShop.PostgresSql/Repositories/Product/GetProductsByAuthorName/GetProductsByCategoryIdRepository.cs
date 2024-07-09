@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetProductsByAuthorName;
 
 /// <summary>
-///    Implement of IGetProductsByAuthorNameRepository repository.
+///    Implement of IGetProductsByAuthorName repository.
 /// </summary>
 internal partial class GetProductsByAuthorNameRepository : IGetProductsByAuthorNameRepository
 {

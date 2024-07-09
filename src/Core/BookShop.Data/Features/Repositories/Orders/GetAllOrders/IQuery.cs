@@ -17,5 +17,5 @@ public partial interface IGetAllOrdersRepository
         CancellationToken cancellationToken
     );
 
-    Task<int> GetTotalNumberOfOrders(CancellationToken cancellationToken);
+    Task<int> CountTotalNumberOfOrders(CancellationToken cancellationToken);
 }

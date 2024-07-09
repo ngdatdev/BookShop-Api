@@ -9,7 +9,7 @@ using BookShop.Application.Shared.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.API.Controllers.Auth.UpdateUserById;
+namespace BookShop.API.Controllers.User.UpdateUserById;
 
 [ApiController]
 [Route(template: "api/user")]

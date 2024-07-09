@@ -14,4 +14,8 @@ public partial interface IGetAllTemporarilyRemovedOrderDetailsRepository
     Task<IEnumerable<OrderDetail>> FindAllTemporarilyRemovedOrderDetailsQueryAsync(
         CancellationToken cancellationToken
     );
+
+    Task<int> CountNumberOfTemporarilyRemovedOrderDetailsQueryAsync(
+        CancellationToken cancellationToken
+    );
 }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Product.CreateProduct;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
@@ -10,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.CreateProduct;
 
 /// <summary>
-///    Implement of ICreateProductRepository repository.
+///    Implement of ICreateProduct repository.
 /// </summary>
 internal partial class CreateProductRepository : ICreateProductRepository
 {

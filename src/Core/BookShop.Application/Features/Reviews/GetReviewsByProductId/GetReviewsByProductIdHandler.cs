@@ -3,13 +3,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Application.Shared.Common;
 using BookShop.Application.Shared.Features;
 using BookShop.Application.Shared.FileObjectStorages;
 using BookShop.Data.Features.UnitOfWork;
-using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.Features.Reviews.GetReviewsByProductId;
 
@@ -61,19 +58,35 @@ public class GetReviewsByProductIdHandler
                 cancellationToken: cancellationToken
             );
 
+        // Count all the number of review by product id.
+        var countReview =
+            await _unitOfWork.ReviewFeature.GetReviewsByProductIdRepository.GetTotalNumberOfReviewByProductIdQueryAsync(
+                productId: request.ProductId,
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetReviewsByProductIdResponse()
         {
             StatusCode = GetReviewsByProductIdResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-                Reviews = reviews.Select(review => new GetReviewsByProductIdResponse.Body.Review()
+                Reviews = new()
                 {
-                    Comment = review.Comment,
-                    Fullname = $"{review.UserDetail.FirstName} {review.UserDetail.LastName}",
-                    ReviewId = review.Id,
-                    UserId = review.UserId,
-                })
+                    Contents = reviews.Select(
+                        review => new GetReviewsByProductIdResponse.Body.Review()
+                        {
+                            Comment = review.Comment,
+                            Fullname =
+                                $"{review.UserDetail.FirstName} {review.UserDetail.LastName}",
+                            ReviewId = review.Id,
+                            UserId = review.UserId,
+                        }
+                    ),
+                    PageIndex = request.Pageindex,
+                    PageSize = request.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)countReview / request.PageSize)
+                }
             }
         };
     }

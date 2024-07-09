@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.GetAllProducts;
 
 /// <summary>
-///    Implement of query IGetAllProductsRepository repository.
+///    Implement of query IGetAllProducts repository.
 /// </summary>
 internal partial class GetAllProductsRepository
 {
@@ -40,6 +40,6 @@ internal partial class GetAllProductsRepository
 
     public Task<int> GetTotalNumberOfProducts(CancellationToken cancellationToken)
     {
-        return _products.CountAsync(cancellationToken: cancellationToken);
+        return _products.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 }

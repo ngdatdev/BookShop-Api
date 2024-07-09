@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.Auth.RefreshAccessToken;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
@@ -9,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.RefreshAccessToken;
 
 /// <summary>
-///    Implement of RefreshAccessToken repository.
+///    Implement of IRefreshAccessToken repository.
 /// </summary>
 internal partial class RefreshAccessTokenRepository : IRefreshAccessTokenRepository
 {

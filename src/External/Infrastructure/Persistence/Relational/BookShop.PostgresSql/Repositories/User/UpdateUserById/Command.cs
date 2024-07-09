@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.UpdateUserById;
 
 /// <summary>
-///    Implement of command IUpdateUserByIdRepository.
+///    Implement of command IUpdateUserById repository.
 /// </summary>
 internal partial class UpdateUserByIdRepository
 {

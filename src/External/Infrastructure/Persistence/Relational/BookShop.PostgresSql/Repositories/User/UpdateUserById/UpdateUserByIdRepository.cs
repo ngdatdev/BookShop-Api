@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using BookShop.Data.Features.Repositories.User.UpdateUserById;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
@@ -9,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.UpdateUserById;
 
 /// <summary>
-///    Implement of IUpdateUserByIdRepository repository.
+///    Implement of IUpdateUserById repository.
 /// </summary>
 internal partial class UpdateUserByIdRepository : IUpdateUserByIdRepository
 {

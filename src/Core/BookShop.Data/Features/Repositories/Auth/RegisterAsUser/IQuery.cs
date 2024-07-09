@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.Auth.RegisterAsUser;
 
 /// <summary>
-///     Interface for Query RefreshTokenRepository Repository
+///     Interface for Query RefreshToken Repository
 /// </summary>
 public partial interface IRegisterAsUserRepository
 {

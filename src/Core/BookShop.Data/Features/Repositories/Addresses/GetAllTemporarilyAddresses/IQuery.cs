@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.Addresses.GetAllTemporarilyAddresses;
 
 /// <summary>
-///     Interface for Query GetAllTemporarilyAddressesRepository Repository
+///     Interface for Query GetAllTemporarilyAddresses Repository
 /// </summary>
 public partial interface IGetAllTemporarilyAddressesRepository
 {

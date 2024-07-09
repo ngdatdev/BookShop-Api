@@ -1,3 +1,8 @@
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using BookShop.Application.Shared.Common;
 using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderStatusId;
 using BookShop.Data.Shared.Entities;
 using BookShop.PostgresSql.Data;
@@ -20,5 +25,19 @@ internal partial class GetOrderDetailsByOrderStatusIdRepository
         _context = context;
         _orderDetail = _context.Set<OrderDetail>();
         _orderStatus = _context.Set<OrderStatus>();
+    }
+
+    public Task<int> CountNumberOfOrderDetailsByOrderStatusIdQueryAsync(
+        Guid orderStatusId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _orderDetail
+            .Where(predicate: orderDetail =>
+                orderDetail.OrderStatusId == orderStatusId
+                && orderDetail.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && orderDetail.RemovedAt == CommonConstant.MIN_DATE_TIME
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 }

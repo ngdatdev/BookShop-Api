@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.CartItems.UpdateCartItemById;
 
 /// <summary>
-///    Implement of IUpdateCartItemByIdRepository repository.
+///    Implement of IUpdateCartItemById repository.
 /// </summary>
 internal partial class UpdateCartItemByIdRepository : IUpdateCartItemByIdRepository
 {

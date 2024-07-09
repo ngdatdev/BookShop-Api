@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BookShop.Application.Shared.Features;
+using BookShop.Application.Shared.Pagination;
 
 namespace BookShop.Application.Features.Reviews.GetReviewsByUserId;
 
@@ -16,7 +17,7 @@ public class GetReviewsByUserIdResponse : IFeatureResponse
 
     public sealed class Body
     {
-        public IEnumerable<Review> Reviews { get; init; }
+        public PaginationResponse<Review> Reviews { get; init; }
 
         public sealed class Review
         {

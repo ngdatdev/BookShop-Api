@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Orders.RemoveOrderTemporarilyById;
 
 /// <summary>
-///    Implement of command IRemoveOrderTemporarilyByIdRepository.
+///    Implement of command IRemoveOrderTemporarilyById repository.
 /// </summary>
 internal partial class RemoveOrderTemporarilyByIdRepository
 {

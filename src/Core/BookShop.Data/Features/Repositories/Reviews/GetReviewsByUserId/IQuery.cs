@@ -17,4 +17,9 @@ public partial interface IGetReviewsByUserIdRepository
         int pageSize,
         CancellationToken cancellationToken
     );
+
+    Task<int> GetTotalNumberOfReviewByUserIdQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    );
 }

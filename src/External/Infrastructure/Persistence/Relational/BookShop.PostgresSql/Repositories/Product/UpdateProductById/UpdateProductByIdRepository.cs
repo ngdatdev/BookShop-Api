@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.UpdateProductById;
 
 /// <summary>
-///    Implement of IUpdateProductByIdRepository repository.
+///    Implement of IUpdateProductById repository.
 /// </summary>
 internal partial class UpdateProductByIdRepository : IUpdateProductByIdRepository
 {

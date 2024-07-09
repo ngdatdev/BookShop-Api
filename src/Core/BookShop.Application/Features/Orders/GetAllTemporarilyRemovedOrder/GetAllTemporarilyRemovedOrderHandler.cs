@@ -62,7 +62,7 @@ public class GetAllTemporarilyRemovedOrderHandler
 
         // Get total number orders.
         var countOrder =
-            await _unitOfWork.OrderFeature.GetAllOrdersRepository.GetTotalNumberOfOrders(
+            await _unitOfWork.OrderFeature.GetAllTemporarilyRemovedOrderRepository.CountTotalNumberOfTemporarilyRemovedOrders(
                 cancellationToken: cancellationToken
             );
 

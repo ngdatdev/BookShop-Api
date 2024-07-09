@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using BookShop.Data.Shared.Entities;
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.RegisterAsUser;
 
 /// <summary>
-///    Implement of command RegisterAsUser repository.
+///    Implement of command IRegisterAsUser repository.
 /// </summary>
 internal partial class RegisterAsUserRepository
 {

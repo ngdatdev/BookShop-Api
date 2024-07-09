@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Product.RestoreProductById;
 
 /// <summary>
-///    Implement of IRestoreProductByIdRepository repository.
+///    Implement of IRestoreProductById repository.
 /// </summary>
 internal partial class RestoreProductByIdRepository : IRestoreProductByIdRepository
 {

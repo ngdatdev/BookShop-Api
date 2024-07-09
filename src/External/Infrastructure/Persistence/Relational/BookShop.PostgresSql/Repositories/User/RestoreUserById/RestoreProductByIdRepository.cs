@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.RestoreUserById;
 
 /// <summary>
-///    Implement of IRestoreUserByIdRepository repository.
+///    Implement of IRestoreUserById repository.
 /// </summary>
 internal partial class RestoreUserByIdRepository : IRestoreUserByIdRepository
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.Product.RestoreProductById;
 
 /// <summary>
-///     Interface for Query =RestoreProductByIdRepository Repository
+///     Interface for Query =RestoreProductById Repository
 /// </summary>
 public partial interface IRestoreProductByIdRepository
 {

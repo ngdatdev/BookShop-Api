@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -54,13 +53,17 @@ internal partial class GetProductsByAuthorNameRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public Task<int> GetTotalNumberOfProducts(
+    public Task<int> GetTotalNumberOfProductsByAuthorNameQueryAsync(
         string authorName,
         CancellationToken cancellationToken
     )
     {
         return _products
-            .Where(predicate: entity => entity.Author.Equals(authorName))
+            .Where(predicate: product =>
+                product.Author.Equals(authorName)
+                && product.RemovedAt == CommonConstant.MIN_DATE_TIME
+                && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .CountAsync(cancellationToken: cancellationToken);
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.Auth.RegisterAsUser;
 
 /// <summary>
-///    Implement of query RegisterAsUser repository.
+///    Implement of query IRegisterAsUser repository.
 /// </summary>
 internal partial class RegisterAsUserRepository
 {

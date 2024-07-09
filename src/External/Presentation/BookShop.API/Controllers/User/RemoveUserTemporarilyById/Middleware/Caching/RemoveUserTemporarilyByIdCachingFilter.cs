@@ -37,6 +37,8 @@ public class RemoveUserTemporarilyByIdCachingFilter : IAsyncActionFilter
 
             var cacheKey2 = $"GetProfileUserHttpResponse_{userId}";
 
+            var cacheKey3 = "GetAllUsersTemporarilyRemovedByIdHttpResponse";
+
             var executedContext = await next();
 
             if (executedContext.Result is ObjectResult result)
@@ -52,6 +54,11 @@ public class RemoveUserTemporarilyByIdCachingFilter : IAsyncActionFilter
 
                     await _cacheHandler.RemoveAsync(
                         key: cacheKey2,
+                        cancellationToken: CancellationToken.None
+                    );
+
+                    await _cacheHandler.RemoveAsync(
+                        key: cacheKey3,
                         cancellationToken: CancellationToken.None
                     );
                 }

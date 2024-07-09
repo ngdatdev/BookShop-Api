@@ -36,4 +36,9 @@ internal partial class GetAllUsersRepository
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
+
+    public Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)
+    {
+        return _usersDetails.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+    }
 }

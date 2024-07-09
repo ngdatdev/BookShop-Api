@@ -57,7 +57,7 @@ public class GetAllOrdersHandler : IFeatureHandler<GetAllOrdersRequest, GetAllOr
 
         // Get total number orders.
         var countOrder =
-            await _unitOfWork.OrderFeature.GetAllOrdersRepository.GetTotalNumberOfOrders(
+            await _unitOfWork.OrderFeature.GetAllOrdersRepository.CountTotalNumberOfOrders(
                 cancellationToken: cancellationToken
             );
 

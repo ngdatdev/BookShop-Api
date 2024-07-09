@@ -1,4 +1,5 @@
 ﻿using BookShop.Data.Features.Repositories.User.GetAllUsers;
+using BookShop.Data.Features.Repositories.User.GetAllUsersTemporarilyRemovedById;
 using BookShop.Data.Features.Repositories.User.GetProfileUser;
 using BookShop.Data.Features.Repositories.User.RemoveUserPermanentlyById;
 using BookShop.Data.Features.Repositories.User.RemoveUserTemporarilyById;
@@ -41,4 +42,9 @@ public interface IUserFeatureRepository
     ///     Gets update user by id repository.
     /// </summary>
     public IUpdateUserByIdRepository UpdateUserByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets get all users temporarily removed by id repository.
+    /// </summary>
+    public IGetAllUsersTemporarilyRemovedByIdRepository GetAllUsersTemporarilyRemovedByIdRepository { get; }
 }

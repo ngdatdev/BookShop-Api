@@ -7,16 +7,18 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.RemoveUserTemporarilyById;
 
 /// <summary>
-///    Implement of query IRemoveUserTemporarilyByIdRepository repository.
+///    Implement of query IRemoveUserTemporarilyById repository.
 /// </summary>
 internal partial class RemoveUserTemporarilyByIdRepository
 {
     public Task<bool> IsUserFoundByIdQueryAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return _users.AnyAsync(
-            predicate: product => product.Id == userId,
-            cancellationToken: cancellationToken
-        );
+        return _users
+            .AsNoTracking()
+            .AnyAsync(
+                predicate: product => product.Id == userId,
+                cancellationToken: cancellationToken
+            );
     }
 
     public Task<bool> IsUserTemporarilyRemovedByIdQueryAsync(

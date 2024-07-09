@@ -52,7 +52,7 @@ public class GetAllTemporarilyRemovedProductsHandler
 
         // Get total number products.
         var countProduct =
-            await _unitOfWork.ProductFeature.GetAllProductsRepository.GetTotalNumberOfProducts(
+            await _unitOfWork.ProductFeature.GetAllTemporarilyRemovedProductsRepository.GetTotalNumberOfTemporarilyRemovedProductsQueryAsync(
                 cancellationToken: cancellationToken
             );
 

@@ -1,8 +1,6 @@
 namespace BookShop.Data.Features.Repositories.Auth.Login;
 
 /// <summary>
-///     Interface for LoginRepository Repository
+///     Interface for Login Repository
 /// </summary>
-public partial interface ILoginRepository {
-
-}
+public partial interface ILoginRepository { }

@@ -1,6 +1,6 @@
 namespace BookShop.Data.Features.Repositories.Auth.ForgotPassword;
 
 /// <summary>
-///     Interface for ForgotPasswordRepository Repository
+///     Interface for ForgotPassword Repository
 /// </summary>
 public partial interface IForgotPasswordRepository { }

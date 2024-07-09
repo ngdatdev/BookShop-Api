@@ -5,7 +5,7 @@ using BookShop.Data.Shared.Entities;
 namespace BookShop.Data.Features.Repositories.Auth.ForgotPassword;
 
 /// <summary>
-///     Interface for Command ForgotPasswordRepository Repository
+///     Interface for Command ForgotPassword Repository
 /// </summary>
 public partial interface IForgotPasswordRepository
 {

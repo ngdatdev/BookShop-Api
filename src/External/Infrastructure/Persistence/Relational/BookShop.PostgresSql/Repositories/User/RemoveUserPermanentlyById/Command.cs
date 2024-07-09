@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BookShop.PostgresSql.Repositories.User.RemoveUserPermanentlyById;
 
 /// <summary>
-///    Implement of command IRemoveUserPermanentlyByIdRepository.
+///    Implement of command IRemoveUserPermanentlyById repository.
 /// </summary>
 internal partial class RemoveUserPermanentlyByIdRepository
 {
