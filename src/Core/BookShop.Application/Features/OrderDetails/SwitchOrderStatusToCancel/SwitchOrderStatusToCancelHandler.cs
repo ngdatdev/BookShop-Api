@@ -107,7 +107,7 @@ public class SwitchOrderStatusToCancelHandler
                 cancellationToken
             );
 
-        // Remove order temporarily command.
+        // Switch order status to cancel command.
         var dbResult =
             await _unitOfWork.OrderDetailFeature.SwitchOrderStatusToCancelRepository.SwitchOrderStatusToCancelCommandAsync(
                 orderDetailId: request.OrderDetailId,

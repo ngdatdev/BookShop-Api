@@ -6,6 +6,7 @@ using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderSta
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RestoreOrderDetailById;
+using BookShop.Data.Features.Repositories.OrderDetails.RestoreOrderStatusToConfirm;
 using BookShop.Data.Features.Repositories.OrderDetails.SwitchOrderStatusToCancel;
 using BookShop.Data.Features.Repositories.OrderDetails.SwitchOrderStatusToNext;
 using BookShop.PostgresSql.Data;
@@ -16,6 +17,7 @@ using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatu
 using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 using BookShop.PostgresSql.Repositories.OrderDetails.RestoreOrderDetailById;
+using BookShop.PostgresSql.Repositories.OrderDetails.RestoreOrderStatusToConfirm;
 using BookShop.PostgresSql.Repositories.OrderDetails.SwitchOrderStatusToCancel;
 using BookShop.PostgresSql.Repositories.OrderDetails.SwitchOrderStatusToNext;
 
@@ -36,6 +38,7 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
     private IRestoreOrderDetailByIdRepository _restoreOrderDetailByIdRepository;
     private ISwitchOrderStatusToNextRepository _switchOrderStatusToNextRepository;
     private ISwitchOrderStatusToCancelRepository _switchOrderStatusToCancelRepository;
+    private IRestoreOrderStatusToConfirmRepository _restoreOrderStatusToConfirmRepository;
 
     internal OrderDetailFeatureRepository(BookShopContext context)
     {
@@ -124,6 +127,15 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
             return _switchOrderStatusToCancelRepository ??= new SwitchOrderStatusToCancelRepository(
                 context: _context
             );
+        }
+    }
+
+    public IRestoreOrderStatusToConfirmRepository RestoreOrderStatusToConfirmRepository
+    {
+        get
+        {
+            return _restoreOrderStatusToConfirmRepository ??=
+                new RestoreOrderStatusToConfirmRepository(context: _context);
         }
     }
 }

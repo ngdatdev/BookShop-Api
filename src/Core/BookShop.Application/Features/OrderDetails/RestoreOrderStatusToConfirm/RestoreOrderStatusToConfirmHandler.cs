@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,28 +6,19 @@ using BookShop.Application.Shared.Features;
 using BookShop.Data.Features.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
 
-namespace BookShop.Application.Features.OrderDetails.SwitchOrderStatusToNext;
+namespace BookShop.Application.Features.OrderDetails.RestoreOrderStatusToConfirm;
 
 /// <summary>
-///     SwitchOrderStatusToNext Handler
+///     RestoreOrderStatusToConfirm Handler
 /// </summary>
-public class SwitchOrderStatusToNextHandler
-    : IFeatureHandler<SwitchOrderStatusToNextRequest, SwitchOrderStatusToNextResponse>
+public class RestoreOrderStatusToConfirmHandler
+    : IFeatureHandler<RestoreOrderStatusToConfirmRequest, RestoreOrderStatusToConfirmResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    private static readonly Dictionary<string, string> NextStatus = new Dictionary<string, string>
-    {
-        { "Chờ xác nhận", "Đã xác nhận" },
-        { "Đã xác nhận", "Đang vận chuyển" },
-        { "Đang vận chuyển", "Đã giao hàng" },
-        { "Đã giao hàng", "" }
-    };
-
-    public SwitchOrderStatusToNextHandler(
+    public RestoreOrderStatusToConfirmHandler(
         IUnitOfWork unitOfWork,
         IHttpContextAccessor httpContextAccessor
     )
@@ -50,14 +40,14 @@ public class SwitchOrderStatusToNextHandler
     /// </param>
     /// <returns>
     ///     A task containing the response.
-    public async Task<SwitchOrderStatusToNextResponse> HandlerAsync(
-        SwitchOrderStatusToNextRequest request,
+    public async Task<RestoreOrderStatusToConfirmResponse> HandlerAsync(
+        RestoreOrderStatusToConfirmRequest request,
         CancellationToken cancellationToken
     )
     {
         // Is order detail found by id.
         var isOrderDetailIdFound =
-            await _unitOfWork.OrderDetailFeature.SwitchOrderStatusToNextByIdRepository.IsOrderDetailFoundByIdQueryAsync(
+            await _unitOfWork.OrderDetailFeature.RestoreOrderStatusToConfirmRepository.IsOrderDetailFoundByIdQueryAsync(
                 orderDetailId: request.OrderDetailId,
                 cancellationToken: cancellationToken
             );
@@ -67,12 +57,13 @@ public class SwitchOrderStatusToNextHandler
         {
             return new()
             {
-                StatusCode = SwitchOrderStatusToNextResponseStatusCode.ORDER_DETAIL_ID_IS_NOT_FOUND
+                StatusCode =
+                    RestoreOrderStatusToConfirmResponseStatusCode.ORDER_DETAIL_ID_IS_NOT_FOUND
             };
         }
         // Check order is temporarily removed by id.
         var isOrderTemporarilyRemoved =
-            await _unitOfWork.OrderDetailFeature.SwitchOrderStatusToNextByIdRepository.IsOrderDetailTemporarilyRemovedByIdQueryAsync(
+            await _unitOfWork.OrderDetailFeature.RestoreOrderStatusToConfirmRepository.IsOrderDetailTemporarilyRemovedByIdQueryAsync(
                 orderDetailId: request.OrderDetailId,
                 cancellationToken: cancellationToken
             );
@@ -83,7 +74,7 @@ public class SwitchOrderStatusToNextHandler
             return new()
             {
                 StatusCode =
-                    SwitchOrderStatusToNextResponseStatusCode.ORDER_DETAIL_IS_ALREADY_TEMPORARILY_REMOVED
+                    RestoreOrderStatusToConfirmResponseStatusCode.ORDER_DETAIL_IS_ALREADY_TEMPORARILY_REMOVED
             };
         }
 
@@ -94,32 +85,31 @@ public class SwitchOrderStatusToNextHandler
 
         // Get order status id by order id.
         var orderStatusValue =
-            await _unitOfWork.OrderDetailFeature.SwitchOrderStatusToNextByIdRepository.GetOrderStatusIdByOrderDetailIdQueryAsync(
+            await _unitOfWork.OrderDetailFeature.RestoreOrderStatusToConfirmRepository.GetOrderStatusIdByOrderDetailIdQueryAsync(
                 orderDetailId: request.OrderDetailId,
                 cancellationToken: cancellationToken
             );
 
         // Get next status.
-        var nextStatus = NextStatus[orderStatusValue];
-
-        if (nextStatus.IsNullOrEmpty())
+        if (!orderStatusValue.Equals("Đã hủy"))
         {
             return new()
             {
-                StatusCode = SwitchOrderStatusToNextResponseStatusCode.ORDER_STATUS_IS_END
+                StatusCode =
+                    RestoreOrderStatusToConfirmResponseStatusCode.ORDER_STATUS_IS_NOT_CANCELED
             };
         }
 
         // Get order status id by value.
         var orderStatusId =
-            await _unitOfWork.OrderDetailFeature.SwitchOrderStatusToNextByIdRepository.GetOrderStatusIdByValueQueryAsync(
-                orderStatusValue: nextStatus,
+            await _unitOfWork.OrderDetailFeature.RestoreOrderStatusToConfirmRepository.GetOrderStatusIdByValueQueryAsync(
+                orderStatusValue: "Chờ xác nhận",
                 cancellationToken
             );
 
-        // Switch order status to next order by default command.
+        // Restore order temporarily command.
         var dbResult =
-            await _unitOfWork.OrderDetailFeature.SwitchOrderStatusToNextByIdRepository.SwitchOrderStatusToNextCommandAsync(
+            await _unitOfWork.OrderDetailFeature.RestoreOrderStatusToConfirmRepository.RestoreOrderStatusToConfirmCommandAsync(
                 orderDetailId: request.OrderDetailId,
                 newOrderStatusId: orderStatusId,
                 updatedAt: DateTime.UtcNow,
@@ -132,14 +122,14 @@ public class SwitchOrderStatusToNextHandler
         {
             return new()
             {
-                StatusCode = SwitchOrderStatusToNextResponseStatusCode.DATABASE_OPERATION_FAIL
+                StatusCode = RestoreOrderStatusToConfirmResponseStatusCode.DATABASE_OPERATION_FAIL
             };
         }
 
         // Response successfully.
-        return new SwitchOrderStatusToNextResponse()
+        return new RestoreOrderStatusToConfirmResponse()
         {
-            StatusCode = SwitchOrderStatusToNextResponseStatusCode.OPERATION_SUCCESS,
+            StatusCode = RestoreOrderStatusToConfirmResponseStatusCode.OPERATION_SUCCESS,
         };
     }
 }
