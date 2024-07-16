@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 
 /// <summary>
-///     Interface for Query RemoveOrderDetailTemporarilyByIdRepository
+///     Interface for Query RemoveOrderDetailTemporarilyById Repository
 /// </summary>
 public partial interface IRemoveOrderDetailTemporarilyByIdRepository
 {

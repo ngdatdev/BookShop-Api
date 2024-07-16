@@ -6,6 +6,7 @@ using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderSta
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RestoreOrderDetailById;
+using BookShop.Data.Features.Repositories.OrderDetails.SwitchOrderStatusToNext;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetAllOrderDetailsByUserId;
 using BookShop.PostgresSql.Repositories.OrderDetails.GetAllTemporarilyRemovedOrderDetails;
@@ -14,6 +15,7 @@ using BookShop.PostgresSql.Repositories.OrderDetails.GetOrderDetailsByOrderStatu
 using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.PostgresSql.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 using BookShop.PostgresSql.Repositories.OrderDetails.RestoreOrderDetailById;
+using BookShop.PostgresSql.Repositories.OrderDetails.SwitchOrderStatusToNext;
 
 namespace BookShop.PostgresSql.Repositories.OrderDetails;
 
@@ -30,6 +32,7 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
     private IRemoveOrderDetailTemporarilyByIdRepository _removeOrderDetailTemporarilyByIdRepository;
     private IRemoveOrderDetailPermanentlyByIdRepository _removeOrderDetailPermanentlyByIdRepository;
     private IRestoreOrderDetailByIdRepository _restoreOrderDetailByIdRepository;
+    private ISwitchOrderStatusToNextRepository _switchOrderStatusToNextRepository;
 
     internal OrderDetailFeatureRepository(BookShopContext context)
     {
@@ -96,6 +99,16 @@ internal class OrderDetailFeatureRepository : IOrderDetailFeatureRepository
         get
         {
             return _restoreOrderDetailByIdRepository ??= new RestoreOrderDetailByIdRepository(
+                context: _context
+            );
+        }
+    }
+
+    public ISwitchOrderStatusToNextRepository SwitchOrderStatusToNextByIdRepository
+    {
+        get
+        {
+            return _switchOrderStatusToNextRepository ??= new SwitchOrderStatusToNextRepository(
                 context: _context
             );
         }
