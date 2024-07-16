@@ -4,14 +4,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookShop.PostgresSql.Repositories.OrderDetails.SwitchOrderStatusToNext;
+namespace BookShop.PostgresSql.Repositories.OrderDetails.SwitchOrderStatusToCancel;
 
 /// <summary>
-///    Implement of command ISwitchOrderStatusToNext repository.
+///    Implement of command ISwitchOrderStatusToCancel repository.
 /// </summary>
-internal partial class SwitchOrderStatusToNextRepository
+internal partial class SwitchOrderStatusToCancelRepository
 {
-    public async Task<bool> SwitchOrderStatusToNextCommandAsync(
+    public async Task<bool> SwitchOrderStatusToCancelCommandAsync(
         Guid orderDetailId,
         Guid newOrderStatusId,
         DateTime updatedAt,
@@ -39,8 +39,8 @@ internal partial class SwitchOrderStatusToNextRepository
                                     orderDetail => orderDetail.OrderStatusId,
                                     newOrderStatusId
                                 )
-                                .SetProperty(orderDetail => orderDetail.UpdatedBy, updatedBy)
                                 .SetProperty(orderDetail => orderDetail.UpdatedAt, updatedAt)
+                                .SetProperty(orderDetail => orderDetail.UpdatedBy, updatedBy)
                         );
 
                     await dbTransaction.CommitAsync(cancellationToken: cancellationToken);

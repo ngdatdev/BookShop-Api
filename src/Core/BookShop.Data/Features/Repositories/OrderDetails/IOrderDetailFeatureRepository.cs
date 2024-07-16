@@ -5,6 +5,7 @@ using BookShop.Data.Features.Repositories.OrderDetails.GetOrderDetailsByOrderSta
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailPermanentlyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RemoveOrderDetailTemporarilyById;
 using BookShop.Data.Features.Repositories.OrderDetails.RestoreOrderDetailById;
+using BookShop.Data.Features.Repositories.OrderDetails.SwitchOrderStatusToCancel;
 using BookShop.Data.Features.Repositories.OrderDetails.SwitchOrderStatusToNext;
 
 namespace BookShop.Data.Features.Repositories.OrderDetails;
@@ -53,4 +54,9 @@ public interface IOrderDetailFeatureRepository
     ///     Gets switch order status to next feature repository.
     /// </summary>
     public ISwitchOrderStatusToNextRepository SwitchOrderStatusToNextByIdRepository { get; }
+
+    /// <summary>
+    ///     Gets switch order status to cancel feature repository.
+    /// </summary>
+    public ISwitchOrderStatusToCancelRepository SwitchOrderStatusToCancelRepository { get; }
 }
