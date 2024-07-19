@@ -1,4 +1,6 @@
 using BookShop.Application.Shared.Features;
+using System;
+using System.Collections.Generic;
 
 namespace BookShop.Application.Features.Orders.CreateOrder;
 
@@ -8,4 +10,6 @@ namespace BookShop.Application.Features.Orders.CreateOrder;
 public class CreateOrderResponse : IFeatureResponse
 {
     public CreateOrderResponseStatusCode StatusCode { get; init; }
+
+    public List<Guid> NotFoundProductIds { get; init; }
 }

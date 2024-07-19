@@ -18,7 +18,5 @@ public class CreateOrderRequest : IFeatureRequest<CreateOrderResponse>
         public Guid ProductId { get; init; }
 
         public int Quantity { get; init; }
-
-        public decimal FinalPrice { get; init; }
     }
 }

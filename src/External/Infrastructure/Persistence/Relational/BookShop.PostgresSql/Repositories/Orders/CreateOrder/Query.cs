@@ -43,17 +43,24 @@ internal partial class CreateOrderRepository
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task<bool> IsProductsFoundByIdQueryAsync(
+    public async Task<
+        IEnumerable<BookShop.Data.Shared.Entities.Product>
+    > FindQuantityProductByIdQueryAsync(
         IEnumerable<Guid> productIds,
         CancellationToken cancellationToken
     )
     {
-        var matchingProductCount = await _products
+        return await _products
             .AsNoTracking()
             .Where(product => productIds.Contains(product.Id))
-            .CountAsync(cancellationToken);
-
-        return matchingProductCount == productIds.Count();
+            .Select(selector: product => new BookShop.Data.Shared.Entities.Product()
+            {
+                Price = product.Price,
+                Id = product.Id,
+                Discount = product.Discount,
+                QuantityCurrent = product.QuantityCurrent,
+            })
+            .ToListAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<bool> IsProductsTemporarilyRemovedQueryAsync(

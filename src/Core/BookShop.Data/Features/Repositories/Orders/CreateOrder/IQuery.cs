@@ -10,7 +10,7 @@ namespace BookShop.Data.Features.Repositories.Orders.CreateOrder;
 /// </summary>
 public partial interface ICreateOrderRepository
 {
-    Task<bool> IsProductsFoundByIdQueryAsync(
+    Task<IEnumerable<Shared.Entities.Product>> FindQuantityProductByIdQueryAsync(
         IEnumerable<Guid> productIds,
         CancellationToken cancellationToken
     );

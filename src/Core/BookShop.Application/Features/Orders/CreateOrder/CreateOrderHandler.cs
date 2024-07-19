@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -52,16 +53,28 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
         );
 
         // Check list of product id.
-        var isProductsFound =
-            await _unitOfWork.OrderFeature.CreateOrderRepository.IsProductsFoundByIdQueryAsync(
+        var products =
+            await _unitOfWork.OrderFeature.CreateOrderRepository.FindQuantityProductByIdQueryAsync(
                 productIds: request.CartItems.Select(e => e.ProductId),
                 cancellationToken: cancellationToken
             );
 
         // Responds if at least one product is not found.
-        if (!isProductsFound)
+        if (
+            !Equals(
+                objA: request.CartItems.Select(c => c.ProductId).Count(),
+                objB: products.Count()
+            )
+        )
         {
-            return new() { StatusCode = CreateOrderResponseStatusCode.PRODUCTS_IS_NOT_FOUND, };
+            return new()
+            {
+                StatusCode = CreateOrderResponseStatusCode.PRODUCTS_IS_NOT_FOUND,
+                NotFoundProductIds = request
+                    .CartItems.Select(selector: c => c.ProductId)
+                    .Except(second: products.Select(p => p.Id))
+                    .ToList(),
+            };
         }
 
         // Is one of products was temporarily removed.
@@ -123,6 +136,48 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             }
         }
 
+        // Match products with quantity
+        List<(Guid ProductId, int Quantity)> cartItems = request
+            .CartItems.Select(c => (c.ProductId, c.Quantity))
+            .ToList();
+
+        List<(Guid ProductId, decimal Price, int Discount, int CurrentQuantity)> prices = products
+            .Select(p => (p.Id, p.Price, p.Discount, p.QuantityCurrent))
+            .ToList();
+
+        var matchedProducts = cartItems
+            .Join(
+                inner: prices,
+                outerKeySelector: cartItem => cartItem.ProductId,
+                innerKeySelector: price => price.ProductId,
+                resultSelector: (cartItem, price) =>
+                    new MatchedProduct()
+                    {
+                        ProductId = cartItem.ProductId,
+                        Quantity = cartItem.Quantity,
+                        Price = price.Price,
+                        Discount = price.Discount,
+                        StockQuantity = price.CurrentQuantity,
+                    }
+            )
+            .ToList();
+
+        // Check is these quantities enough to order
+        var productsWithInsufficientStock = matchedProducts
+            .Where(predicate: mp => mp.Quantity > mp.StockQuantity)
+            .Select(mp => mp.ProductId)
+            .ToList();
+
+        // Respond if one of quantity is better than stock quantity
+        if (productsWithInsufficientStock.Any())
+        {
+            return new CreateOrderResponse()
+            {
+                StatusCode = CreateOrderResponseStatusCode.QUANTITY_IS_NOT_ENOUGH,
+                NotFoundProductIds = productsWithInsufficientStock
+            };
+        }
+
         // Init OrderStatus
         var pendingConfirmationId = OrderStatusEnum.Get(
             status: OrderStatusEnum.OrderStatus.PendingConfirmation
@@ -130,7 +185,7 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
 
         // Init Orders Information
         var newOrder = InitOrder(
-            request: request,
+            products: matchedProducts,
             addressId: addressId,
             userId: Guid.Parse(input: userId),
             orderStatusId: Guid.Parse(input: pendingConfirmationId)
@@ -158,7 +213,7 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
     }
 
     private Order InitOrder(
-        CreateOrderRequest request,
+        IEnumerable<MatchedProduct> products,
         Guid userId,
         Guid addressId,
         Guid orderStatusId
@@ -171,8 +226,8 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             Id = orderId,
             OrderDate = DateTime.UtcNow,
             ExpectedDate = DateTime.UtcNow.AddDays(7),
-            TotalCost = request.CartItems.Sum(selector: cartItem =>
-                cartItem.FinalPrice * cartItem.Quantity
+            TotalCost = products.Sum(selector: cartItem =>
+                cartItem.Price * cartItem.Quantity * (1 - cartItem.Discount / 100.0m)
             ),
             AddressId = addressId,
             UserId = userId,
@@ -182,12 +237,12 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             UpdatedAt = CommonConstant.MIN_DATE_TIME,
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-            OrderDetails = request
-                .CartItems.Select(selector: cartItem => new OrderDetail()
+            OrderDetails = products
+                .Select(selector: cartItem => new OrderDetail()
                 {
                     Id = Guid.NewGuid(),
                     Quantity = cartItem.Quantity,
-                    Cost = cartItem.FinalPrice,
+                    Cost = cartItem.Price * (1 - cartItem.Discount / 100.0m) * cartItem.Quantity,
                     CreatedAt = DateTime.UtcNow,
                     CreatedBy = userId,
                     RemovedAt = CommonConstant.MIN_DATE_TIME,
@@ -202,7 +257,7 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
         };
     }
 
-    private Data.Shared.Entities.Address InitAddress(
+    private Address InitAddress(
         Guid addressId,
         string ward,
         string district,
@@ -224,4 +279,14 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
         };
     }
+}
+
+internal class MatchedProduct
+{
+    public Guid ProductId { get; set; }
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+    public int Discount { get; set; }
+
+    public int StockQuantity { get; set; }
 }

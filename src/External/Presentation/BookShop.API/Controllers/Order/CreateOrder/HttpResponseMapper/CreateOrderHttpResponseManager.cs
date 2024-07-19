@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BookShop.Application.Features.Orders.CreateOrder;
 using Microsoft.AspNetCore.Http;
 
@@ -56,6 +57,9 @@ public class CreateOrderHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status400BadRequest,
                     AppCode = response.StatusCode.ToAppCode(),
+                    ErrorMessages = response.NotFoundProductIds.Select(id =>
+                        $"ProductId {id} is not enough quantity"
+                    )
                 }
         );
 
@@ -76,6 +80,9 @@ public class CreateOrderHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status404NotFound,
                     AppCode = response.StatusCode.ToAppCode(),
+                    ErrorMessages = response
+                        .NotFoundProductIds.Select(id => $"ProductId {id} is not found")
+                        .ToList()
                 }
         );
     }
