@@ -8,6 +8,7 @@ using BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 using BookShop.Data.Features.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.Data.Features.Repositories.Product.RemoveProductTemporarilyById;
 using BookShop.Data.Features.Repositories.Product.RestoreProductById;
+using BookShop.Data.Features.Repositories.Product.SearchProductsByKeyword;
 using BookShop.Data.Features.Repositories.Product.UpdateProductById;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Product.CreateProduct;
@@ -19,6 +20,7 @@ using BookShop.PostgresSql.Repositories.Product.GetProductsByCategoryId;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductPermanentlyById;
 using BookShop.PostgresSql.Repositories.Product.RemoveProductTemporarilyById;
 using BookShop.PostgresSql.Repositories.Product.RestoreProductById;
+using BookShop.PostgresSql.Repositories.Product.SearchProductsByKeyword;
 using BookShop.PostgresSql.Repositories.Product.UpdateProductById;
 
 namespace BookShop.PostgresSql.Repositories.Product;
@@ -40,6 +42,7 @@ internal class ProductFeatureRepository : IProductFeatureRepository
     private IGetAllTemporarilyRemovedProductsRepository _getAllTemporarilyRemovedProductsRepository;
     private IGetProductByIdRepository _getProductByIdRepository;
     private IRestoreProductByIdRepository _restoreProductByIdRepository;
+    private ISearchProductsByKeywordRepository _searchProductsByKeywordRepository;
 
     internal ProductFeatureRepository(BookShopContext context)
     {
@@ -129,6 +132,16 @@ internal class ProductFeatureRepository : IProductFeatureRepository
         get
         {
             return _restoreProductByIdRepository ??= new RestoreProductByIdRepository(
+                context: _context
+            );
+        }
+    }
+
+    public ISearchProductsByKeywordRepository SearchProductsByKeywordRepository
+    {
+        get
+        {
+            return _searchProductsByKeywordRepository ??= new SearchProductsByKeywordRepository(
                 context: _context
             );
         }

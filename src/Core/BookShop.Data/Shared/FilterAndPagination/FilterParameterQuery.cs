@@ -1,4 +1,6 @@
-﻿namespace BookShop.Data.Shared.FilterAndPagination;
+﻿using System.Collections.Generic;
+
+namespace BookShop.Data.Shared.FilterAndPagination;
 
 /// <summary>
 ///     FilterParameterQuery for parameter of repository.
@@ -16,4 +18,7 @@ public class FilterParameterQuery
     public decimal? MinPrice { get; set; }
 
     public decimal? MaxPrice { get; set; }
+
+    public Dictionary<string, string> Filters {  get; set; }
+
 }

@@ -287,6 +287,5 @@ internal class MatchedProduct
     public int Quantity { get; set; }
     public decimal Price { get; set; }
     public int Discount { get; set; }
-
     public int StockQuantity { get; set; }
 }

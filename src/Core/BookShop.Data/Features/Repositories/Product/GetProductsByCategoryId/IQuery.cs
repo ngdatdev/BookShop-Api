@@ -8,7 +8,7 @@ using BookShop.Data.Shared.FilterAndPagination;
 namespace BookShop.Data.Features.Repositories.Product.GetProductsByCategoryId;
 
 /// <summary>
-///     Interface for Query IGetProductsByCategoryIdRepository Repository
+///     Interface for Query IGetProductsByCategoryId Repository
 /// </summary>
 public partial interface IGetProductsByCategoryIdRepository
 {

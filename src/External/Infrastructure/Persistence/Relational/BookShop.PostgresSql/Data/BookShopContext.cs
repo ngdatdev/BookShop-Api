@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.Emit;
 using BookShop.Data.Shared.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,9 @@ public class BookShopContext : IdentityDbContext<User, Role, Guid>
     {
         base.OnModelCreating(builder: builder);
 
+        builder.HasPostgresExtension("fuzzystrmatch");
         builder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
+        
         RemoveAspNetPrefixInIdentityTable(builder: builder);
     }
 
