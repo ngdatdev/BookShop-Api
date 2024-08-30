@@ -5,7 +5,6 @@ using BookShop.API.Shared.Filter.Swagger;
 using BookShop.Configuration.Presentation.WebApi.Swagger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace BookShop.API.Shared.ServiceConfigs;

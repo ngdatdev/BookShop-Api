@@ -24,7 +24,9 @@ internal partial class SearchProductsByKeywordRepository
         var query = _products
         .AsQueryable()
         .Where(product =>
-                    EF.Functions.FuzzyStringMatchLevenshtein(product.FullName, keyword) >= 3
+                (EF.Functions.FuzzyStringMatchLevenshtein(product.FullName, keyword) <= 5 ||
+                EF.Functions.TrigramsSimilarity(product.FullName, keyword) > 0.5 ||
+                EF.Functions.FuzzyStringMatchSoundex(product.FullName) == EF.Functions.FuzzyStringMatchSoundex(keyword))
                 && product.RemovedAt == CommonConstant.MIN_DATE_TIME
                 && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             );
@@ -50,7 +52,7 @@ internal partial class SearchProductsByKeywordRepository
 
     public Task<int> GetTotalNumberOfProductsByKeywordQueryAsync(string keyword, CancellationToken cancellationToken)
     {
-       return _products.Where(product =>
+       return _products.AsNoTracking().Where(product =>
                     EF.Functions.FuzzyStringMatchLevenshtein(product.FullName, keyword) >= 3
                 && product.RemovedAt == CommonConstant.MIN_DATE_TIME
                 && product.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID

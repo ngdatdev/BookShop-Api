@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using BookShop.Configuration.Presentation.WebApi.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,11 @@ internal static class AuthenticationServiceConfig
             .GetRequiredSection(key: "Authentication")
             .Get<JwtAuthenticationOption>();
 
+        var googleOption = configuration
+            .GetRequiredSection(key: "Authentication")
+            .GetRequiredSection(key: "OAuth2")
+            .Get<GoogleAuthenticationOption>();
+
         TokenValidationParameters tokenValidationParameters =
             new()
             {
@@ -56,11 +62,19 @@ internal static class AuthenticationServiceConfig
             .AddAuthentication(configureOptions: config =>
             {
                 config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(configureOptions: config =>
                 config.TokenValidationParameters = tokenValidationParameters
-            );
+            )
+            .AddGoogle(options =>
+            {
+                options.ClientId = googleOption.Google.ClientId;
+                options.ClientSecret = googleOption.Google.ClientSecret;
+                //options.CallbackPath = "/signin-google";
+                //options.SaveTokens = true;
+            });
+        ;
     }
 }
