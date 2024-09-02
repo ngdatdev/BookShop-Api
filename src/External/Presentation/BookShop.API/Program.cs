@@ -8,6 +8,7 @@ using BookShop.Data.Shared.Entities;
 using BookShop.ImageCloudinary;
 using BookShop.JsonWebToken;
 using BookShop.MediatrCustom;
+using BookShop.PayOSGateway;
 using BookShop.PostgresSql;
 using BookShop.PostgresSql.Data;
 using BookShop.Redis;
@@ -41,6 +42,8 @@ services.ConfigureJwtIdentityService();
 services.AddRedisCachingDatabase(configuration: configuration);
 services.ConfigGoogleSmtpMailNotification(configuration: configuration);
 services.ConfigCloudinaryImageStorage(configuration: configuration);
+services.ConfigPayOSService(configuration);
+
 var app = builder.Build();
 
 // Data Seeding

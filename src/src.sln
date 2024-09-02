@@ -53,7 +53,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.PostgresSql", "Ext
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentServicce", "PaymentServicce", "{E17C52AC-7EC8-4A83-AC91-259C3DFF45DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.VietQr", "External\Infrastructure\PaymentService\BookShop.VietQr\BookShop.VietQr.csproj", "{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.VietQr", "External\Infrastructure\PaymentService\BookShop.VietQr\BookShop.VietQr.csproj", "{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.PayOSGateway", "External\Infrastructure\PaymentService\BookShop.PayOS\BookShop.PayOSGateway.csproj", "{5707F62A-A668-4120-A5FB-15810799ED98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,10 @@ Global
 		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5707F62A-A668-4120-A5FB-15810799ED98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5707F62A-A668-4120-A5FB-15810799ED98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5707F62A-A668-4120-A5FB-15810799ED98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5707F62A-A668-4120-A5FB-15810799ED98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{D68852DA-05A8-440D-A363-67221BA68A78} = {52B8DFA5-A670-42FB-B5FA-AEF800EDE5B5}
 		{E17C52AC-7EC8-4A83-AC91-259C3DFF45DA} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
 		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB} = {E17C52AC-7EC8-4A83-AC91-259C3DFF45DA}
+		{5707F62A-A668-4120-A5FB-15810799ED98} = {E17C52AC-7EC8-4A83-AC91-259C3DFF45DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FCDC697-FDFC-4E46-A678-6A4864A42050}
