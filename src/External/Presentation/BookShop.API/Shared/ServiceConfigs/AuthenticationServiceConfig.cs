@@ -68,12 +68,13 @@ internal static class AuthenticationServiceConfig
             .AddJwtBearer(configureOptions: config =>
                 config.TokenValidationParameters = tokenValidationParameters
             )
+            .AddCookie()
             .AddGoogle(options =>
             {
                 options.ClientId = googleOption.Google.ClientId;
                 options.ClientSecret = googleOption.Google.ClientSecret;
-                //options.CallbackPath = "/signin-google";
-                //options.SaveTokens = true;
+                options.CallbackPath = "/api/auth/google";
+                options.SaveTokens = true;
             });
         ;
     }

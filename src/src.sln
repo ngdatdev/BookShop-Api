@@ -51,6 +51,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Smtp", "External\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.PostgresSql", "External\Infrastructure\Persistence\Relational\BookShop.PostgresSql\BookShop.PostgresSql.csproj", "{D68852DA-05A8-440D-A363-67221BA68A78}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentServicce", "PaymentServicce", "{E17C52AC-7EC8-4A83-AC91-259C3DFF45DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop.VietQr", "External\Infrastructure\PaymentService\BookShop.VietQr\BookShop.VietQr.csproj", "{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +105,10 @@ Global
 		{D68852DA-05A8-440D-A363-67221BA68A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D68852DA-05A8-440D-A363-67221BA68A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D68852DA-05A8-440D-A363-67221BA68A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +136,8 @@ Global
 		{904CBE12-F255-4596-B44C-028C34DED020} = {D0EBA509-7834-4CBA-9C88-BB6493E8AF55}
 		{522BBD9A-03DB-4593-9BFA-6E25121D777A} = {904CBE12-F255-4596-B44C-028C34DED020}
 		{D68852DA-05A8-440D-A363-67221BA68A78} = {52B8DFA5-A670-42FB-B5FA-AEF800EDE5B5}
+		{E17C52AC-7EC8-4A83-AC91-259C3DFF45DA} = {F7D674AC-2650-40BD-9035-AE50D6B31B0F}
+		{D512D14A-C405-4E9E-BD25-5DE5AC1C1ABB} = {E17C52AC-7EC8-4A83-AC91-259C3DFF45DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FCDC697-FDFC-4E46-A678-6A4864A42050}
