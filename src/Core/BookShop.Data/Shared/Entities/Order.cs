@@ -44,6 +44,8 @@ public class Order : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyRe
     // Navigation collections.
     public IEnumerable<OrderDetail> OrderDetails { get; set; }
 
+    public Payment Payment { get; set; }
+
     public static class MetaData
     {
         public static class TotalCost

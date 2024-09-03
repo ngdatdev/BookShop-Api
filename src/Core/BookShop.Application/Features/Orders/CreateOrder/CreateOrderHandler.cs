@@ -188,7 +188,8 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
             products: matchedProducts,
             addressId: addressId,
             userId: Guid.Parse(input: userId),
-            orderStatusId: Guid.Parse(input: pendingConfirmationId)
+            orderStatusId: Guid.Parse(input: pendingConfirmationId),
+            paymentMethod: (PaymentMethod)Enum.Parse(typeof(PaymentMethod), request.PaymentMethod)
         );
 
         // Create order.
@@ -216,7 +217,8 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
         IEnumerable<MatchedProduct> products,
         Guid userId,
         Guid addressId,
-        Guid orderStatusId
+        Guid orderStatusId,
+        PaymentMethod paymentMethod
     )
     {
         var orderId = Guid.NewGuid();
@@ -254,6 +256,23 @@ public class CreateOrderHandler : IFeatureHandler<CreateOrderRequest, CreateOrde
                     ProductId = cartItem.ProductId,
                 })
                 .ToList(),
+            Payment = new Payment()
+            {
+                Id = Guid.NewGuid(),
+                Amount = products.Sum(selector: cartItem =>
+                    cartItem.Price * cartItem.Quantity * (1 - cartItem.Discount / 100.0m)
+                ),
+                Method = paymentMethod,
+                PaymentDate = CommonConstant.MIN_DATE_TIME,
+                TransactionId = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID.ToString(),
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = userId,
+                RemovedAt = CommonConstant.MIN_DATE_TIME,
+                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                UpdatedAt = CommonConstant.MIN_DATE_TIME,
+                UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                OrderId = orderId,
+            }
         };
     }
 

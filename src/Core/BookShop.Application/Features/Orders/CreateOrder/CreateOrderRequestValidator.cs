@@ -13,6 +13,12 @@ public sealed class CreateOrderRequestValidator
     {
         RuleFor(request => request.CartItems).NotEmpty();
 
-        RuleFor(x => x.ShippingAddress).NotEmpty().Matches(@"^.+<token\/>.+<token\/>.+$");
+        RuleFor(request => request.ShippingAddress)
+            .NotEmpty()
+            .Matches(@"^.+<token\/>.+<token\/>.+$");
+
+        RuleFor(expression: request => request.PaymentMethod)
+            .NotEmpty()
+            .Must(method => method == "Cash" || method == "BankTransfer");
     }
 }

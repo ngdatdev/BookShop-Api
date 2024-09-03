@@ -54,10 +54,18 @@ internal sealed class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(propertyExpression: order => order.RemovedBy).IsRequired();
 
         // Relationship configurations.
+        // [Order] - [OrderDetail] (1 - n)
         builder
             .HasMany(order => order.OrderDetails)
             .WithOne(orderDetail => orderDetail.Order)
             .HasForeignKey(orderDetail => orderDetail.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // [Order] - [Payment] (1 - 1).
+        builder
+            .HasOne(order => order.Payment)
+            .WithOne(payment => payment.Order)
+            .HasForeignKey<Payment>(payment => payment.OrderId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

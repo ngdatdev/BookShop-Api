@@ -13,6 +13,8 @@ public class CreateOrderRequest : IFeatureRequest<CreateOrderResponse>
 
     public string ShippingAddress { get; set; }
 
+    public string PaymentMethod { get; set; }
+
     public sealed class CartItem
     {
         public Guid ProductId { get; init; }

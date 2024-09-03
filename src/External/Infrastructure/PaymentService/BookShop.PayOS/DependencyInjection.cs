@@ -11,7 +11,7 @@ using Net.payOS;
 public static class DependencyInjection
 {
     /// <summary>
-    ///     Entry to configuring multiple services.
+    ///     Entry to configuring payOS services.
     /// </summary>
     /// <param name="services">
     ///     Service container.
