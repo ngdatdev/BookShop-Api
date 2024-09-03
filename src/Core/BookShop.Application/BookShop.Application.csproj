@@ -17,9 +17,5 @@
   <ItemGroup>
 	<ProjectReference Include="..\BookShop.Data\BookShop.Data.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Payments\" />
-  </ItemGroup>
 	
 </Project>

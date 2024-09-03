@@ -1,6 +1,8 @@
 ﻿namespace BookShop.PayOSGateway;
 
+using BookShop.Application.Shared.PaymentGateway;
 using BookShop.Configuration.Infrastructure.PayOS;
+using BookShop.PayOSGateway.Handler;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Net.payOS;
@@ -26,7 +28,9 @@ public static class DependencyInjection
     {
         var option = configuration.GetRequiredSection(key: "PayOS").Get<PayOSOption>();
 
-        services.AddSingleton(() =>
+        services.AddSingleton<IPaymentHandler, PayOSHandler>();
+
+        services.AddSingleton(provider =>
         {
             return new PayOS(clientId: option.ClientId, option.ApiKey, option.ChecksumKey);
         });
