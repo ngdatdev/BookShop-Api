@@ -19,17 +19,17 @@ public class GetPaymentsByMethodResponse : IFeatureResponse
 
         public sealed class Payment
         {
-            public Guid OrderId { get; set; }
+            public Guid OrderId { get; init; }
 
-            public decimal Amount { get; set; }
+            public decimal Amount { get; init; }
 
-            public string Status { get; set; }
+            public string Status { get; init; }
 
-            public string Method { get; set; }
+            public string Method { get; init; }
 
-            public DateTime PaymentDate { get; set; }
+            public DateTime PaymentDate { get; init; }
 
-            public string TransactionId { get; set; }
+            public string TransactionId { get; init; }
         }
     }
 }

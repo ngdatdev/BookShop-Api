@@ -1,9 +1,11 @@
 ﻿using BookShop.Data.Features.Repositories.Payments;
 using BookShop.Data.Features.Repositories.Payments.GetAllPayments;
 using BookShop.Data.Features.Repositories.Payments.GetPaymentsByMethod;
+using BookShop.Data.Features.Repositories.Payments.UpdatePaymentCOD;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Payments.GetAllPayments;
 using BookShop.PostgresSql.Repositories.Payments.GetPaymentsByMethod;
+using BookShop.PostgresSql.Repositories.Payments.UpdatePaymentCOD;
 
 namespace BookShop.PostgresSql.Repositories.Payments;
 
@@ -16,6 +18,7 @@ internal class PaymentFeatureRepository : IPaymentFeatureRepository
 
     private IGetAllPaymentsRepository _getAllPaymentsRepository;
     private IGetPaymentsByMethodRepository _getPaymentsByMethodRepository;
+    private IUpdatePaymentCODRepository _updatePaymentCODRepository;
 
     internal PaymentFeatureRepository(BookShopContext context)
     {
@@ -35,6 +38,16 @@ internal class PaymentFeatureRepository : IPaymentFeatureRepository
         get
         {
             return _getPaymentsByMethodRepository ??= new GetPaymentsByMethodRepository(
+                context: _context
+            );
+        }
+    }
+
+    public IUpdatePaymentCODRepository UpdatePaymentCODRepository
+    {
+        get
+        {
+            return _updatePaymentCODRepository ??= new UpdatePaymentCODRepository(
                 context: _context
             );
         }
