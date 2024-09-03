@@ -1,17 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using BookShop.Application.Shared.Authentication.Jwt;
 using BookShop.Application.Shared.Features;
 using BookShop.Application.Shared.Pagination;
 using BookShop.Data.Features.UnitOfWork;
-using BookShop.Data.Shared.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookShop.Application.Features.Product.GetAllProducts;
 

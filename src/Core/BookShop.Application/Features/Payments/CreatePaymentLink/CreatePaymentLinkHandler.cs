@@ -27,7 +27,7 @@ public class CreatePaymentLinkHandler
     /// <param name="request">
     ///     Request model.
     /// </param>
-    /// <param name="ct">
+    /// <param name="cancellationToken">
     ///     A token that is used for notifying system
     ///     to cancel the current operation when user stop
     ///     the request.

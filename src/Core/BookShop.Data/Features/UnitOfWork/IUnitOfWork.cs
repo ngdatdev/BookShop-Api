@@ -4,6 +4,7 @@ using BookShop.Data.Features.Repositories.CartItems;
 using BookShop.Data.Features.Repositories.Carts;
 using BookShop.Data.Features.Repositories.OrderDetails;
 using BookShop.Data.Features.Repositories.Orders;
+using BookShop.Data.Features.Repositories.Payments;
 using BookShop.Data.Features.Repositories.Product;
 using BookShop.Data.Features.Repositories.Reviews;
 using BookShop.Data.Features.Repositories.Roles;
@@ -65,4 +66,9 @@ public interface IUnitOfWork
     ///    Review repository manager.
     /// </summary>
     public IReviewFeatureRepository ReviewFeature { get; }
+
+    /// <summary>
+    ///    Payment repository manager.
+    /// </summary>
+    public IPaymentFeatureRepository PaymentFeature { get; }
 }
