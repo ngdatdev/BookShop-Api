@@ -1,4 +1,5 @@
 using BookShop.Data.Features.Repositories.Payments.GetAllPayments;
+using BookShop.Data.Features.Repositories.Payments.GetPaymentsByMethod;
 
 namespace BookShop.Data.Features.Repositories.Payments;
 
@@ -11,4 +12,9 @@ public interface IPaymentFeatureRepository
     ///     Gets create order feature repository.
     /// </summary>
     public IGetAllPaymentsRepository GetAllPaymentsRepository { get; }
+
+    /// <summary>
+    ///     Gets get payments by method feature repository.
+    /// </summary>
+    public IGetPaymentsByMethodRepository GetPaymentsByMethodRepository { get; }
 }

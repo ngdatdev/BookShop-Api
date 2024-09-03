@@ -1,7 +1,9 @@
 ﻿using BookShop.Data.Features.Repositories.Payments;
 using BookShop.Data.Features.Repositories.Payments.GetAllPayments;
+using BookShop.Data.Features.Repositories.Payments.GetPaymentsByMethod;
 using BookShop.PostgresSql.Data;
 using BookShop.PostgresSql.Repositories.Payments.GetAllPayments;
+using BookShop.PostgresSql.Repositories.Payments.GetPaymentsByMethod;
 
 namespace BookShop.PostgresSql.Repositories.Payments;
 
@@ -13,6 +15,7 @@ internal class PaymentFeatureRepository : IPaymentFeatureRepository
     private readonly BookShopContext _context;
 
     private IGetAllPaymentsRepository _getAllPaymentsRepository;
+    private IGetPaymentsByMethodRepository _getPaymentsByMethodRepository;
 
     internal PaymentFeatureRepository(BookShopContext context)
     {
@@ -24,6 +27,16 @@ internal class PaymentFeatureRepository : IPaymentFeatureRepository
         get
         {
             return _getAllPaymentsRepository ??= new GetAllPaymentsRepository(context: _context);
+        }
+    }
+
+    public IGetPaymentsByMethodRepository GetPaymentsByMethodRepository
+    {
+        get
+        {
+            return _getPaymentsByMethodRepository ??= new GetPaymentsByMethodRepository(
+                context: _context
+            );
         }
     }
 }

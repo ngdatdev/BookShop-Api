@@ -21,6 +21,7 @@ internal class SearchProductsByKeywordQueryManager
             IQueryable<BookShop.Data.Shared.Entities.Product>
         >
     > _filterPriceDictionary;
+
     private readonly Dictionary<
         string,
         Func<
@@ -39,7 +40,6 @@ internal class SearchProductsByKeywordQueryManager
         >
     > _filterFieldDictionary;
 
-
     internal SearchProductsByKeywordQueryManager()
     {
         _filterPriceDictionary = new Dictionary<
@@ -55,9 +55,6 @@ internal class SearchProductsByKeywordQueryManager
             { "MinPrice", (query, minPrice, maxPrice) => query.Where(p => p.Price >= minPrice) },
             { "MaxPrice", (query, minPrice, maxPrice) => query.Where(p => p.Price <= maxPrice) }
         };
-
-
-
 
         _sortDictionary = new Dictionary<
             string,
@@ -83,10 +80,15 @@ internal class SearchProductsByKeywordQueryManager
             >
         >
         {
-            { "CategoryName", (query, category) => query.Where(p => p.ProductCategories.Any(pc => pc.Category.FullName.Contains(category) ))}
+            {
+                "CategoryName",
+                (query, category) =>
+                    query.Where(p =>
+                        p.ProductCategories.Any(pc => pc.Category.FullName.Contains(category))
+                    )
+            }
             // More field...
         };
-
     }
 
     public IQueryable<BookShop.Data.Shared.Entities.Product> ApplyQuery(
@@ -106,17 +108,21 @@ internal class SearchProductsByKeywordQueryManager
             }
         }
 
-        if(filterParameterQuery.Filters != null && filterParameterQuery.Filters.Any())
+        if (filterParameterQuery.Filters != null && filterParameterQuery.Filters.Any())
         {
             foreach (var filterField in filterParameterQuery.Filters)
             {
-                if(_filterFieldDictionary.TryGetValue(filterField.Key, out var filterFunc)) { 
+                if (_filterFieldDictionary.TryGetValue(filterField.Key, out var filterFunc))
+                {
                     query = filterFunc(query, filterField.Value);
                 }
             }
         }
 
-        if (filterParameterQuery.SortField != null && _sortDictionary.TryGetValue(filterParameterQuery.SortField, out var sortFunc))
+        if (
+            filterParameterQuery.SortField != null
+            && _sortDictionary.TryGetValue(filterParameterQuery.SortField, out var sortFunc)
+        )
         {
             query = sortFunc(query, filterParameterQuery.Order);
         }

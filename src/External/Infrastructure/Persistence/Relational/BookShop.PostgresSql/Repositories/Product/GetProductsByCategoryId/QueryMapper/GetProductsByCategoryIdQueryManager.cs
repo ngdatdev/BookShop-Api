@@ -20,6 +20,7 @@ internal class GetProductsByCategoryIdQueryManager
             IQueryable<BookShop.Data.Shared.Entities.Product>
         >
     > _filterPriceDictionary;
+
     private readonly Dictionary<
         string,
         Func<
