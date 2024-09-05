@@ -17,4 +17,15 @@ public interface IPaymentHandler
     ///     String contain checkout url.
     /// </returns>
     Task<string> CreatePaymentLink(PaymentModel paymentData);
+
+    /// <summary>
+    ///     Verify webhook data signature.
+    /// </summary>
+    /// <param name="paymentData">
+    ///     Model contains payment information.
+    /// </param>
+    /// <returns>
+    ///     return webhooktype model.
+    /// </returns>
+    bool VerifyWebhookData(WebhookType webhookType);
 }

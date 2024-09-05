@@ -39,4 +39,42 @@ public class PayOSHandler : IPaymentHandler
 
         return createPayment.checkoutUrl;
     }
+
+    public bool VerifyWebhookData(Application.Shared.PaymentGateway.WebhookType webhookType)
+    {
+        var webhookTypeInstance = new Net.payOS.Types.WebhookType(
+            webhookType.Code,
+            webhookType.Desc,
+            new WebhookData(
+                webhookType.Data.AccountNumber,
+                webhookType.Data.Amount,
+                webhookType.Data.Description,
+                webhookType.Data.Reference,
+                webhookType.Data.TransactionDateTime,
+                webhookType.Data.VirtualAccountNumber,
+                webhookType.Data.CounterAccountBankId,
+                webhookType.Data.CounterAccountBankName,
+                webhookType.Data.CounterAccountName,
+                webhookType.Data.CounterAccountNumber,
+                webhookType.Data.VirtualAccountName,
+                webhookType.Data.OrderCode,
+                webhookType.Data.Currency,
+                webhookType.Data.PaymentLinkId,
+                webhookType.Data.Code,
+                webhookType.Data.Desc
+            ),
+            webhookType.Signature
+        );
+
+        WebhookData webhookData;
+
+        webhookData = _payOS.verifyPaymentWebhookData(webhookTypeInstance);
+
+        if (webhookData != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

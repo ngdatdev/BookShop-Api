@@ -1,5 +1,6 @@
 using BookShop.Data.Features.Repositories.Payments.GetAllPayments;
 using BookShop.Data.Features.Repositories.Payments.GetPaymentsByMethod;
+using BookShop.Data.Features.Repositories.Payments.UpdatePaymentByWebHook;
 using BookShop.Data.Features.Repositories.Payments.UpdatePaymentCOD;
 
 namespace BookShop.Data.Features.Repositories.Payments;
@@ -23,4 +24,9 @@ public interface IPaymentFeatureRepository
     ///     Gets update payments by orderId feature repository.
     /// </summary>
     public IUpdatePaymentCODRepository UpdatePaymentCODRepository { get; }
+
+    /// <summary>
+    ///     Gets update payments from webhook feature repository.
+    /// </summary>
+    public IUpdatePaymentByWebHookRepository UpdatePaymentByWebHookRepository { get; }
 }

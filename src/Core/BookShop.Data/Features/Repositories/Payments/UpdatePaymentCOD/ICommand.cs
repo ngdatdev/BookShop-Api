@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using BookShop.Data.Shared.Entities;
 
 namespace BookShop.Data.Features.Repositories.Payments.UpdatePaymentCOD;
 
@@ -9,7 +10,7 @@ namespace BookShop.Data.Features.Repositories.Payments.UpdatePaymentCOD;
 public partial interface IUpdatePaymentCODRepository
 {
     Task<bool> UpdatePaymentCODCommandAsync(
-        Shared.Entities.Payment updatePayment,
+        Payment updatePayment,
         CancellationToken cancellationToken
     );
 }
