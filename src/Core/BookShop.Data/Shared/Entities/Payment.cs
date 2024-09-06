@@ -16,7 +16,7 @@ public class Payment : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
 
     public PaymentStatus Status { get; set; }
 
-    public PaymentMethod Method { get; set; } // Cash, CreditCard, BankTransfer
+    public PaymentMethod Method { get; set; }
 
     public DateTime PaymentDate { get; set; }
 
