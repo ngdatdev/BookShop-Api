@@ -20,10 +20,13 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore ../src/External/Presentation/BookShop.API.csproj
+      run: dotnet restore src/External/Presentation/BookShop.API/BookShop.API.csproj
 
     - name: Build
-      run: dotnet build ../src/External/Presentation/BookShop.API.csproj --configuration Release
+      run: dotnet build src/External/Presentation/BookShop.API/BookShop.API.csproj --configuration Release
 
-    - name: Run tests
-      run: dotnet test ../test/BookShop.UnitTests/BookShop.UnitTests.csproj
+    - name: Run unit tests
+      run: dotnet test test/BookShop.UnitTests/BookShop.UnitTests.csproj
+
+    - name: Run architecture tests
+      run: dotnet test test/BookShop.ArchitectureTests/BookShop.ArchitectureTests.csproj
