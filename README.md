@@ -6,9 +6,20 @@
 
 A modern web API for managing a bookstore, built with .NET 8 and following clean architecture principles. This project implements various enterprise-level patterns and practices to demonstrate a scalable and maintainable application architecture.
 
+## 🏗 Architecture
+
+This project follows Vertiacl Slide Architecture(organizes the code around features), with clear separation of concerns:
+
+- **Domain Layer**: Contains business entities and interfaces
+- **Infrastructure Layer**: Implements data access and external services
+- **Application Layer**: Contains business logic and use cases
+- **Presentation Layer**: API controllers
+
+![Architecture diagram](https://res.cloudinary.com/diq0gyetg/image/upload/v1730646953/vertical-slice-architecture_tx5e8z.png)
+
+
 ## 🚀 Key Features
 
-- Clean Architecture implementation
 - RESTful API design
 - Advanced caching with Redis
 - Database persistence with PostgreSQL
@@ -29,12 +40,4 @@ A modern web API for managing a bookstore, built with .NET 8 and following clean
 - MailKit
 - ...
   
-## 🏗 Architecture
-
-This project follows Vertiacl Slide Architecture(organizes the code around features), with clear separation of concerns:
-
-- **Domain Layer**: Contains business entities and interfaces
-- **Infrastructure Layer**: Implements data access and external services
-- **Application Layer**: Contains business logic and use cases
-- **Presentation Layer**: API controllers
 
