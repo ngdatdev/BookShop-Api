@@ -1,10 +1,10 @@
 ![Build Status](https://github.com/ngdatdev/BookShop-Api/actions/workflows/main.yml/badge.svg)
 
-# 📝 Description
+### 📝 Description
 
 This project is a modern web API for managing a bookstore, built with .NET 8 and adhering to clean architecture principles. While it primarily implements CRUD operations, it incorporates various design patterns and best practices to ensure a scalable and maintainable application architecture.
 
-## 🏗 Architecture
+### 🏗 Architecture
 
 This project follows Vertiacl Slide Architecture(organizes the code around features), with clear separation of concerns:
 
@@ -18,7 +18,7 @@ This project follows Vertiacl Slide Architecture(organizes the code around featu
 </div>
 
 
-## 🚀 Key Features
+### 🚀 Key Features
 
 - RESTful API design
 - Advanced caching with Redis
@@ -29,7 +29,7 @@ This project follows Vertiacl Slide Architecture(organizes the code around featu
 - Distributed caching support
 - xUnit, AutoFixture and FluentAssertions for testing
 
-## 🛠 Technologies & Tools
+### 🛠 Technologies & Tools
 
 - ASP.NET Web API (.NET 8)
 - PostgreSQL
