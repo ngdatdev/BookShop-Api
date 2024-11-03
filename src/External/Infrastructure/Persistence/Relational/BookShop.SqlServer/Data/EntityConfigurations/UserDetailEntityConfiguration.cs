@@ -1,10 +1,9 @@
 using BookShop.Data.Shared.Entities;
+using BookShop.SqlServer.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using BookShop.SqlServer.Constants;
 
 namespace BookShop.SqlServer.Data.EntityConfigurations;
-
 
 /// <summary>
 ///     Represent "UsersDetail" table configuration.
@@ -93,12 +92,6 @@ internal sealed class UserDetailEntityConfiguration : IEntityTypeConfiguration<U
             .WithOne(navigationExpression: review => review.UserDetail)
             .HasForeignKey(foreignKeyExpression: review => review.UserId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
-
-        builder
-            .HasMany(navigationExpression: userDetail => userDetail.Carts)
-            .WithOne(navigationExpression: cart => cart.UserDetail)
-            .HasForeignKey(foreignKeyExpression: cart => cart.UserId)
-            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .HasMany(navigationExpression: userDetail => userDetail.Orders)

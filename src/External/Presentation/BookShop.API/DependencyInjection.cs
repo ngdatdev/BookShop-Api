@@ -8,7 +8,7 @@ namespace BookShop.API;
 ///     Entry to configuring multiple services
 ///     of web api services.
 /// </summary>
-internal static class DependencyInjection
+public static class DependencyInjection
 {
     /// <summary>
     ///     Entry to configuring multiple services.
