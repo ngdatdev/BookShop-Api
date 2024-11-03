@@ -25,5 +25,8 @@ jobs:
     - name: Build
       run: dotnet build src/External/Presentation/BookShop.API/BookShop.API.csproj --configuration Release
 
-    - name: Run tests
+    - name: Run unit tests
       run: dotnet test test/BookShop.UnitTests/BookShop.UnitTests.csproj
+
+    - name: Run architecture tests
+      run: dotnet test test/BookShop.ArchitectureTests/BookShop.ArchitectureTests.csproj
