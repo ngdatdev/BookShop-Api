@@ -15,7 +15,9 @@ This project follows Vertiacl Slide Architecture(organizes the code around featu
 - **Application Layer**: Contains business logic and use cases
 - **Presentation Layer**: API controllers
 
-![Architecture diagram](https://res.cloudinary.com/diq0gyetg/image/upload/v1730646953/vertical-slice-architecture_tx5e8z.png)
+<div style="text-align: center; margin: 0 50px;">
+    <img src="https://res.cloudinary.com/diq0gyetg/image/upload/v1730646953/vertical-slice-architecture_tx5e8z.png" alt="Architecture diagram" style="max-width: 100%; height: auto;">
+</div>
 
 
 ## 🚀 Key Features
