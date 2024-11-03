@@ -1,5 +1,3 @@
-# BOOK STORE - Webapi with .NET 8
-
 ![Build Status](https://github.com/ngdatdev/BookShop-Api/actions/workflows/main.yml/badge.svg)
 
 ## 📝 Description
