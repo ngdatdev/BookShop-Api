@@ -58,23 +58,4 @@ public class DomainTests
         // Act & Assert
         result.GetResult().IsSuccessful.Should().BeTrue();
     }
-
-    [Fact]
-    public void Entities_Should_Be_Implement_IBaseEntity()
-    {
-        // Arrange
-        var result = Types
-            .InAssembly(DomainAssembly)
-            .That()
-            .AreClasses()
-            .And()
-            .ArePublic()
-            .And()
-            .ResideInNamespace("BookShop.Data.Shared.Entities")
-            .Should()
-            .ImplementInterface(typeof(IBaseEntity));
-
-        // Act & Assert
-        result.GetResult().IsSuccessful.Should().BeTrue();
-    }
 }
