@@ -2,7 +2,7 @@
 
 ## 📝 Description
 
-A modern web API for managing a bookstore, built with .NET 8 and following clean architecture principles. This project implements various enterprise-level patterns and practices to demonstrate a scalable and maintainable application architecture.
+This project is a modern web API for managing a bookstore, built with .NET 8 and adhering to clean architecture principles. While it primarily implements CRUD operations, it incorporates various design patterns and best practices to ensure a scalable and maintainable application architecture.
 
 ## 🏗 Architecture
 
